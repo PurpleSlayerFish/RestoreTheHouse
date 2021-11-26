@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b69cc58253d34a59abb1e3e3d32d5472, type: 3}
+  m_Name: ProjectPrefabsInstaller
+  m_EditorClassIdentifier: 
+  prefabBase: {fileID: 11400000, guid: 591907a7a196021409d354f0c953cf07, type: 2}
+  characterBase: {fileID: 11400000, guid: 702214905685f7441b6cec7f733570d7, type: 2}
+  audioBase: {fileID: 11400000, guid: be3172739187ab64a91363260a2795af, type: 2}
+  fxBase: {fileID: 11400000, guid: 04d9ba06638e8f144a0c075339f24aeb, type: 2}
+  heroBase: {fileID: 11400000, guid: fe3f9fb2c9dbfaf489afbc6907d55375, type: 2}
+  gameActionsBase: {fileID: 11400000, guid: 85e9a5c9d0b600b4982f98c8bf2dfb79, type: 2}
+  gameActionsGraphBase: {fileID: 11400000, guid: cee7eb90b8c8d7d4a9d34707bc04e405,
+    type: 2}
+  commonParamsBase: {fileID: 11400000, guid: 6f469ae873d24164c9259b7358ebaa06, type: 2}
+  gameConfig: {fileID: 11400000, guid: d30b1bfe3af07654ea4bdc38ccb09d85, type: 2}
+  notificationBase: {fileID: 11400000, guid: 2dc44defa91442940814f559ba03a97e, type: 2}
+  charactersBase: {fileID: 11400000, guid: a236f9fefad375b4f8e5de123763dfb5, type: 2}
+  informantBase: {fileID: 11400000, guid: 263fe334b4b3fde458579f440e9a1de3, type: 2}
+  achieveBase: {fileID: 11400000, guid: b3d21875fec78b140896eaa3b3596a9e, type: 2}
+  timelinesBase: {fileID: 11400000, guid: e2d45148036a9874fbdeffdb7665cfe3, type: 2}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1acc22492de4aa289f314eea92bbd67, type: 3}
+  m_Name: PrefabsBase
+  m_EditorClassIdentifier: 
+  prefabs:
+  - Name: Player
+    GameObject: {fileID: 959035790913744268, guid: 1f557a70aec48a241b2d5144cb9d8e36, type: 3}
+  - Name: Piranha
+    GameObject: {fileID: 4437716994953532274, guid: abc95abd234c180408a146d6cc3a8429, type: 3}
