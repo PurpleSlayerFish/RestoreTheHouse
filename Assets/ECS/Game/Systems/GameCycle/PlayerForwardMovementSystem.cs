@@ -33,7 +33,7 @@ namespace ECS.Game.Systems.GameCycle
             
             ref var targetPos = ref entity.Get<TargetPositionComponent>();
             targetPos.Value = nextPathPoint;
-            targetPos.Speed = 8;
+            targetPos.Speed = (_player.Get4(0).View as PlayerView).GetSpeed();
         }
 
         private Vector3 GetNextPathPoint(Vector3 playerPos)

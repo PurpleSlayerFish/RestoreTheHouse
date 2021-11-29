@@ -53,14 +53,19 @@ MonoBehaviour:
   _cameraLoseOnPathTween: {fileID: 7890816430451365712}
   _movementBorderLeft: -2
   _movementBorderRight: 2
+  _speed: 6
   _formationRowSize: 6
   _formationInRowDistance: 0.3
   _formationBetweenRowDistance: 0.7
   mainPiranhaMat: {fileID: 2100000, guid: d8a7e37b084d5644a80d7067e7113c88, type: 2}
-  _tweenMoveX: 0.4
-  _tweenDuration: 0.7
+  _tweenMove: 0.3
+  _tweenDurationFrom: 0.7
+  _tweenDurationTo: 1.2
+  _spawner1: {x: 15, y: 1, z: -2}
+  _spawner2: {x: 20, y: 4, z: -6}
+  _fromSpawnDuration: 1.8
   RootTransform: {fileID: 45630473701857102}
-  NonRootTransform: {fileID: 7458207059919836340}
+  _nonRootTransform: {fileID: 7458207059919836340}
   IsPathComplete: 0
 --- !u!1 &2123016836329947874
 GameObject:

@@ -22,6 +22,7 @@ namespace ECS.Game.Systems.Linked
             CreatePlayer();
             CreatePath();
             CreateInteractables();
+            CreateSharks();
         }
         private bool LoadGame()
         {
@@ -56,6 +57,11 @@ namespace ECS.Game.Systems.Linked
         private void CreateInteractables()
         {
             _world.CreateGates();
+        }
+
+        private void CreateSharks()
+        {
+            _world.CreateSharks();
         }
     }
 }

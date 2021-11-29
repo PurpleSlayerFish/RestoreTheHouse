@@ -17,7 +17,7 @@ namespace ECS.Game.Systems.GameCycle
         protected override void Execute(EcsEntity entity)
         {
             if (_gameStage.Get1(0).Value != EGameStage.Play) return;
-            (_player.Get3(0).View as PlayerView).HandleHorizontalMovement(entity.Get<PointerDragComponent>().Position);
+            (_player.Get3(0).View as PlayerView).HandleHorizontalMovement(ref entity.Get<PointerDragComponent>().Position);
         }
     }
 }

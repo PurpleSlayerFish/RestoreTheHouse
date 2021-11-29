@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using DG.Tweening;
 using ECS.Game.Components;
@@ -12,6 +13,7 @@ using Runtime.Signals;
 using UniRx;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace ECS.Views.GameCycle
 {
@@ -26,20 +28,26 @@ namespace ECS.Views.GameCycle
         [SerializeField] private Transform _cameraLoseOnPathTween;
         [SerializeField] private float _movementBorderLeft = -2;
         [SerializeField] private float _movementBorderRight = 2;
+        [SerializeField] private float _speed = 6f;
         [SerializeField] private int _formationRowSize = 4;
         [SerializeField] private float _formationInRowDistance = 0.7f;
         [SerializeField] private float _formationBetweenRowDistance = 1.2f;
         [SerializeField] private Material mainPiranhaMat;
-        [SerializeField] private float _tweenMoveX = 0.2f;
-        [SerializeField] private float _tweenDuration = 1f;
+        [SerializeField] private float _tweenMove = 0.4f;
+        [SerializeField] private float _tweenDurationFrom = 0.5f;
+        [SerializeField] private float _tweenDurationTo = 1f;
+        [SerializeField] private Vector3 _spawner1;
+        [SerializeField] private Vector3 _spawner2;
+        [SerializeField] private float _fromSpawnDuration = 0.7f;
 
         public Transform RootTransform;
-        public Transform NonRootTransform;
+        [SerializeField] private Transform _nonRootTransform;
         [HideInInspector] public bool IsPathComplete;
 
         private LinkedList<PiranhaView> _piranhas;
         private const int Idle = 0;
         private const int Swim = -1;
+        private const int Dead = -2;
         private int _stage = Idle;
 
         public override void Link(EcsEntity entity)
@@ -58,13 +66,13 @@ namespace ECS.Views.GameCycle
         public void InitLevelLose()
         {
             FinalTween();
-            FinalCamera();
+            // FinalCamera();
         }
 
         public void InitLevelComplete()
         {
             FinalTween();
-            FinalCamera();
+            // FinalCamera();
         }
 
         private void FinalCamera()
@@ -86,7 +94,7 @@ namespace ECS.Views.GameCycle
             // ModelRootTransform.DOLocalMove(Vector3.zero, 0.3f);
         }
 
-        public void HandleHorizontalMovement(Vector3 position)
+        public void HandleHorizontalMovement(ref Vector3 position)
         {
             var remap = Entity.Get<RemapPointComponent>();
             var newX = position.x.Remap(
@@ -107,8 +115,11 @@ namespace ECS.Views.GameCycle
             for (int i = 0; i < result; i++)
             {
                 temp = _piranhas.Last.Value;
+                temp.Transform.SetParent(null);
+                temp.KillLeeway();
+                temp.SetAnimation(Dead);
+                temp.InitPeaceDead();
                 _piranhas.RemoveLast();
-                temp.CleanUp();
             }
         }
 
@@ -116,39 +127,33 @@ namespace ECS.Views.GameCycle
         {
             _piranhas.AddLast(piranhaView);
             piranhaView._formationRowNumber = Mathf.CeilToInt((float) _piranhas.Count / _formationRowSize) - 1;
+            piranhaView.Transform.position = GetPiranhaTweenPosition(ref piranhaView);
+            if (_piranhas.Count <= _formationRowSize)
+                piranhaView.Transform.SetParent(RootTransform);
+            else
+            {
+                piranhaView.Transform.SetParent(_nonRootTransform);
+                var i = _formationRowSize;
+                piranhaView.InitLeeway(GetPrev(_piranhas.Last, ref i).Value);
+            }
+            if ((_piranhas.Count == 1 || _piranhas.Count == 2 && _formationRowSize % 2 == 0))
+                piranhaView.GetComponentInChildren<SkinnedMeshRenderer>().material = mainPiranhaMat;
+            piranhaView.TweenFromSpawn(GetRandomizedSpawner(), ref _fromSpawnDuration, ref _tweenMove)
+                .OnStepComplete(() => piranhaView.InitTween(ref _tweenMove, ref _tweenDurationFrom,ref _tweenDurationTo));
+            piranhaView.SetAnimation(_stage);
+        }
 
-            var pos = new Vector3(0, RootTransform.position.y, CalculateFormationRowPos(ref piranhaView._formationRowNumber));
+        private Vector3 GetPiranhaTweenPosition(ref PiranhaView piranhaView)
+        {
+            var pos = new Vector3(0, RootTransform.position.y,
+                CalculateFormationRowPos(ref piranhaView._formationRowNumber));
             pos.x = RootTransform.position.x - (_formationRowSize % 2 == 0 ? _formationInRowDistance / 2 : 0)
                     + _formationInRowDistance *
                     ((_piranhas.Count - piranhaView._formationRowNumber * _formationRowSize) / 2) * (_piranhas.Count %
                         2 == 0
                             ? 1
                             : -1);
-            piranhaView.Transform.position = pos;
-            
-            if (_piranhas.Count <= _formationRowSize)
-                piranhaView.Transform.SetParent(RootTransform);
-            else
-            {
-                piranhaView.Transform.SetParent(NonRootTransform);
-                var i = _formationRowSize;
-                piranhaView.InitLeeway(GetPrev(_piranhas.Last, ref i).Value);
-            }
-            SetCosmetics(ref piranhaView);
-        }
-
-        private void SetCosmetics(ref PiranhaView piranhaView)
-        {
-            if ((_piranhas.Count == 1 || _piranhas.Count == 2 && _formationRowSize % 2 == 0))
-                piranhaView.GetComponentInChildren<SkinnedMeshRenderer>().material = mainPiranhaMat;
-            piranhaView.SetAnimation(_stage);
-            piranhaView.Root.transform.localPosition = new Vector3(
-                piranhaView.Root.transform.localPosition.x + _tweenMoveX
-                , piranhaView.Root.transform.localPosition.y
-                , piranhaView.Root.transform.localPosition.z);
-            piranhaView.Root.DOLocalMoveX(- _tweenMoveX,  _tweenMoveX + Random.Range(-0.2f, 0.4f)).SetEase(Ease.Unset).SetLoops(-1, LoopType.Yoyo)
-                .SetRelative(true);
-            
+            return pos;
         }
 
         private LinkedListNode<PiranhaView> GetPrev(LinkedListNode<PiranhaView> prev, ref int i)
@@ -157,6 +162,20 @@ namespace ECS.Views.GameCycle
                 return prev;
             i--;
             return GetPrev(prev.Previous, ref i);
+        }
+
+        private Vector3 GetRandomizedSpawner()
+        {
+            return new Vector3(
+                Random.Range(_spawner1.x, _spawner2.x) * GetRandonPlusMinus()
+                , Random.Range(_spawner1.y, _spawner2.y)
+            ,Random.Range(_spawner1.z, _spawner2.z));
+
+        }
+
+        private float GetRandonPlusMinus()
+        {
+            return Random.Range(0, 2) == 0 ? 1 : -1;
         }
         
         public float CalculateFormationRowPos(ref int formationRowNumber)
@@ -167,6 +186,20 @@ namespace ECS.Views.GameCycle
         public int GetPiranhasCount()
         {
             return _piranhas.Count;
+        }
+
+        public void EatPiranha(ref SharkView sharkView)
+        {
+            var piranhaView = _piranhas.Last.Value;
+            piranhaView.KillLeeway();
+            piranhaView.TweenToShark(sharkView).OnComplete(() => piranhaView.CleanUp());
+            _piranhas.RemoveLast();
+            Entity.Get<ImpactComponent>().Value--;
+        }
+
+        public ref float GetSpeed()
+        {
+            return ref _speed ;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace ECS.Game.Systems.GameCycle
             {
                 _piranhaView = _leeway.Get2(i).View as PiranhaView;
                 _piranhaView.transform.position = new Vector3(
-                    Mathf.Lerp(_piranhaView.transform.position.x, _piranhaView.Target.transform.position.x, 0.5f)
+                    Mathf.Lerp(_piranhaView.transform.position.x, _piranhaView.Target.transform.position.x, 0.15f)
                     , _piranhaView.transform.position.y
                     , (_player.Get2(0).View as PlayerView).CalculateFormationRowPos(ref _piranhaView._formationRowNumber));
             }

@@ -66,5 +66,20 @@ namespace ECS.Utils.Extensions
                 link.SetTriggerAction(() => entity.Get<AddImpactEventComponent>());
             }
         }
+        
+        public static void CreateSharks(this EcsWorld world)
+        {
+            var sharks = Object.FindObjectsOfType<SharkView>();
+            foreach (var link in sharks)
+            {
+                var entity = world.NewEntity();
+                link.Link(entity);
+                entity.Get<LinkComponent>().View = link;
+                link.SetTriggerAction(() => entity.Get<AddImpactEventComponent>());
+                entity.Get<DistanceComponent>();
+            }
+        }
+        
+        
     }
 }
