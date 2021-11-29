@@ -1,6 +1,6 @@
 ﻿using SimpleUi;
 
-namespace Game.Ui.SplashScreen.Impls
+namespace Runtime.Game.Ui.Windows.SplashScreen.Impls
 {
     public class SplashScreenWindow : WindowBase
     {

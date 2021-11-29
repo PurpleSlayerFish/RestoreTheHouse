@@ -1,6 +1,6 @@
 ﻿using SimpleUi.Abstracts;
 
-namespace Game.Ui.SplashScreen.Impls
+namespace Runtime.Game.Ui.Windows.SplashScreen.Impls
 {
     public class SplashScreenView : UiView { }
 }

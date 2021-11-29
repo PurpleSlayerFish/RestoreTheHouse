@@ -32,6 +32,7 @@ Transform:
   - {fileID: 1896624968491028399}
   - {fileID: 7890816430451365712}
   - {fileID: 45630473701857102}
+  - {fileID: 7458207059919836340}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52,11 +53,14 @@ MonoBehaviour:
   _cameraLoseOnPathTween: {fileID: 7890816430451365712}
   _movementBorderLeft: -2
   _movementBorderRight: 2
-  _formationRowSize: 4
-  _formationInRowDistance: 0.7
-  _formationBetweenRowDistance: 1.2
+  _formationRowSize: 6
+  _formationInRowDistance: 0.3
+  _formationBetweenRowDistance: 0.7
   mainPiranhaMat: {fileID: 2100000, guid: d8a7e37b084d5644a80d7067e7113c88, type: 2}
-  ModelRootTransform: {fileID: 45630473701857102}
+  _tweenMoveX: 0.4
+  _tweenDuration: 0.7
+  RootTransform: {fileID: 45630473701857102}
+  NonRootTransform: {fileID: 7458207059919836340}
   IsPathComplete: 0
 --- !u!1 &2123016836329947874
 GameObject:
@@ -202,6 +206,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &4347569803656551946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7458207059919836340}
+  m_Layer: 0
+  m_Name: NonRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7458207059919836340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4347569803656551946}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 959035790913561462}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6021259502016088948
 GameObject:
   m_ObjectHideFlags: 0

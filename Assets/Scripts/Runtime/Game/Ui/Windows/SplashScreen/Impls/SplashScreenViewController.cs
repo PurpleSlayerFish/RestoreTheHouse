@@ -6,7 +6,7 @@ using SimpleUi.Abstracts;
 using UniRx;
 using Zenject;
 
-namespace Game.Ui.SplashScreen.Impls
+namespace Runtime.Game.Ui.Windows.SplashScreen.Impls
 {
     public class SplashScreenViewController : UiController<SplashScreenView>, IInitializable
     {
@@ -21,8 +21,8 @@ namespace Game.Ui.SplashScreen.Impls
         
         public void Initialize()
         {
-            // _sceneLoadingManager.LoadScene(EScene.MainMenu.ToString());
-            _sceneLoadingManager.LoadScene(_commonPlayerData.GetData().Level);
+            _sceneLoadingManager.LoadScene(EScene.Level_1);
+            // _sceneLoadingManager.LoadScene(_commonPlayerData.GetData().Level);
         }
 
         private void OnComplete()

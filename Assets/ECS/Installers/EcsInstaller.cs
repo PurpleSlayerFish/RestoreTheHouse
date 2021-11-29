@@ -37,6 +37,7 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<MoveRotateToTargetSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<RemapOnAddSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<AddImpactToPlayerSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LeewaySystem>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GamePauseSystem>().AsSingle();

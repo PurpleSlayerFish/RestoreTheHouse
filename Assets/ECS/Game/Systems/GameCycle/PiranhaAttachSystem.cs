@@ -13,7 +13,7 @@ namespace ECS.Game.Systems.GameCycle
         protected override EcsFilter<EventAddComponent<PiranhaComponent>> ReactiveFilter { get; }
         protected override void Execute(EcsEntity entity)
         {
-            (_player.Get2(0).View as PlayerView).AttachPiranha(entity.Get<LinkComponent>().View as PiranhaView);
+            (_player.Get2(0).View as PlayerView).AttachPiranha((PiranhaView) entity.Get<LinkComponent>().View);
         }
     }
 }

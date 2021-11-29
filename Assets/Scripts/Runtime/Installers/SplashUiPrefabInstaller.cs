@@ -1,5 +1,5 @@
 ﻿using Game.Ui.BlackScreen;
-using Game.Ui.SplashScreen.Impls;
+using Runtime.Game.Ui.Windows.SplashScreen.Impls;
 using SimpleUi;
 using UnityEngine;
 using UnityEngine.Serialization;

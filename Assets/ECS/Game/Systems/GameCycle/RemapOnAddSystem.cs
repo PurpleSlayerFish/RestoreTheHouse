@@ -17,7 +17,7 @@ namespace ECS.Game.Systems
         protected override void Execute(EcsEntity entity)
         {
             var playerView = _player.Get2(0).View as PlayerView;
-            entity.Get<RemapPointComponent>().ModelPos = playerView.ModelRootTransform.localPosition;
+            entity.Get<RemapPointComponent>().ModelPos = playerView.RootTransform.localPosition;
         }
     }
 }

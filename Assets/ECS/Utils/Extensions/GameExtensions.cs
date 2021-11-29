@@ -2,7 +2,6 @@
 using ECS.Game.Components;
 using ECS.Game.Components.Events;
 using ECS.Game.Components.Flags;
-using ECS.Game.Components.Input;
 using ECS.Utils.Impls;
 using ECS.Views.GameCycle;
 using Leopotam.Ecs;

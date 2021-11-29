@@ -1,5 +1,5 @@
 ﻿using Game.SceneLoading;
-using Game.Ui.SplashScreen.Impls;
+using Runtime.Game.Ui.Windows.SplashScreen.Impls;
 using SimpleUi.Signals;
 using Zenject;
 

@@ -2,8 +2,7 @@
 
 namespace ECS.Game.Components.Flags
 {
-    public struct GameOverComponent : IEcsIgnoreInFilter
+    public struct LeewayComponent : IEcsIgnoreInFilter
     {
-        
     }
 }

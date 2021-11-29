@@ -1,5 +1,5 @@
-﻿using Game.Ui.SplashScreen.Impls;
-using Initializers;
+﻿using Initializers;
+using Runtime.Game.Ui.Windows.SplashScreen.Impls;
 using Zenject;
 
 namespace Installers
