@@ -59,6 +59,8 @@ namespace ECS.Views.GameCycle
         private const float JumpInPlaceOffset = -0.26f;
         private int _stage = Idle;
         private float _animationOffset = 0;
+        private float _slowedSpeed;
+        private float _currentSpeed;
 
         public override void Link(EcsEntity entity)
         {
@@ -71,6 +73,8 @@ namespace ECS.Views.GameCycle
             }).AddTo(this);
             entity.Get<ImpactComponent>().Value = _commonPlayerData.GetData().PiranhasProgression;
             _piranhas = new LinkedList<PiranhaView>();
+            _slowedSpeed = _speed * 0.75f;
+            _currentSpeed = _speed;
         }
 
         public void InitLevelLose()
@@ -229,16 +233,21 @@ namespace ECS.Views.GameCycle
         {
             return _piranhas.Count;
         }
-        
-        
+
         public void PiranhasUncheck()
         {
             foreach (var piranhaView in _piranhas)
                 piranhaView.EatCheck = false;
         }
 
+        public void RestoreSpeed()
+        {
+            _currentSpeed = _speed;
+        }
+        
         public void EatPiranha(ref SharkView sharkView)
         {
+            _currentSpeed = _slowedSpeed;
             var piranhaView = _piranhas.Last.Value;
             if (piranhaView.EatCheck)
                 return;
@@ -250,9 +259,9 @@ namespace ECS.Views.GameCycle
             _signalBus.Fire(new SignalUpdateImpact(Entity.Get<ImpactComponent>().Value));
         }
 
-        public ref float GetSpeed()
+        public ref float GetCurrentSpeed()
         {
-            return ref _speed ;
+            return ref _currentSpeed ;
         }
     }
 }

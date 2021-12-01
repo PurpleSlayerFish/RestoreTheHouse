@@ -29,6 +29,7 @@ namespace ECS.Game.Systems.GameCycle
                 {
                     _sharkView.gameObject.SetActive(false);
                     _playerView.PiranhasUncheck();
+                    _playerView.RestoreSpeed();
                     continue;
                 }
 
