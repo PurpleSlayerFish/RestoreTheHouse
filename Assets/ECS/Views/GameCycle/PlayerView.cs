@@ -7,6 +7,7 @@ using ECS.Game.Components.Input;
 using ECS.Utils.Extensions;
 using Ecs.Views.Linkable.Impl;
 using Leopotam.Ecs;
+using Runtime.Game.Utils.MonoBehUtils;
 using Runtime.Services.CommonPlayerData;
 using Runtime.Services.CommonPlayerData.Data;
 using Runtime.Signals;
@@ -48,7 +49,16 @@ namespace ECS.Views.GameCycle
         private const int Idle = 0;
         private const int Swim = -1;
         private const int Dead = -2;
+        private const int Bite = -3;
+        private const float BiteOffset = -0.26f;
+        private const int Attack1 = -4;
+        private const float Attack1Offset = 0;
+        private const int Attack2 = -5;
+        private const float Attack2Offset = -0.11f;
+        private const int JumpInPlace = -6;
+        private const float JumpInPlaceOffset = -0.26f;
         private int _stage = Idle;
+        private float _animationOffset = 0;
 
         public override void Link(EcsEntity entity)
         {
@@ -65,14 +75,46 @@ namespace ECS.Views.GameCycle
 
         public void InitLevelLose()
         {
-            FinalTween();
-            // FinalCamera();
+            // FinalTween();
         }
 
         public void InitLevelComplete()
         {
-            FinalTween();
-            // FinalCamera();
+            // FinalTween();
+            var points = FindObjectsOfType<FinishPoint>();
+            foreach (var piranhaView in _piranhas)
+            {
+                var randomPoint = points[Random.Range(0, points.Length)];
+                var randomAnimation = Random.Range(JumpInPlace, Bite + 1);
+                SetAnimationOffset(randomAnimation);
+                piranhaView.KillLeeway();
+                piranhaView.TweenToMan(GetPointOnCircle(randomPoint, Random.Range(180f, 360f)))
+                    .OnComplete(() =>
+                        {
+                            piranhaView.Transform.LookAt(randomPoint.transform.position);
+                            piranhaView.SetAnimation(Random.Range(JumpInPlace, Bite + 1));
+                        });
+            }
+        }
+        
+        private void SetAnimationOffset(int stage)
+        {
+            if (stage == Attack1)
+                _animationOffset = Attack1Offset;
+            if (stage == Attack2)
+                _animationOffset = Attack2Offset;
+            if (stage == Bite)
+                _animationOffset = BiteOffset;
+            if (stage == JumpInPlace)
+                _animationOffset = JumpInPlaceOffset;
+        }
+
+        private Vector3 GetPointOnCircle(FinishPoint point, float randomRotate)
+        {
+            return new Vector3(
+                Mathf.Cos(Mathf.Deg2Rad * randomRotate) * (point.Radius + _animationOffset) + point.transform.position.x,
+                point.transform.position.y,
+                Mathf.Sin(Mathf.Deg2Rad * randomRotate) * (point.Radius + _animationOffset) + point.transform.position.z);
         }
 
         private void FinalCamera()
@@ -187,14 +229,25 @@ namespace ECS.Views.GameCycle
         {
             return _piranhas.Count;
         }
+        
+        
+        public void PiranhasUncheck()
+        {
+            foreach (var piranhaView in _piranhas)
+                piranhaView.EatCheck = false;
+        }
 
         public void EatPiranha(ref SharkView sharkView)
         {
             var piranhaView = _piranhas.Last.Value;
+            if (piranhaView.EatCheck)
+                return;
+            piranhaView.EatCheck = true;
             piranhaView.KillLeeway();
             piranhaView.TweenToShark(sharkView).OnComplete(() => piranhaView.CleanUp());
             _piranhas.RemoveLast();
             Entity.Get<ImpactComponent>().Value--;
+            _signalBus.Fire(new SignalUpdateImpact(Entity.Get<ImpactComponent>().Value));
         }
 
         public ref float GetSpeed()

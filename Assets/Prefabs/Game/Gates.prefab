@@ -34,7 +34,7 @@ Transform:
   - {fileID: 9013389651077838375}
   - {fileID: 5695511697544364370}
   m_Father: {fileID: 1341793282167443782}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7752215264275436965
 BoxCollider:
@@ -62,9 +62,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   impact: 10
+  impactType: 0
   neighbour: {fileID: 5741620891961726896}
-  _gateType: 0
-  _value: 10
   _pile1: {fileID: 6482686475989066682}
   _pile2: {fileID: 6320489392781630422}
   _glass: {fileID: 4665111972918772897}
@@ -96,8 +95,8 @@ Transform:
   m_LocalPosition: {x: -18.71, y: 5.208, z: 103.172}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 370575034516427042}
   - {fileID: 1561201073327323265}
+  - {fileID: 370575034516427042}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -516,9 +515,9 @@ MonoBehaviour:
   m_fontSize: 10
   m_fontSizeBase: 10
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 6
+  m_fontSizeMax: 10
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
@@ -591,7 +590,7 @@ Transform:
   - {fileID: 5876508106005524567}
   - {fileID: 6441336917298805017}
   m_Father: {fileID: 1341793282167443782}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8342818630751340040
 BoxCollider:
@@ -619,9 +618,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   impact: 10
+  impactType: 0
   neighbour: {fileID: 622952039712649728}
-  _gateType: 0
-  _value: 10
   _pile1: {fileID: 2643317907405332108}
   _pile2: {fileID: 1872745589106535807}
   _glass: {fileID: 8704940158055253173}
@@ -946,9 +944,9 @@ MonoBehaviour:
   m_fontSize: 10
   m_fontSizeBase: 10
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 6
+  m_fontSizeMax: 10
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256

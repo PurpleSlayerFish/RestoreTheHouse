@@ -49,7 +49,8 @@ namespace Runtime.Game.Ui.Windows.LevelComplete
 
         private void OnFinish()
         {
-            var impact = _world.GetEntity<PlayerComponent>().Get<ImpactComponent>().Value;
+            var lvlImpact = _world.GetEntity<PlayerComponent>().Get<ImpactComponent>().Value;
+            var impact = lvlImpact + (lvlImpact / 100 * _commonPlayerData.GetData().MeatProgression);
             var currentCoins = _commonPlayerData.GetData().Coins;
             var currentLevel = _commonPlayerData.GetData().Level;
             OnWin(impact, out var newCoinCount);

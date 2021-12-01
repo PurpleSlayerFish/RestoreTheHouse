@@ -38,8 +38,7 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<RemapOnAddSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<AddImpactToPlayerSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<LeewaySystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<SharkSideCollisionSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<SharkDirectCollisionSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<SharkCollisionSystem>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GamePauseSystem>().AsSingle();

@@ -100,6 +100,7 @@ MonoBehaviour:
   Root: {fileID: 3998996014763671976}
   Target: {fileID: 0}
   _formationRowNumber: 0
+  EatCheck: 0
 --- !u!1 &8656699788530195584
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,11 +386,11 @@ SkinnedMeshRenderer:
   m_GameObject: {fileID: 8656699788530195600}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 1
+  m_ReflectionProbeUsage: 0
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
@@ -417,7 +418,7 @@ SkinnedMeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
-  m_Quality: 0
+  m_Quality: 1
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 4300000, guid: c89ee21a4e523e84085e46a32e36a3ed, type: 3}

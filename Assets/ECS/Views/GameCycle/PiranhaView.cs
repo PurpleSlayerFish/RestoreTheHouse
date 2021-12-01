@@ -18,6 +18,7 @@ namespace ECS.Views.GameCycle
         [SerializeField] public Transform Root;
         [HideInInspector] public PiranhaView Target;
         [HideInInspector] public int _formationRowNumber;
+        [HideInInspector] public bool EatCheck;
 
         private float _animatorSpeed;
 
@@ -25,6 +26,7 @@ namespace ECS.Views.GameCycle
         {
             base.Link(entity);
             _animatorSpeed = _animator.speed;
+            EatCheck = false;
         }
 
         public void SetAnimation(int stage)
@@ -71,6 +73,7 @@ namespace ECS.Views.GameCycle
         public void KillLeeway()
         {
             Root.DOKill();
+            Transform.DOKill();
             Entity.Del<LeewayComponent>();
         }
 
@@ -85,6 +88,13 @@ namespace ECS.Views.GameCycle
                         CleanUp();
                 });
         }
+        
+        public TweenerCore<Vector3, Vector3, VectorOptions>  TweenToMan(Vector3 pos)
+        {
+            return Transform.DOMove(pos, 0.7f + Random.Range(0f, 0.4f))
+                .SetEase(Ease.Unset)
+                .SetLoops(1);
+        }
 
         public void InitPeaceDead()
         {
@@ -95,11 +105,10 @@ namespace ECS.Views.GameCycle
                 .OnComplete(CleanUp);
         }
 
-        public TweenerCore<Vector3, Vector3, VectorOptions> TweenFromSpawn(Vector3 spawnerPos, ref float duration,
-            ref float tweenMove)
+        public TweenerCore<Vector3, Vector3, VectorOptions> TweenFromSpawn(Vector3 spawnerPos, ref float duration, ref float tweenMove)
         {
             Root.localPosition = spawnerPos;
-            return Root.transform.DOLocalMove(new Vector3(tweenMove, 0, tweenMove), duration)
+            return Root.transform.DOLocalMove(new Vector3(tweenMove, 0, tweenMove), duration + Random.Range(0f, 0.6f))
                 .SetEase(Ease.Unset)
                 .SetLoops(1);
         }

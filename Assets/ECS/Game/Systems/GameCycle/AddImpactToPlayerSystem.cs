@@ -8,6 +8,7 @@ using ECS.Game.Components.Flags;
 using ECS.Utils.Extensions;
 using ECS.Views.GameCycle;
 using Leopotam.Ecs;
+using Runtime.Signals;
 using UnityEngine;
 using Zenject;
 
@@ -51,6 +52,8 @@ namespace ECS.Game.Systems.GameCycle
                 default:
                     throw new InvalidEnumArgumentException();
             }
+            
+            _signalBus.Fire(new SignalUpdateImpact(playerImpact));
 
             if (playerImpact <= 0)
             {

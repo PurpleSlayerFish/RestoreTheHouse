@@ -32,8 +32,8 @@ namespace Runtime.Game.Ui.Windows.Main.MainMenu
         }
         private void OnPlayGame()
         {
-            _sceneLoadingManager.LoadScene(_commonPlayerData.GetData().Level);
-            // _sceneLoadingManager.LoadScene(EScene.Level_2);
+            // _sceneLoadingManager.LoadScene(_commonPlayerData.GetData().Level);
+            _sceneLoadingManager.LoadScene(EScene.Level_9);
         }
 
         private void Exit() => Application.Quit();

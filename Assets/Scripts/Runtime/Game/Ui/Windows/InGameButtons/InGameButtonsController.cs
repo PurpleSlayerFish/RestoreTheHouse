@@ -18,7 +18,7 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
     {
         [Inject] private readonly ICommonPlayerDataService<CommonPlayerData> _commonPlayerData;
         private readonly SignalBus _signalBus;
-        private readonly EcsWorld _world;
+        private EcsWorld _world;
     
         public InGameButtonsController(SignalBus signalBus, EcsWorld world)
         {
@@ -34,7 +34,7 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
         
         public override void OnShow()
         {
-            View.Show(_commonPlayerData.GetData().Level, _world);
+            View.Show(ref _commonPlayerData.GetData().Level, ref _world);
             _signalBus.GetStream<SignalUpdateImpact>().Subscribe(x => OnImpactUpdate(ref x)).AddTo(View);
         }
 
@@ -46,8 +46,7 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
 
         private void OnImpactUpdate(ref SignalUpdateImpact signal)
         {
-            
-            
+            View.UpdateMeat(ref signal.Impact);
         }
     }
 }

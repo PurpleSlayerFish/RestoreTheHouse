@@ -51,3 +51,5 @@ Thumbs.db
 *.wmv
 
 obj/
+Builds/PiranhaRunnerV0.8.apk
+Builds/PiranhaRunnerV0.9.apk

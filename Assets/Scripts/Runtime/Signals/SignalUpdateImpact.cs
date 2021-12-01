@@ -3,12 +3,9 @@
     public struct SignalUpdateImpact
     {
         public int Impact;
-        public int Stage;
-
-        public SignalUpdateImpact(int impact, int stage)
+        public SignalUpdateImpact(int impact)
         {
             Impact = impact;
-            Stage = stage;
         }
     }
 }

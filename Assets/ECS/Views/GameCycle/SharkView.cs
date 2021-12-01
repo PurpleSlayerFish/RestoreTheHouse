@@ -2,23 +2,24 @@
 using ECS.Game.Components.Events;
 using ECS.Game.Components.Flags;
 using Leopotam.Ecs;
+using Services.PauseService;
 using TMPro;
 using UnityEngine;
 
 namespace ECS.Views.GameCycle
 {
-    public class SharkView : InteractableView
+    public class SharkView : InteractableView, IPause
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private TMP_Text _indicator;
         [SerializeField] private float distanceX;
         [SerializeField] private float distanceZ;
-        public float SharkDestroyDistance = 6f;
+        [SerializeField] private float deathDuration = 1.3f;
+        [SerializeField] private float _sharkDisableDistance = 6f;
         private int _hp;
         private bool _killed;
         private const int Idle = 0;
-        private const int Dead = -2;
-        private const int Complete = -3;
+        private float _animatorSpeed;
 
         public override void Link(EcsEntity entity)
         {
@@ -26,7 +27,8 @@ namespace ECS.Views.GameCycle
             _hp = impact;
             UpdateHp();
             _killed = false;
-            SetAnimation(Idle);
+            _animator.SetInteger("Stage", Idle);
+            _animatorSpeed = _animator.speed;
         }
 
         private void UpdateHp()
@@ -61,24 +63,41 @@ namespace ECS.Views.GameCycle
         public void Kill()
         {
             _killed = true;
-            SetAnimation(Dead);
-            _animator.speed = 2f;
-            _indicator.enabled = false;
-            Transform.DOLocalMove(Vector3.zero, 3f)
+            _killed = true;
+            _animator.speed = 0;
+            Transform.DOLocalRotate(new Vector3(0f, 0f, 180f), deathDuration)
                 .SetEase(Ease.Unset)
                 .SetRelative(true)
                 .SetLoops(1)
                 .OnComplete(() => Entity.Get<IsDestroyedComponent>());
+            Transform.DOLocalMove(new Vector3(0, -3f, 0), deathDuration)
+                .SetEase(Ease.Unset)
+                .SetRelative(true)
+                .SetLoops(1);
         }
         
-        private void SetAnimation(int stage)
-        {
-            _animator.SetInteger("Stage", stage);
-        }
-
         public bool isKilled()
         {
             return _killed;
+        }
+
+        public ref float GetSharkDisableDistance()
+        {
+            return ref _sharkDisableDistance;
+        }
+        
+        
+        public void Pause()
+        {
+            _animatorSpeed = _animator.speed;
+            _animator.speed = 0;
+            Transform.DOPause();
+        }
+
+        public void UnPause()
+        {
+            _animator.speed = _animatorSpeed;
+            Transform.DOPlay();
         }
     }
 }

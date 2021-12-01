@@ -1,11 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using CustomSelectables;
-using ECS.Game.Components;
-using ECS.Game.Components.Flags;
-using ECS.Utils.Extensions;
 using Leopotam.Ecs;
-using Runtime.Game.Ui.Windows.InGameMenu;
 using SimpleUi.Abstracts;
 using TMPro;
 using UnityEngine;
@@ -16,12 +12,17 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
     public class InGameButtonsView : UiView 
     {
         [SerializeField] private TMP_Text _levelN;
-
+        [SerializeField] private TMP_Text _meatCount;
         [SerializeField] public CustomButton InGameMenuButton;
         
-        public void Show(EScene currentLevel, EcsWorld _world)
+        public void Show(ref EScene currentLevel, ref EcsWorld _world)
         {
             _levelN.text = Enum.GetName(typeof(EScene), currentLevel)?.Replace("_", " ");
+        }
+
+        public void UpdateMeat(ref int impact)
+        {
+            _meatCount.text = impact.ToString();
         }
     }
 }
