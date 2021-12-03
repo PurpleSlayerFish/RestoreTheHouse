@@ -16,7 +16,7 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 13131345
+  - 5052383868106413
   appLabels:
   - PiranhaRunner
   cookie: 1
@@ -24,7 +24,7 @@ MonoBehaviour:
   status: 1
   xfbml: 0
   frictionlessRequests: 1
-  androidKeystorePath: C:\Users\PurpleSlayerFish.PSY-SANCTUARY\Desktop\WorkProjects\PiranhaRunner\Assets\ReplayAnton.keystore
+  androidKeystorePath: C:\Users\PurpleSlayerFish.PSY-SANCTUARY\Desktop\PiranhaRunner\Assets\ReplayAnton.keystore
   iosURLSuffix: 
   appLinkSchemes:
   - list: []
