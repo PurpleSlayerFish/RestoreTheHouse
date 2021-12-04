@@ -27,7 +27,6 @@ namespace ECS.Utils.Extensions
             return filter.GetEntity(0);
         }
         
-        
         public static ref T GetAndFire<T>(this ref EcsEntity entity) where T : struct
         {
             entity.Get<T>();

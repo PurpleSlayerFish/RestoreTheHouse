@@ -1,11 +1,8 @@
 using DataBase.Game;
-using ECS.Game.Components;
-using ECS.Game.Components.Events;
 using ECS.Utils.Extensions;
 using Leopotam.Ecs;
 using Runtime.Services.CommonPlayerData;
 using Runtime.Services.CommonPlayerData.Data;
-using Runtime.Signals;
 using SimpleUi.Abstracts;
 using SimpleUi.Signals;
 using UniRx;
@@ -28,7 +25,6 @@ namespace Runtime.Game.Ui.Windows.StartToPlay
         {
             _signalBus = signalBus;
             _world = world;
-            
         }
         
         public void Initialize()
@@ -42,7 +38,7 @@ namespace Runtime.Game.Ui.Windows.StartToPlay
         private void OnStart()
         {
             _signalBus.OpenWindow<GameHudWindow>();
-            _signalBus.Fire(new SignalPlayerAnimation());
+            // _world.CreatePlayer();
             _world.SetStage(EGameStage.Play);
             Amplitude.Instance.logEvent("level_start");
         }
@@ -54,34 +50,34 @@ namespace Runtime.Game.Ui.Windows.StartToPlay
         
         private void OnPiranhaProgression()
         {
-            var playerData = _commonPlayerData.GetData();
-            if (playerData.Coins < _price)
-                return;
-            if (playerData.PiranhasProgression >= _maxProgression)
-                return;
-            playerData.Coins -= _price;
-            playerData.PiranhasProgression++;
-            var impactEntity = _world.NewEntity();
-            impactEntity.Get<ImpactComponent>().Value = 1;
-            impactEntity.Get<ImpactTypeComponent>();
-            impactEntity.Get<AddImpactEventComponent>();
-            _commonPlayerData.Save(playerData);
-            Amplitude.Instance.logEvent("piranha_progression_up");
-            UpdateUi();
+            // var playerData = _commonPlayerData.GetData();
+            // if (playerData.Coins < _price)
+            //     return;
+            // if (playerData.PiranhasProgression >= _maxProgression)
+            //     return;
+            // playerData.Coins -= _price;
+            // playerData.PiranhasProgression++;
+            // var impactEntity = _world.NewEntity();
+            // impactEntity.Get<ImpactComponent>().Value = 1;
+            // impactEntity.Get<ImpactTypeComponent>();
+            // impactEntity.Get<AddImpactEventComponent>();
+            // _commonPlayerData.Save(playerData);
+            // Amplitude.Instance.logEvent("piranha_progression_up");
+            // UpdateUi();
         }
 
         private void OnMeatProgression()
         {
-            var playerData = _commonPlayerData.GetData();
-            if (playerData.Coins < _price)
-                return;
-            if (playerData.MeatProgression >= _maxProgression * _meatForEachProgression)
-                return;
-            playerData.Coins -= _price;
-            playerData.MeatProgression += _meatForEachProgression;
-            _commonPlayerData.Save(playerData);
-            Amplitude.Instance.logEvent("meat_progression_up");
-            UpdateUi();
+            // var playerData = _commonPlayerData.GetData();
+            // if (playerData.Coins < _price)
+            //     return;
+            // if (playerData.MeatProgression >= _maxProgression * _meatForEachProgression)
+            //     return;
+            // playerData.Coins -= _price;
+            // playerData.MeatProgression += _meatForEachProgression;
+            // _commonPlayerData.Save(playerData);
+            // Amplitude.Instance.logEvent("meat_progression_up");
+            // UpdateUi();
         }
     }
 }

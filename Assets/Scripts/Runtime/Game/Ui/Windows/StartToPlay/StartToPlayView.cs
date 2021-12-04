@@ -43,28 +43,28 @@ namespace Runtime.Game.Ui.Windows.StartToPlay
                 MeatBackImg.color = Color.white;
             }
             
-            if (playerData.PiranhasProgression < maxProgression)
-            {
-                PiranhaProgressionPrice.text = price.ToString();
-            }
-            else
-            {
-                PiranhaPriceImg.enabled = false;
-                PiranhaProgressionPrice.enabled = false;
-                PiranhaMax.enabled = true;
-            }
-            if (playerData.MeatProgression < maxProgression * meatForEachProgression)
-            {
-                MeatProgressionPrice.text = price.ToString();
-            }
-            else
-            {
-                MeatPriceImg.enabled = false;
-                MeatProgressionPrice.enabled = false;
-                MeatMax.enabled = true;
-            }
-            PiranhaNx.text = "\u00D7 " + playerData.PiranhasProgression;
-            MeatNx.text = "+ " + playerData.MeatProgression + "%";
+            // if (playerData.PiranhasProgression < maxProgression)
+            // {
+            //     PiranhaProgressionPrice.text = price.ToString();
+            // }
+            // else
+            // {
+            //     PiranhaPriceImg.enabled = false;
+            //     PiranhaProgressionPrice.enabled = false;
+            //     PiranhaMax.enabled = true;
+            // }
+            // if (playerData.MeatProgression < maxProgression * meatForEachProgression)
+            // {
+            //     MeatProgressionPrice.text = price.ToString();
+            // }
+            // else
+            // {
+            //     MeatPriceImg.enabled = false;
+            //     MeatProgressionPrice.enabled = false;
+            //     MeatMax.enabled = true;
+            // }
+            // PiranhaNx.text = "\u00D7 " + playerData.PiranhasProgression;
+            // MeatNx.text = "+ " + playerData.MeatProgression + "%";
         }
     }
 }

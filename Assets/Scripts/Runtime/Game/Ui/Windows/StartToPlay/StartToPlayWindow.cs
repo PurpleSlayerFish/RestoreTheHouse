@@ -1,3 +1,4 @@
+using Runtime.Game.Ui.Windows.TouchPad;
 using SimpleUi;
 
 namespace Runtime.Game.Ui.Windows.StartToPlay 
@@ -7,7 +8,8 @@ namespace Runtime.Game.Ui.Windows.StartToPlay
         public override string Name => "StartToPlay";
         protected override void AddControllers()
         {
-            AddController<StartToPlayController>();
+            AddController<StartToPlayController>();    
+            AddController<TouchpadViewController>();
         }
     }
 }

@@ -13,7 +13,16 @@ namespace ECS.Utils.Extensions
 {
     public static class GameExtensions
     {
-        public static EcsEntity CreatePlayer(this EcsWorld world)
+        public static void CreatePlayerInWorkshop(this EcsWorld world)
+        {
+            var entity = world.NewEntity();
+            entity.Get<UIdComponent>().Value = UidGenerator.Next();
+            entity.Get<ImpactComponent>().Value = 0;
+            entity.GetAndFire<PrefabComponent>().Value = "PlayerInWorkshop";
+            entity.GetAndFire<PlayerInWorkshopComponent>();
+        }
+        
+        public static void CreatePlayer(this EcsWorld world)
         {
             var entity = world.NewEntity();
             entity.Get<UIdComponent>().Value = UidGenerator.Next();
@@ -22,21 +31,6 @@ namespace ECS.Utils.Extensions
             entity.Get<ImpactComponent>().Value = 0;
             entity.GetAndFire<PrefabComponent>().Value = "Player";
             entity.GetAndFire<PlayerComponent>();
-            
-            var impactEntity = world.NewEntity();
-            impactEntity.Get<ImpactComponent>().Value = entity.Get<ImpactComponent>().Value;
-            impactEntity.Get<ImpactTypeComponent>().Value = EImpactType.Addition;
-            impactEntity.Get<AddImpactEventComponent>();
-            
-            return entity;
-        }
-        public static EcsEntity CreatePirahna(this EcsWorld world)
-        {
-            var entity = world.NewEntity();
-            entity.Get<UIdComponent>().Value = UidGenerator.Next();
-            entity.GetAndFire<PrefabComponent>().Value = "Piranha";
-            entity.GetAndFire<PiranhaComponent>();
-            return entity;
         }
 
         public static void CreatePoints(this EcsWorld world)
@@ -55,15 +49,28 @@ namespace ECS.Utils.Extensions
                 }
         }
         
-        public static void CreateGates(this EcsWorld world)
+        public static void CreateTiles(this EcsWorld world)
         {
-            var interFromScene = Object.FindObjectsOfType<GateView>();
-            foreach (var link in interFromScene)
+            var tileFromScene = Object.FindObjectsOfType<TileView>();
+            foreach (var link in tileFromScene)
             {
                 var entity = world.NewEntity();
                 link.Link(entity);
                 entity.Get<LinkComponent>().View = link;
-                link.SetTriggerAction(() => entity.Get<AddImpactEventComponent>());
+                entity.GetAndFire<TileComponent>();
+            }
+        }
+        
+        public static void CreateGunCubes(this EcsWorld world)
+        {
+            var cubesFromScene = Object.FindObjectsOfType<GunCubeView>();
+            foreach (var link in cubesFromScene)
+            {
+                var entity = world.NewEntity();
+                link.Link(entity);
+                entity.Get<LinkComponent>().View = link;
+                entity.Get<GunCubeComponent>();
+                entity.Get<PositionComponent>().Value = link.transform.position;
             }
         }
         

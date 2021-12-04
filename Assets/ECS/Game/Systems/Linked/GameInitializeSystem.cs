@@ -21,12 +21,12 @@ namespace ECS.Game.Systems.Linked
             CreateTimer();
             CreatePlayer();
             CreatePath();
-            CreateInteractables();
-            CreateSharks();
+            CreateTiles();
+            CreateGunCubes();
         }
         private bool LoadGame()
         {
-            _world.NewEntity().Get<GameStageComponent>().Value = EGameStage.Pause;
+            _world.NewEntity().Get<GameStageComponent>().Value = EGameStage.Workshop;
             var gState = _generalState.GetData();
             if (gState.SaveState.IsNullOrEmpty()) return false;
             foreach (var state in gState.SaveState)
@@ -46,7 +46,8 @@ namespace ECS.Game.Systems.Linked
 
         private void CreatePlayer()
         {
-            _world.CreatePlayer();
+            _world.CreatePlayerInWorkshop();
+            // _world.CreatePlayer();
         }
 
         private void CreatePath()
@@ -54,14 +55,14 @@ namespace ECS.Game.Systems.Linked
             _world.CreatePoints();
         }
         
-        private void CreateInteractables()
+        private void CreateTiles()
         {
-            _world.CreateGates();
+            _world.CreateTiles();
         }
-
-        private void CreateSharks()
+            
+        private void CreateGunCubes()
         {
-            _world.CreateSharks();
+            _world.CreateGunCubes();
         }
     }
 }

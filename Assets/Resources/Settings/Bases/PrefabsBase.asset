@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - Name: Player
-    GameObject: {fileID: 959035790913744268, guid: 1f557a70aec48a241b2d5144cb9d8e36, type: 3}
-  - Name: Piranha
-    GameObject: {fileID: 4437716994953532274, guid: abc95abd234c180408a146d6cc3a8429, type: 3}
+    GameObject: {fileID: 4374101886067610558, guid: 5a12853459a74f942be46334ee26ecc4, type: 3}
+  - Name: PlayerInWorkshop
+    GameObject: {fileID: 679799264918799835, guid: 1f557a70aec48a241b2d5144cb9d8e36, type: 3}

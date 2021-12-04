@@ -55,21 +55,6 @@ namespace ECS.Game.Systems.GameCycle
             
             _signalBus.Fire(new SignalUpdateImpact(playerImpact));
 
-            if (playerImpact <= 0)
-            {
-                playerView.DestroyPirahnas(-1);
-                _world.GetGameStage().Get<ChangeStageComponent>().Value = EGameStage.Lose;
-            }
-            else
-            {
-                var result = playerImpact - playerView.GetPiranhasCount();
-                if (result < 0)
-                    playerView.DestroyPirahnas(Mathf.Abs(result));
-                else if (result > 0)
-                    for (int i = 0; i < result; i++)
-                        _world.CreatePirahna();
-            }
-
             entity.Destroy();
         }
     }

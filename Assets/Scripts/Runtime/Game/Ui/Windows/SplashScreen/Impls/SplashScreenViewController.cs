@@ -1,9 +1,7 @@
-﻿using System;
-using Game.SceneLoading;
+﻿using Game.SceneLoading;
 using Runtime.Services.CommonPlayerData;
 using Runtime.Services.CommonPlayerData.Data;
 using SimpleUi.Abstracts;
-using UniRx;
 using Zenject;
 
 namespace Runtime.Game.Ui.Windows.SplashScreen.Impls
@@ -12,7 +10,6 @@ namespace Runtime.Game.Ui.Windows.SplashScreen.Impls
     {
         [Inject] private readonly ICommonPlayerDataService<CommonPlayerData> _commonPlayerData;
         private readonly ISceneLoadingManager _sceneLoadingManager;
-        private IDisposable _disposable = Disposable.Empty;
 
         public SplashScreenViewController(ISceneLoadingManager sceneLoadingManager)
         {
@@ -21,14 +18,8 @@ namespace Runtime.Game.Ui.Windows.SplashScreen.Impls
         
         public void Initialize()
         {
-            // _sceneLoadingManager.LoadScene(EScene.Level_10);
-            _sceneLoadingManager.LoadScene(_commonPlayerData.GetData().Level);
-        }
-
-        private void OnComplete()
-        {
-            _disposable.Dispose();
-            // _sceneLoadingManager.LoadScene(EScene.MainMenu.ToString());
+            _sceneLoadingManager.LoadScene(EScene.Level_1);
+            // _sceneLoadingManager.LoadScene(_commonPlayerData.GetData().Level);
         }
     }
 }

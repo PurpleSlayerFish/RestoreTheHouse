@@ -18,22 +18,26 @@ namespace ECS.Game.Systems.GameCycle
         public void Run()
         {
             if(_gameStage.Get1(0).Value != EGameStage.Play) return;
-           
-            var entity = _player.GetEntity(0);
-            if (entity.Has<TargetPositionComponent>())
-                return;
-            ref var playerPos = ref  _player.Get2(0).Value;
-            
-            var nextPathPoint = GetNextPathPoint(playerPos);
-            if (nextPathPoint == Vector3.zero)
+
+
+            foreach (var i in _player)
             {
-                InitPathComplete();
-                return;
-            }
+                var entity = _player.GetEntity(i);
+                if (entity.Has<TargetPositionComponent>())
+                    return;
+                ref var playerPos = ref  _player.Get2(i).Value;
             
-            ref var targetPos = ref entity.Get<TargetPositionComponent>();
-            targetPos.Value = nextPathPoint;
-            targetPos.Speed = (_player.Get4(0).View as PlayerView).GetCurrentSpeed();
+                var nextPathPoint = GetNextPathPoint(playerPos);
+                if (nextPathPoint == Vector3.zero)
+                {
+                    InitPathComplete();
+                    return;
+                }
+            
+                ref var targetPos = ref entity.Get<TargetPositionComponent>();
+                targetPos.Value = nextPathPoint;
+                targetPos.Speed = (_player.Get4(i).View as PlayerView).GetCurrentSpeed(); 
+            }
         }
 
         private Vector3 GetNextPathPoint(Vector3 playerPos)

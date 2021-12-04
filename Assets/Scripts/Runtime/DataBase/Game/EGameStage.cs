@@ -5,6 +5,7 @@
         Play,
         Pause,
         Complete,
-        Lose
+        Lose,
+        Workshop
     }
 }

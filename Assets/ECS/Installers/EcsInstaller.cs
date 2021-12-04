@@ -12,11 +12,11 @@ namespace ECS.Installers
     public class EcsInstaller : MonoInstaller
     {
         [SerializeField] private ScreenVariables _screenVariables;
-        [SerializeField] private GateColors _gateColors;
+        [SerializeField] private GameColors gameColors;
         public override void InstallBindings()
         {
             Container.Bind<ScreenVariables>().FromInstance(_screenVariables).AsSingle();
-            Container.Bind<GateColors>().FromInstance(_gateColors).AsSingle();
+            Container.Bind<GameColors>().FromInstance(gameColors).AsSingle();
             Container.BindInterfacesAndSelfTo<EcsWorld>().AsSingle().NonLazy();
             BindSystems();
             Container.BindInterfacesTo<EcsMainBootstrap>().AsSingle();
@@ -31,14 +31,15 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<PositionRotationTranslateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameTimerSystem>().AsSingle();
             
-            Container.BindInterfacesAndSelfTo<PiranhaAttachSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<TilesInitSystem>().AsSingle();
+            // Container.BindInterfacesAndSelfTo<PiranhaAttachSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerForwardMovementSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerHorizontalMovementSystem>().AsSingle();
+            // Container.BindInterfacesAndSelfTo<PlayerHorizontalMovementSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<MoveRotateToTargetSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<RemapOnAddSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<AddImpactToPlayerSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<LeewaySystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<SharkCollisionSystem>().AsSingle();
+            // Container.BindInterfacesAndSelfTo<LeewaySystem>().AsSingle();
+            // Container.BindInterfacesAndSelfTo<SharkCollisionSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<WorkshopDragAndDropSystem>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GamePauseSystem>().AsSingle();

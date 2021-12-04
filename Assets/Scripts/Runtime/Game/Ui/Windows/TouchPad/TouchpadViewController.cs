@@ -1,10 +1,10 @@
-using ECS.Core.Utils.ReactiveSystem.Components;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.Input;
 using ECS.Utils.Extensions;
 using Leopotam.Ecs;
 using PdUtils.Interfaces;
 using SimpleUi.Abstracts;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Runtime.Game.Ui.Windows.TouchPad
@@ -46,7 +46,7 @@ namespace Runtime.Game.Ui.Windows.TouchPad
 			if(!_active)
 				return;
 			_world.NewEntity().Get<PointerDownComponent>().Position = data.position;
-			var entity = _world.GetEntity<PlayerComponent>();
+			var entity = _world.GetEntity<PlayerInWorkshopComponent>();
 			entity.GetAndFire<RemapPointComponent>().Input = data.pointerCurrentRaycast.worldPosition;
 		}
 

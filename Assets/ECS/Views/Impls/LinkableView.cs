@@ -1,8 +1,9 @@
-﻿using ECS.Views;
+﻿using ECS.Game.Components;
 using Leopotam.Ecs;
+using PdUtils;
 using UnityEngine;
 
-namespace Ecs.Views.Linkable.Impl
+namespace ECS.Views.Impls
 {
 	public abstract class LinkableView : MonoBehaviour, ILinkable
 	{
@@ -26,6 +27,11 @@ namespace Ecs.Views.Linkable.Impl
 #else
 			Destroy(gameObject);
 #endif
+		}
+
+		public Uid GetUid()
+		{
+			return Entity.Get<UIdComponent>().Value;
 		}
 	}
 }

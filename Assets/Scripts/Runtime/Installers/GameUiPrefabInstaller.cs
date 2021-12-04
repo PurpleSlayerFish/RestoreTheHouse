@@ -27,7 +27,6 @@ namespace Installers
         [SerializeField] private TouchpadView touchpadView;
         [SerializeField] private GameOverView gameOverView;
         [SerializeField] private LevelCompleteView levelCompleteView;
-        [SerializeField] private InGameMenuView inGameMenuView;
         [SerializeField] private InGameButtonsView inGameButtonsView;
         [SerializeField] private StartToPlayView startToPlayView;
 

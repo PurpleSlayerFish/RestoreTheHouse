@@ -1,6 +1,6 @@
 ﻿using System;
 using ECS.Game.Components;
-using Ecs.Views.Linkable.Impl;
+using ECS.Views.Impls;
 using Leopotam.Ecs;
 using UnityEngine;
 
