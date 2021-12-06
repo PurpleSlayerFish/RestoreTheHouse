@@ -28,10 +28,5 @@ namespace ECS.Views.Impls
 			Destroy(gameObject);
 #endif
 		}
-
-		public Uid GetUid()
-		{
-			return Entity.Get<UIdComponent>().Value;
-		}
 	}
 }

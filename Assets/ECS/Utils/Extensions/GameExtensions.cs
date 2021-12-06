@@ -21,7 +21,7 @@ namespace ECS.Utils.Extensions
             entity.GetAndFire<PrefabComponent>().Value = "PlayerInWorkshop";
             entity.GetAndFire<PlayerInWorkshopComponent>();
         }
-        
+
         public static void CreatePlayer(this EcsWorld world)
         {
             var entity = world.NewEntity();
@@ -37,18 +37,18 @@ namespace ECS.Utils.Extensions
         {
             var pathPointsArray = Object.FindObjectsOfType<ScenePath>();
             foreach (var pathPoints in pathPointsArray)
-                foreach (Transform p in pathPoints.transform)
-                {
-                    var entity = world.NewEntity();
-                    entity.Get<UIdComponent>().Value = UidGenerator.Next();
-                    entity.Get<PathPointComponent>();
-                    entity.Get<PositionComponent>().Value = p.position;
-                    entity.Get<RotationComponent>().Value = p.rotation;
-                    if (p.TryGetComponent<RotatePoint>(out var component))
-                        entity.Get<RotationDirectionComponent>().Value = component.RotateDirection;
-                }
+            foreach (Transform p in pathPoints.transform)
+            {
+                var entity = world.NewEntity();
+                entity.Get<UIdComponent>().Value = UidGenerator.Next();
+                entity.Get<PathPointComponent>();
+                entity.Get<PositionComponent>().Value = p.position;
+                entity.Get<RotationComponent>().Value = p.rotation;
+                if (p.TryGetComponent<RotatePoint>(out var component))
+                    entity.Get<RotationDirectionComponent>().Value = component.RotateDirection;
+            }
         }
-        
+
         public static void CreateTiles(this EcsWorld world)
         {
             var tileFromScene = Object.FindObjectsOfType<TileView>();
@@ -57,10 +57,19 @@ namespace ECS.Utils.Extensions
                 var entity = world.NewEntity();
                 link.Link(entity);
                 entity.Get<LinkComponent>().View = link;
-                entity.GetAndFire<TileComponent>();
+                entity.GetAndFire<TileComponent>().IsLock = false;
             }
         }
         
+        public static void CreateWorkshop(this EcsWorld world)
+        {
+            var workshopView = Object.FindObjectOfType<WorkshopView>();
+            var entity = world.NewEntity();
+            workshopView.Link(entity);
+            entity.Get<LinkComponent>().View = workshopView;
+            entity.GetAndFire<WorkshopComponent>();
+        }
+
         public static void CreateGunCubes(this EcsWorld world)
         {
             var cubesFromScene = Object.FindObjectsOfType<GunCubeView>();
@@ -73,20 +82,5 @@ namespace ECS.Utils.Extensions
                 entity.Get<PositionComponent>().Value = link.transform.position;
             }
         }
-        
-        public static void CreateSharks(this EcsWorld world)
-        {
-            var sharks = Object.FindObjectsOfType<SharkView>();
-            foreach (var link in sharks)
-            {
-                var entity = world.NewEntity();
-                link.Link(entity);
-                entity.Get<LinkComponent>().View = link;
-                link.SetTriggerAction(() => entity.Get<AddImpactEventComponent>());
-                entity.Get<DistanceComponent>();
-            }
-        }
-        
-        
     }
 }

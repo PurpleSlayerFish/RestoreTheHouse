@@ -31,7 +31,7 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<PositionRotationTranslateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameTimerSystem>().AsSingle();
             
-            Container.BindInterfacesAndSelfTo<TilesInitSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<WorkshopInitSystem>().AsSingle();
             // Container.BindInterfacesAndSelfTo<PiranhaAttachSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerForwardMovementSystem>().AsSingle();
             // Container.BindInterfacesAndSelfTo<PlayerHorizontalMovementSystem>().AsSingle();

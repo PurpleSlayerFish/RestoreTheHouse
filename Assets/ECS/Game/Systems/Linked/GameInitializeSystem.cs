@@ -22,6 +22,7 @@ namespace ECS.Game.Systems.Linked
             CreatePlayer();
             CreatePath();
             CreateTiles();
+            CreateWorkshop();
             CreateGunCubes();
         }
         private bool LoadGame()
@@ -59,6 +60,11 @@ namespace ECS.Game.Systems.Linked
         {
             _world.CreateTiles();
         }
+        
+        private void CreateWorkshop()
+        {
+            _world.CreateWorkshop();
+    }
             
         private void CreateGunCubes()
         {

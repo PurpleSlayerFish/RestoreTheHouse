@@ -8,6 +8,7 @@ using ECS.Game.Components.Flags;
 using ECS.Utils.Extensions;
 using ECS.Views.GameCycle;
 using Leopotam.Ecs;
+using Runtime.DataBase.Game;
 using Runtime.Signals;
 using UnityEngine;
 using Zenject;
@@ -32,26 +33,26 @@ namespace ECS.Game.Systems.GameCycle
             ref var playerImpact = ref _player.Get2(0).Value;
             ref var impact = ref entity.Get<ImpactComponent>().Value;
 
-            switch (entity.Get<ImpactTypeComponent>().Value)
-            {
-                case EImpactType.Addition:
-                    playerImpact += impact;
-                    break;
-
-                case EImpactType.Subtraction:
-                    playerImpact -= impact;
-                    break;
-
-                case EImpactType.Multiplication:
-                    playerImpact *= impact;
-                    break;
-
-                case EImpactType.Division:
-                    playerImpact = Mathf.CeilToInt((float) playerImpact / impact);
-                    break;
-                default:
-                    throw new InvalidEnumArgumentException();
-            }
+            // switch (entity.Get<ImpactTypeComponent>().Value)
+            // {
+            //     case EGunCubeType.Addition:
+            //         playerImpact += impact;
+            //         break;
+            //
+            //     case EGunCubeType.Subtraction:
+            //         playerImpact -= impact;
+            //         break;
+            //
+            //     case EGunCubeType.Multiplication:
+            //         playerImpact *= impact;
+            //         break;
+            //
+            //     case EGunCubeType.Division:
+            //         playerImpact = Mathf.CeilToInt((float) playerImpact / impact);
+            //         break;
+            //     default:
+            //         throw new InvalidEnumArgumentException();
+            // }
             
             _signalBus.Fire(new SignalUpdateImpact(playerImpact));
 

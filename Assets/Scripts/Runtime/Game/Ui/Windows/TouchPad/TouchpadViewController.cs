@@ -4,7 +4,6 @@ using ECS.Utils.Extensions;
 using Leopotam.Ecs;
 using PdUtils.Interfaces;
 using SimpleUi.Abstracts;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Runtime.Game.Ui.Windows.TouchPad
@@ -58,6 +57,5 @@ namespace Runtime.Game.Ui.Windows.TouchPad
 		}
 
 		public void SetActive(bool value) => _active = value;
-		
 	}
 }

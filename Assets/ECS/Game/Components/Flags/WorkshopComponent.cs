@@ -2,7 +2,8 @@
 
 namespace ECS.Game.Components.Flags
 {
-    public struct HoldedComponent : IEcsIgnoreInFilter
+    public struct WorkshopComponent : IEcsIgnoreInFilter
     {
+        
     }
 }
