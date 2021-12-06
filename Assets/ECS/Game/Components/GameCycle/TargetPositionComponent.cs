@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ECS.Game.Components
+namespace ECS.Game.Components.GameCycle
 {
     public struct TargetPositionComponent
     {

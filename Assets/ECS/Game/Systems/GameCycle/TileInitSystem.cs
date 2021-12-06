@@ -1,7 +1,7 @@
 ﻿using ECS.Core.Utils.ReactiveSystem;
 using ECS.Core.Utils.ReactiveSystem.Components;
 using ECS.Game.Components;
-using ECS.Game.Components.Flags;
+using ECS.Game.Components.GameCycle;
 using ECS.Views.GameCycle;
 using Leopotam.Ecs;
 using Runtime.Game.Utils.MonoBehUtils;

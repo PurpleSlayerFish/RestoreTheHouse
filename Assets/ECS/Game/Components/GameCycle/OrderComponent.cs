@@ -1,4 +1,4 @@
-﻿namespace ECS.Game.Components.Flags
+﻿namespace ECS.Game.Components.GameCycle
 {
     public struct OrderComponent
     {

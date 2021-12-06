@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using ECS.Game.Components.Flags;
+using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
 using UnityEngine;
@@ -11,7 +11,6 @@ namespace ECS.Views.GameCycle
     {
         [SerializeField] private Vector2Int _tilePos;
         [SerializeField] private int _order;
-        private GunCubeView _user = null;
 
         public override void Link(EcsEntity entity)
         {
@@ -26,19 +25,9 @@ namespace ECS.Views.GameCycle
             Entity.Get<TileComponent>().IsLock = true;
         }
 
-        public bool IsAvailable(GunCubeView newUser)
+        public ref EcsEntity GetEntity()
         {
-            return !Entity.Get<TileComponent>().IsLock && (newUser.Equals(_user) || _user == null);
-        }
-
-        public void SetUser(GunCubeView value)
-        {
-            _user = value;
-        }
-
-        public ref Vector2Int GetXY()
-        {
-            return ref _tilePos;
+            return ref Entity;
         }
     }
 }

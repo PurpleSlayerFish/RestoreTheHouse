@@ -1,7 +1,7 @@
 ﻿using Leopotam.Ecs;
 using UnityEngine;
 
-namespace ECS.Game.Components.Flags
+namespace ECS.Game.Components.GameCycle
 {
     public struct TileComponent : IEcsIgnoreInFilter
     {

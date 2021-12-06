@@ -58,6 +58,7 @@ namespace ECS.Utils.Extensions
             {
                 var entity = world.NewEntity();
                 link.Link(entity);
+                entity.Get<UIdComponent>().Value = UidGenerator.Next();
                 entity.Get<LinkComponent>().View = link;
                 entity.Get<OrderComponent>();
                 entity.GetAndFire<TileComponent>().IsLock = false;
@@ -71,6 +72,7 @@ namespace ECS.Utils.Extensions
             {
                 var entity = world.NewEntity();
                 link.Link(entity);
+                entity.Get<UIdComponent>().Value = UidGenerator.Next();
                 entity.Get<LinkComponent>().View = link;
                 entity.Get<GunCubeComponent>();
                 entity.Get<DefaultPositionComponent>();

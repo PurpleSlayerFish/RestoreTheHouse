@@ -1,5 +1,6 @@
 ﻿using System;
 using ECS.Game.Components;
+using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
 using UnityEngine;

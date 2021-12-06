@@ -1,7 +1,9 @@
-﻿namespace ECS.Game.Components.GameCycle
+﻿using PdUtils;
+
+namespace ECS.Game.Components.GameCycle
 {
     public struct InUseComponent
     {
-        public UIdComponent user;
+        public Uid User;
     }
 }

@@ -1,7 +1,6 @@
 ﻿using ECS.Utils.Impls;
-using Leopotam.Ecs;
 
-namespace ECS.Game.Components
+namespace ECS.Game.Components.GameCycle
 {
     public struct RotationDirectionComponent
     {

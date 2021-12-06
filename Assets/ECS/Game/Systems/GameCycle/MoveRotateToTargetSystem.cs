@@ -1,6 +1,7 @@
 ﻿using DataBase.Game;
 using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
+using ECS.Game.Components.GameCycle;
 using Leopotam.Ecs;
 using UnityEngine;
 

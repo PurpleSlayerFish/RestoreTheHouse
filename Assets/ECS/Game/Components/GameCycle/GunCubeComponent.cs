@@ -1,7 +1,6 @@
-﻿using Leopotam.Ecs;
-using Runtime.DataBase.Game;
+﻿using Runtime.DataBase.Game;
 
-namespace ECS.Game.Components.Flags
+namespace ECS.Game.Components.GameCycle
 {
     public struct GunCubeComponent
     {

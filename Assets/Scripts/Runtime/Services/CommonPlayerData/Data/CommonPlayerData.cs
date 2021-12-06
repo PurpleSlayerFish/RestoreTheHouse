@@ -17,7 +17,8 @@ namespace Runtime.Services.CommonPlayerData.Data
             Level = EScene.Level_1;
             Coins = 0;
             FireRate = 1;
-            TileProgression = 9;
+            // TileProgression = 9;
+            TileProgression = 38;
         }
     }
 }
