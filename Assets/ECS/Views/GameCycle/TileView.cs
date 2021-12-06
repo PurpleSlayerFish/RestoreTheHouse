@@ -9,12 +9,15 @@ namespace ECS.Views.GameCycle
     [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
     public class TileView : LinkableView
     {
-        [SerializeField] private Vector2Int tilePos;
+        [SerializeField] private Vector2Int _tilePos;
+        [SerializeField] private int _order;
         private GunCubeView _user = null;
 
-        public ref Vector2Int GetTilePos()
+        public override void Link(EcsEntity entity)
         {
-            return ref tilePos;
+            base.Link(entity);
+            Entity.Get<TileComponent>().Position = _tilePos;
+            Entity.Get<OrderComponent>().Value = _order;
         }
 
         public void SetLocked(ref Material material)
@@ -35,7 +38,7 @@ namespace ECS.Views.GameCycle
 
         public ref Vector2Int GetXY()
         {
-            return ref tilePos;
+            return ref _tilePos;
         }
     }
 }

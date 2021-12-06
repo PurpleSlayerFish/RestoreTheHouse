@@ -1,7 +1,9 @@
 ﻿using DataBase.Game;
+using ECS.Core.Utils.ReactiveSystem.Components;
 using ECS.Game.Components;
 using ECS.Game.Components.Events;
 using ECS.Game.Components.Flags;
+using ECS.Game.Components.GameCycle;
 using ECS.Utils.Impls;
 using ECS.Views.GameCycle;
 using Leopotam.Ecs;
@@ -57,19 +59,11 @@ namespace ECS.Utils.Extensions
                 var entity = world.NewEntity();
                 link.Link(entity);
                 entity.Get<LinkComponent>().View = link;
+                entity.Get<OrderComponent>();
                 entity.GetAndFire<TileComponent>().IsLock = false;
             }
         }
         
-        public static void CreateWorkshop(this EcsWorld world)
-        {
-            var workshopView = Object.FindObjectOfType<WorkshopView>();
-            var entity = world.NewEntity();
-            workshopView.Link(entity);
-            entity.Get<LinkComponent>().View = workshopView;
-            entity.GetAndFire<WorkshopComponent>();
-        }
-
         public static void CreateGunCubes(this EcsWorld world)
         {
             var cubesFromScene = Object.FindObjectsOfType<GunCubeView>();
@@ -79,6 +73,7 @@ namespace ECS.Utils.Extensions
                 link.Link(entity);
                 entity.Get<LinkComponent>().View = link;
                 entity.Get<GunCubeComponent>();
+                entity.Get<DefaultPositionComponent>();
                 entity.Get<PositionComponent>().Value = link.transform.position;
             }
         }

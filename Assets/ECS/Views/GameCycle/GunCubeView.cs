@@ -1,6 +1,7 @@
 ﻿using System;
 using ECS.Game.Components;
 using ECS.Game.Components.Flags;
+using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
 using Runtime.DataBase.Game;
@@ -11,16 +12,14 @@ namespace ECS.Views.GameCycle
     public class GunCubeView : LinkableView
     {
         [SerializeField] private EGunCubeType _gunCubeType;
-        private Vector3 _defaultPosition;
-        private WorkshopView _workshopView;
         private TileView[] _tilesInUse;
         private bool _isTiled;
 
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
-            _defaultPosition = transform.position;
-            _workshopView = FindObjectOfType<WorkshopView>();
+            entity.Get<GunCubeComponent>().Type = _gunCubeType;
+            entity.Get<DefaultPositionComponent>().Value = transform.position;
             InitTileInUse();
             _isTiled = false;
         }
@@ -97,7 +96,7 @@ namespace ECS.Views.GameCycle
 
         private void SetDefaultPosition()
         {
-            Entity.Get<PositionComponent>().Value = _defaultPosition;
+            Entity.Get<PositionComponent>().Value = Entity.Get<DefaultPositionComponent>().Value;
             if (_isTiled)
                 DropTilesInUse();
             _isTiled = false;
@@ -111,7 +110,7 @@ namespace ECS.Views.GameCycle
 
         private Vector3 SetTilePos(Vector3 position)
         {
-            return new Vector3(position.x, _defaultPosition.y, position.z);
+            return new Vector3(position.x, Entity.Get<DefaultPositionComponent>().Value.y, position.z);
         }
 
         public void SetHolded()

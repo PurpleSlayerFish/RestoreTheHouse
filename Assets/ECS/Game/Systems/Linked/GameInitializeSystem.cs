@@ -3,7 +3,6 @@ using ECS.DataSave;
 using ECS.Game.Components;
 using ECS.Utils.Extensions;
 using Leopotam.Ecs;
-using Runtime.Game.Utils.MonoBehUtils;
 using Runtime.Services.GameStateService;
 using Services.Uid;
 using Zenject;
@@ -22,7 +21,6 @@ namespace ECS.Game.Systems.Linked
             CreatePlayer();
             CreatePath();
             CreateTiles();
-            CreateWorkshop();
             CreateGunCubes();
         }
         private bool LoadGame()
@@ -60,12 +58,7 @@ namespace ECS.Game.Systems.Linked
         {
             _world.CreateTiles();
         }
-        
-        private void CreateWorkshop()
-        {
-            _world.CreateWorkshop();
-    }
-            
+
         private void CreateGunCubes()
         {
             _world.CreateGunCubes();

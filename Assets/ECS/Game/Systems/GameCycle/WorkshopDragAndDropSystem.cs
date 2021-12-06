@@ -19,6 +19,7 @@ namespace ECS.Game.Systems.GameCycle
         private EcsFilter<PointerUpComponent> _pointerUp;
         private EcsFilter<PlayerInWorkshopComponent, LinkComponent> _player;
         private EcsFilter<HoldedComponent, PositionComponent, LinkComponent> _holded;
+        private EcsFilter<TileComponent> _tiles;
 
         private bool _pressed;
         private readonly EcsWorld _world;
@@ -117,5 +118,18 @@ namespace ECS.Game.Systems.GameCycle
                 return tileHit;
             return null;
         }
+
+        private EcsComponentRef<TileComponent> FindTile(float x, float y)
+        {
+            foreach (var i in _tiles)
+            {
+                ref TileComponent tile = ref _tiles.Get1(i);
+                if (tile.Position.x == x && tile.Position.y == y)
+                    return _tiles.Get1Ref(i);;
+            }
+
+            throw new ArgumentOutOfRangeException();
+        }
+
     }
 }
