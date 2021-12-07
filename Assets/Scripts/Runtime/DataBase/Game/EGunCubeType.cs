@@ -2,6 +2,6 @@
 {
     public enum EGunCubeType
     {
-        ModOne, ModTwo, MultTwo, MultTree
+        ModOne, ModTwo, MultTwo, MultThree
     }
 }

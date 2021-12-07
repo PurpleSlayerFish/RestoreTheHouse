@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7654457888672877996, guid: f9408d961ed0be34a95ef682b64fb377, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654457888672877997, guid: f9408d961ed0be34a95ef682b64fb377, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f809006b96624f742b1173caed86f701, type: 2}
     - target: {fileID: 7654457888672877998, guid: f9408d961ed0be34a95ef682b64fb377, type: 3}
       propertyPath: m_Name
       value: GunCube+2
@@ -55,6 +63,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7654457888672878002, guid: f9408d961ed0be34a95ef682b64fb377, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -7836698069965954526, guid: c9155afe1b734424990318790c3d2ca6, type: 3}
     - target: {fileID: 7654457888672878003, guid: f9408d961ed0be34a95ef682b64fb377, type: 3}
       propertyPath: _gunCubeType
       value: 1
