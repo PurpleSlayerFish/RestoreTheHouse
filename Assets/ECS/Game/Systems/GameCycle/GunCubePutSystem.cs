@@ -122,7 +122,7 @@ namespace ECS.Game.Systems.GameCycle
                     HandleMultThree(ref matrixTiles, x, y, ref fireRate);
                     break;
                 default:
-                    AddFireRate(ref matrixTiles[x, y], fireRate);
+                    AddFireRate(ref matrixTiles[x, y], fireRate + _defaultFireRate);
                     break;
             }
         }

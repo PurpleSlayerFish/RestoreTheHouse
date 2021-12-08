@@ -54,7 +54,6 @@ namespace ECS.Game.Systems.GameCycle
         {
             _elapsedTime = Time.realtimeSinceStartup - _time;
             _time = Time.realtimeSinceStartup;
-            Debug.Log(_elapsedTime);
         }
     }
 }
