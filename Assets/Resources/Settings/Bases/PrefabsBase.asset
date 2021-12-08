@@ -17,3 +17,5 @@ MonoBehaviour:
     GameObject: {fileID: 4374101886067610558, guid: 5a12853459a74f942be46334ee26ecc4, type: 3}
   - Name: PlayerInWorkshop
     GameObject: {fileID: 679799264918799835, guid: 1f557a70aec48a241b2d5144cb9d8e36, type: 3}
+  - Name: ProjectileLauncher
+    GameObject: {fileID: 2160517872157863798, guid: a1c554f16af1c534ca1faad4d3662743, type: 3}

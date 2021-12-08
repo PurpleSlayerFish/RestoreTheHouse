@@ -9,12 +9,11 @@ namespace Runtime.Installers
         public override void InstallBindings()
         {
             Container.DeclareSignal<SignalGameInit>();
-            Container.DeclareSignal<SignalScoreOpen>();
             Container.DeclareSignal<SignalMakeHudButtonsVisible>();
             Container.DeclareSignal<SignalBlackScreen>();
             Container.DeclareSignal<SignalQuestionChoice>();
             Container.DeclareSignal<SignalUpdateImpact>();
-            Container.DeclareSignal<SignalPlayerAnimation>();
+            Container.DeclareSignal<SignalUpdateDps>();
         }
     }
 }

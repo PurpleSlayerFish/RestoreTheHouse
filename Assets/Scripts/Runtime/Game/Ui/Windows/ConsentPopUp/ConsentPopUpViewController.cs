@@ -1,6 +1,7 @@
 ﻿using System;
 using DG.Tweening;
 using Runtime.Game.Ui.Windows.ConsentPopUp;
+using Runtime.Signals;
 using Signals;
 using SimpleUi.Abstracts;
 using SimpleUi.Interfaces;

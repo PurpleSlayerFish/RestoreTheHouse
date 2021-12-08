@@ -22,6 +22,7 @@ namespace ECS.Game.Systems.Linked
             CreatePath();
             CreateTiles();
             CreateGunCubes();
+            CreateGun();
         }
         private bool LoadGame()
         {
@@ -62,6 +63,11 @@ namespace ECS.Game.Systems.Linked
         private void CreateGunCubes()
         {
             _world.CreateGunCubes();
+        }
+
+        private void CreateGun()
+        {
+            _world.CreateGun();
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Signals
+namespace Runtime.Signals
 {
-    public class SignalQuestionChoice
+    public struct SignalQuestionChoice
     {
         public string Title;
         public Action<bool> Action;

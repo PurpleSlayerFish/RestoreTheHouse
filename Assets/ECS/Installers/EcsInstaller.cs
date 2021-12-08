@@ -28,19 +28,21 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<IsAvailableSetViewSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameInitializeSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<InstantiateSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PositionRotationTranslateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameTimerSystem>().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<PositionRotationTranslateSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ProjectileLauncherInitSystem>().AsSingle();
             
-            Container.BindInterfacesAndSelfTo<TileInitSystem>().AsSingle();
-            // Container.BindInterfacesAndSelfTo<PiranhaAttachSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerForwardMovementSystem>().AsSingle();
             // Container.BindInterfacesAndSelfTo<PlayerHorizontalMovementSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<MoveRotateToTargetSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<AddImpactToPlayerSystem>().AsSingle();
-            // Container.BindInterfacesAndSelfTo<LeewaySystem>().AsSingle();
-            // Container.BindInterfacesAndSelfTo<SharkCollisionSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<TileInitSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<WorkshopDragAndDropSystem>().AsSingle();
-
+            Container.BindInterfacesAndSelfTo<GunFireRateSystem>().AsSingle();
+            
+            
+            Container.BindInterfacesAndSelfTo<AddImpactToPlayerSystem>().AsSingle();
+            
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GamePauseSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<SaveGameSystem>().AsSingle();

@@ -64,7 +64,7 @@ namespace ECS.Utils.Extensions
                 entity.GetAndFire<TileComponent>().IsLock = false;
             }
         }
-        
+
         public static void CreateGunCubes(this EcsWorld world)
         {
             var cubesFromScene = Object.FindObjectsOfType<GunCubeView>();
@@ -78,6 +78,28 @@ namespace ECS.Utils.Extensions
                 entity.Get<DefaultPositionComponent>();
                 entity.Get<PositionComponent>().Value = link.transform.position;
             }
+        }
+
+        public static void CreateGun(this EcsWorld world)
+        {
+            var gunView = Object.FindObjectOfType<GunView>();
+            var entity = world.NewEntity();
+            gunView.Link(entity);
+            entity.Get<UIdComponent>().Value = UidGenerator.Next();
+            entity.Get<LinkComponent>().View = gunView;
+            entity.Get<GunComponent>();
+            entity.Get<GunCubeUpdateEventComponent>();
+        }
+        
+        
+        public static EcsEntity CreateProjectileLauncher(this EcsWorld world)
+        {
+            var entity = world.NewEntity();
+            entity.Get<UIdComponent>().Value = UidGenerator.Next();
+            entity.Get<PositionComponent>();
+            entity.GetAndFire<PrefabComponent>().Value = "ProjectileLauncher";
+            entity.GetAndFire<ProjectileLauncherComponent>();
+            return entity;
         }
     }
 }

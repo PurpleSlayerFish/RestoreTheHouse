@@ -16,7 +16,7 @@ namespace ECS.Game.Systems.GameCycle
         private readonly EcsFilter<PlayerComponent, LinkComponent, PositionComponent, ImpactComponent> _player;
         private readonly EcsFilter<GameStageComponent> _gameStage;
 
-        private SharkView _sharkView;
+        // private SharkView _sharkView;
         private PlayerView _playerView;
         public void Run()
         {
@@ -24,15 +24,15 @@ namespace ECS.Game.Systems.GameCycle
             _playerView = _player.Get2(0).View as PlayerView;
             foreach (var i in _sharks)
             {
-                _sharkView = _sharks.Get2(i).View as SharkView;
-
-                if (_sharkView.gameObject.activeSelf && _player.Get3(0).Value.z > _sharkView.Transform.position.z + _sharkView.GetSharkDisableDistance())
-                {
-                    _sharkView.gameObject.SetActive(false);
-                    // _playerView.PiranhasUncheck();
-                    _playerView.RestoreSpeed();
-                    continue;
-                }
+                // _sharkView = _sharks.Get2(i).View as SharkView;
+                //
+                // if (_sharkView.gameObject.activeSelf && _player.Get3(0).Value.z > _sharkView.Transform.position.z + _sharkView.GetSharkDisableDistance())
+                // {
+                //     _sharkView.gameObject.SetActive(false);
+                //     // _playerView.PiranhasUncheck();
+                //     _playerView.RestoreSpeed();
+                //     continue;
+                // }
 
                 // foreach (var j in _piranhas)
                 // {

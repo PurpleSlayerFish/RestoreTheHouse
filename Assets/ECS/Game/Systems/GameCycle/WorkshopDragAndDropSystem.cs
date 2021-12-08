@@ -3,9 +3,11 @@ using System.Diagnostics.CodeAnalysis;
 using DataBase.Game;
 using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
+using ECS.Game.Components.Events;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
 using ECS.Game.Components.Input;
+using ECS.Utils.Extensions;
 using ECS.Views.GameCycle;
 using Leopotam.Ecs;
 using Runtime.DataBase.Game;
@@ -95,7 +97,7 @@ namespace ECS.Game.Systems.GameCycle
 
         private bool CheckIncorrectDeconstruction(ref EcsEntity gunCubeEntity)
         {
-            if (!gunCubeEntity.Has<OnPlaceComponent>())
+            if (!gunCubeEntity.Has<InPlaceComponent>())
                 return true;
             foreach (var i in _tilesInUse)
             {
@@ -104,7 +106,7 @@ namespace ECS.Game.Systems.GameCycle
                     var pos = _tilesInUse.GetEntity(i).Get<TileComponent>().Position;
                     if (pos.x >= 6)
                         return true;
-                    var horizontalTileEntity = FindTile(new Vector2Int(pos.x + 1, pos.y));
+                    var horizontalTileEntity = _tiles.FindTile(new Vector2Int(pos.x + 1, pos.y));
                     if (NextTileNotUnderCurrentCube(ref horizontalTileEntity, ref gunCubeEntity))
                         return false;
                 }
@@ -200,7 +202,7 @@ namespace ECS.Game.Systems.GameCycle
                 xModifVec = new Vector2(0.5f, 0);
             }
 
-            var secondTileEntity = FindTile(new Vector2Int(position.x + xModif, position.y));
+            var secondTileEntity = _tiles.FindTile(new Vector2Int(position.x + xModif, position.y));
             if (xModif != 0 && IsAvailableAndCanBuild(ref tileEntity, ref secondTileEntity))
                 PutGunCube(xModifVec, tileEntity, secondTileEntity);
             else
@@ -225,7 +227,7 @@ namespace ECS.Game.Systems.GameCycle
                 xModifVec = new Vector2(0, 0.5f);
             }
 
-            var secondTileEntity = FindTile(new Vector2Int(position.x, position.y + xModif));
+            var secondTileEntity = _tiles.FindTile(new Vector2Int(position.x, position.y + xModif));
             if (xModif != 0 && IsAvailableAndCanBuild(ref tileEntity, ref secondTileEntity))
                 PutGunCube(xModifVec, tileEntity, secondTileEntity);
             else
@@ -238,8 +240,8 @@ namespace ECS.Game.Systems.GameCycle
             var position = tileEntity.Get<TileComponent>().Position;
             if (position.y > -3 && position.y < 3)
             {
-                var secondTileEntity = FindTile(new Vector2Int(position.x, position.y + 1));
-                var thirdTileEntity = FindTile(new Vector2Int(position.x, position.y - 1));
+                var secondTileEntity = _tiles.FindTile(new Vector2Int(position.x, position.y + 1));
+                var thirdTileEntity = _tiles.FindTile(new Vector2Int(position.x, position.y - 1));
                 if (IsAvailableAndCanBuild(ref tileEntity, ref secondTileEntity, ref thirdTileEntity))
                 {
                     PutGunCube(Vector2.zero, tileEntity, secondTileEntity, thirdTileEntity);
@@ -277,7 +279,7 @@ namespace ECS.Game.Systems.GameCycle
             if (pos.x == 1)
                 return pos.y == 0;
 
-            var leftTileEntity = FindTile(new Vector2Int(pos.x - 1, pos.y));
+            var leftTileEntity = _tiles.FindTile(new Vector2Int(pos.x - 1, pos.y));
             return pos.x > 1 && NextTileNotUnderCurrentCube(ref leftTileEntity, ref _holded.GetEntity(0));
         }
 
@@ -290,11 +292,15 @@ namespace ECS.Game.Systems.GameCycle
         private void PutGunCube(Vector2 offset, params EcsEntity[] tileEntities)
         {
             ref EcsEntity gunCubeEntity = ref _holded.GetEntity(0);
-            if (gunCubeEntity.Has<OnPlaceComponent>())
+            if (gunCubeEntity.Has<InPlaceComponent>())
                 DropTilesInUse();
             foreach (var tileEntity in tileEntities)
+            {
                 tileEntity.Get<InUseComponent>().User = gunCubeEntity.Get<UIdComponent>().Value;
-            gunCubeEntity.Get<OnPlaceComponent>();
+                tileEntity.Get<InUseComponent>().Type = gunCubeEntity.Get<GunCubeComponent>().Type;
+            }
+            gunCubeEntity.Get<InPlaceComponent>();
+            gunCubeEntity.Get<GunCubeUpdateEventComponent>();
             gunCubeEntity.Get<PositionComponent>().Value = new Vector3(
                 tileEntities[0].Get<LinkComponent>().View.Transform.position.x + offset.x
                 , _holded.Get4(0).Value.y
@@ -304,9 +310,10 @@ namespace ECS.Game.Systems.GameCycle
         private void SetDefaultPosition()
         {
             _holded.Get2(0).Value = _holded.Get4(0).Value;
-            if (_holded.GetEntity(0).Has<OnPlaceComponent>())
+            if (_holded.GetEntity(0).Has<InPlaceComponent>())
                 DropTilesInUse();
-            _holded.GetEntity(0).Del<OnPlaceComponent>();
+            _holded.GetEntity(0).Del<InPlaceComponent>();
+            _holded.GetEntity(0).Get<GunCubeUpdateEventComponent>();
         }
 
         private void DropTilesInUse()
@@ -314,19 +321,6 @@ namespace ECS.Game.Systems.GameCycle
             foreach (var i in _tilesInUse)
                 if (_tilesInUse.Get2(i).User.Equals(_holded.Get3(0).Value))
                     _tilesInUse.GetEntity(i).Del<InUseComponent>();
-        }
-
-        private EcsEntity FindTile(Vector2Int position)
-        {
-            foreach (var i in _tiles)
-            {
-                // ref TileComponent tile = ref _tiles.Get1(i);
-                ref TileComponent tile = ref _tiles.GetEntity(i).Get<TileComponent>();
-                if (tile.Position.x == position.x && tile.Position.y == position.y)
-                    return _tiles.GetEntity(i);
-            }
-
-            throw new ArgumentOutOfRangeException();
         }
     }
 }

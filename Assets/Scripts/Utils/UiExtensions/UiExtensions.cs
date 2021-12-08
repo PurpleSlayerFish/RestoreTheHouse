@@ -2,6 +2,7 @@
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using Runtime.Signals;
 using Runtime.UI.QuitConcentPopUp;
 using Signals;
 using SimpleUi.Signals;
