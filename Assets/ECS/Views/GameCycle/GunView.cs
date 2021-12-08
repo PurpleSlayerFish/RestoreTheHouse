@@ -13,6 +13,9 @@ namespace ECS.Views.GameCycle
     {
         [Inject] private readonly SignalBus _signalBus;
         [SerializeField] private TMP_Text _workshopDpsValue;
+        [SerializeField] private TMP_Text _onGunDpsValue;
+        [SerializeField] private Transform _gunHandle;
+        [SerializeField] private Transform _gunClip;
 
         public override void Link(EcsEntity entity)
         {

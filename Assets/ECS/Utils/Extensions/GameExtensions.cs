@@ -88,9 +88,9 @@ namespace ECS.Utils.Extensions
             entity.Get<UIdComponent>().Value = UidGenerator.Next();
             entity.Get<LinkComponent>().View = gunView;
             entity.Get<GunComponent>();
+            entity.Get<IsShootingComponent>();
             entity.Get<GunCubeUpdateEventComponent>();
         }
-        
         
         public static EcsEntity CreateProjectileLauncher(this EcsWorld world)
         {
@@ -99,6 +99,16 @@ namespace ECS.Utils.Extensions
             entity.Get<PositionComponent>();
             entity.GetAndFire<PrefabComponent>().Value = "ProjectileLauncher";
             entity.GetAndFire<ProjectileLauncherComponent>();
+            return entity;
+        }
+        
+        public static EcsEntity CreateProjectile(this EcsWorld world)
+        {
+            var entity = world.NewEntity();
+            entity.Get<UIdComponent>().Value = UidGenerator.Next();
+            entity.Get<PositionComponent>();
+            entity.GetAndFire<PrefabComponent>().Value = "Projectile";
+            entity.Get<ProjectileComponent>();
             return entity;
         }
     }

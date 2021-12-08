@@ -1,8 +1,5 @@
 ﻿// ReSharper disable FieldCanBeMadeReadOnly.Global
 
-using ECS.Game.Components.Flags;
-using UnityEngine;
-
 namespace Runtime.Services.CommonPlayerData.Data
 {
     public class CommonPlayerData
@@ -16,7 +13,7 @@ namespace Runtime.Services.CommonPlayerData.Data
         {
             Level = EScene.Level_1;
             Coins = 0;
-            FireRate = 1;
+            FireRate = 1f;
             // TileProgression = 9;
             TileProgression = 38;
         }

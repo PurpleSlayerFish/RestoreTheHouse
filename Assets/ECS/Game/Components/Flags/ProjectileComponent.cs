@@ -2,7 +2,8 @@
 
 namespace ECS.Game.Components.Flags
 {
-    public struct InPlaceComponent : IEcsIgnoreInFilter
+    public struct ProjectileComponent
     {
+        public float Speed;
     }
 }
