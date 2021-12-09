@@ -65,7 +65,7 @@ namespace ECS.Game.Systems.GameCycle
                 }
                 // _gun.GetEntity(i).Del<IsShootingComponent>();
                 (_gun.Get2(i).View as GunView).SetCombatProjectileDeathDistance();
-                (entity.Get<LinkComponent>().View as PlayerView).SetInRoot(_gun.Get2(i).View.Transform);
+                (entity.Get<LinkComponent>().View as PlayerView).PickupGun(_gun.Get2(i).View.Transform);
             }
         }
 

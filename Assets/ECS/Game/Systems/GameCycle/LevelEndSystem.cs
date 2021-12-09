@@ -30,13 +30,13 @@ namespace ECS.Game.Systems.GameCycle
             if (gameStage == EGameStage.Lose)
             {
                 _signalBus.OpenWindow<GameOverWindow>();
-                (_player.Get2(0).View as PlayerView)?.InitLevelLose();
+                // (_player.Get2(0).View as PlayerView)?.InitLevelLose();
                 disable = true;
             }
             if (gameStage == EGameStage.Complete)
             {
                 _signalBus.OpenWindow<LevelCompleteWindow>();
-                (_player.Get2(0).View as PlayerView)?.InitLevelComplete();
+                // (_player.Get2(0).View as PlayerView)?.InitLevelComplete();
                 disable = true;
             }
         }
