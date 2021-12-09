@@ -89,6 +89,7 @@ namespace ECS.Utils.Extensions
             entity.Get<LinkComponent>().View = gunView;
             entity.Get<GunComponent>();
             entity.Get<IsShootingComponent>();
+            entity.Get<ProjectileDeathZoneComponent>();
             entity.Get<GunCubeUpdateEventComponent>();
         }
         

@@ -2,8 +2,7 @@
 
 namespace ECS.Game.Components.Events
 {
-    public struct SharkCollisionComponent : IEcsIgnoreInFilter
+    public struct SendToPoolComponent : IEcsIgnoreInFilter
     {
-        
     }
 }

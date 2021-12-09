@@ -24,26 +24,24 @@ namespace ECS.Views.GameCycle
         [Inject] private readonly ICommonPlayerDataService<CommonPlayerData> _commonPlayerData;
         [HideInInspector] public bool IsPathComplete;
         
+        [SerializeField] private Transform _gunRoot;
         [SerializeField] private float _speed = 6f;
-        private const int Idle = 0;
-        private int _stage = Idle;
-        private float _animationOffset = 0;
+        private readonly Quaternion _afterRootMapping = Quaternion.Euler(0, -90, 0);
         private float _slowedSpeed;
         private float _currentSpeed;
 
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
-            // _signalBus.GetStream<SignalPlayerAnimation>().Subscribe(_ =>
-            // {
-            //     _stage = Swim;
-            //     foreach (var piranhaView in _piranhas)
-            //         piranhaView.SetAnimation(_stage);
-            // }).AddTo(this);
-            // entity.Get<ImpactComponent>().Value = _commonPlayerData.GetData().PiranhasProgression;
-            // _piranhas = new LinkedList<PiranhaView>();
             _slowedSpeed = _speed * 0.75f;
             _currentSpeed = _speed;
+        }
+        
+        public void SetInRoot(Transform transform)
+        {
+            transform.SetParent(_gunRoot);
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = _afterRootMapping;
         }
 
         public void InitLevelLose()

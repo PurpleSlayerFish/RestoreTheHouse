@@ -16,7 +16,6 @@ namespace ECS.Utils.Extensions
                 if (tile.Position.x == position.x && tile.Position.y == position.y)
                     return filter.GetEntity(i);
             }
-
             throw new ArgumentOutOfRangeException();
         }
         
@@ -25,11 +24,9 @@ namespace ECS.Utils.Extensions
             foreach (var i in filter)
             {
                 ref var tile = ref filter.Get1(i);
-                // ref TileComponent tile = ref filter.GetEntity(i).Get<TileComponent>();
                 if (tile.Position.x == position.x && tile.Position.y == position.y)
                     return filter.GetEntity(i);
             }
-
             throw new ArgumentOutOfRangeException();
         }
     }

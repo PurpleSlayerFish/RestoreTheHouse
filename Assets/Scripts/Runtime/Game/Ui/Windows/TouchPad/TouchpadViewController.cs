@@ -45,8 +45,8 @@ namespace Runtime.Game.Ui.Windows.TouchPad
 			if(!_active)
 				return;
 			_world.NewEntity().Get<PointerDownComponent>().Position = data.position;
-			var entity = _world.GetEntity<PlayerInWorkshopComponent>();
-			entity.GetAndFire<RemapPointComponent>().Input = data.pointerCurrentRaycast.worldPosition;
+			// var entity = _world.GetEntity<PlayerInWorkshopComponent>();
+			// entity.GetAndFire<RemapPointComponent>().Input = data.pointerCurrentRaycast.worldPosition;
 		}
 
 		private void OnPointerUpAction(PointerEventData data)

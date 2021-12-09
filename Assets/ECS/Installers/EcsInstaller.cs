@@ -34,6 +34,7 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<ProjectileLauncherInitSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ShootingSystem>().AsSingle();
             
+            Container.BindInterfacesAndSelfTo<PlayerInitSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerForwardMovementSystem>().AsSingle();
             // Container.BindInterfacesAndSelfTo<PlayerHorizontalMovementSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<MoveRotateToTargetSystem>().AsSingle();
@@ -43,6 +44,7 @@ namespace ECS.Installers
             
             
             Container.BindInterfacesAndSelfTo<AddImpactToPlayerSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ProjectileDeathSystem>().AsSingle();
             
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GamePauseSystem>().AsSingle();

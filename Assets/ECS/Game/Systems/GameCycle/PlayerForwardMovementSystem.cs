@@ -31,7 +31,7 @@ namespace ECS.Game.Systems.GameCycle
                 var nextPathPoint = GetNextPathPoint(playerPos);
                 if (nextPathPoint == Vector3.zero)
                 {
-                    InitPathComplete();
+                    // InitPathComplete();
                     return;
                 }
             
