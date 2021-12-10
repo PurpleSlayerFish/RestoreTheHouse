@@ -7,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GradientSkybox
-  m_Shader: {fileID: 4800000, guid: 7de8db654d5d36b41bb152c819f2494b, type: 3}
+  m_Name: UnlockedTile
+  m_Shader: {fileID: 4800000, guid: 3059bf36baa25e94e98eb92da689f505, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -67,17 +67,16 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Screenspace: 0
+    - _ShadowSoftness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - _mult: 2
-    - _pwer: 2
     m_Colors:
-    - _Bottom: {r: 0.34637845, g: 0.32039997, b: 0.801, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Top: {r: 0.75746274, g: 0.748176, b: 0.872, a: 1}
+    - _FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _MainColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    - _ShadowColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_BuildTextureStacks: []

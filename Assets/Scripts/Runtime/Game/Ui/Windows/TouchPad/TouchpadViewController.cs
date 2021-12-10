@@ -21,7 +21,6 @@ namespace Runtime.Game.Ui.Windows.TouchPad
 		public TouchpadViewController(EcsWorld world)
 		{
 			_world = world;
-			
 		}
 		public void Initialize()
 		{

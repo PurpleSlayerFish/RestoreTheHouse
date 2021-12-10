@@ -31,6 +31,7 @@ namespace ECS.Utils.Extensions
             entity.Get<PositionComponent>();
             entity.Get<RotationComponent>().Value = Quaternion.identity;
             entity.Get<ImpactComponent>().Value = 0;
+            entity.Get<SpeedComponent>();
             entity.GetAndFire<PrefabComponent>().Value = "Player";
             entity.GetAndFire<PlayerComponent>();
         }
@@ -46,8 +47,17 @@ namespace ECS.Utils.Extensions
                 entity.Get<PathPointComponent>();
                 entity.Get<PositionComponent>().Value = p.position;
                 entity.Get<RotationComponent>().Value = p.rotation;
-                if (p.TryGetComponent<RotatePoint>(out var component))
-                    entity.Get<RotationDirectionComponent>().Value = component.RotateDirection;
+                if (p.TryGetComponent<RotatePointView>(out var rotatePoint))
+                {
+                    entity.Get<RotationDirectionComponent>().Direction = rotatePoint.Direction;
+                    entity.Get<SpeedComponent>().Value = rotatePoint.RotationSpeed;
+                }
+
+                if (p.TryGetComponent<StopPointView>(out var stopPoint))
+                {
+                    stopPoint.Link(entity);
+                    entity.Get<CombatPointComponent>();
+                }
             }
         }
 
@@ -108,9 +118,27 @@ namespace ECS.Utils.Extensions
             var entity = world.NewEntity();
             entity.Get<UIdComponent>().Value = UidGenerator.Next();
             entity.Get<PositionComponent>();
-            entity.GetAndFire<PrefabComponent>().Value = "Projectile";
             entity.Get<ProjectileComponent>();
+            entity.Get<SpeedComponent>();
+            entity.GetAndFire<PrefabComponent>().Value = "Projectile";
             return entity;
+        }
+        
+        public static void CreateEnemies(this EcsWorld world)
+        {
+            var enemies = Object.FindObjectsOfType<EnemyView>();
+            foreach (var link in enemies)
+            {
+                var entity = world.NewEntity();
+                entity.Get<UIdComponent>().Value = UidGenerator.Next();
+                entity.Get<PositionComponent>();
+                entity.Get<RotationComponent>();
+                entity.Get<EnemyComponent>();
+                entity.Get<SpeedComponent>();
+                entity.Get<UidLinkComponent>();
+                entity.Get<LinkComponent>().View = link;
+                link.Link(entity);
+            }
         }
     }
 }

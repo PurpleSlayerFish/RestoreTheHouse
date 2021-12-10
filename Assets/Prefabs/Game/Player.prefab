@@ -44,10 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615805ce29a64e7cb388f3119f7bab2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPathComplete: 0
   _root: {fileID: 7814127946430521187}
   _gunPlace: {fileID: 7058268958315868102}
-  _speed: 12
+  _movementSpeed: 16
+  _rotationLimitUp: 30
+  _rotationLimitDown: -20
+  _rotationLimitRight: 25
+  _rotationLimitLeft: -25
 --- !u!1 &6013566737248798831
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +105,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8689569150600186358}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 685427862590851627}

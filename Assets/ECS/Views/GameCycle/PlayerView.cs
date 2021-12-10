@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
 using Runtime.Services.CommonPlayerData;
@@ -12,42 +13,35 @@ namespace ECS.Views.GameCycle
     public class PlayerView : LinkableView
     {
         [Inject] private readonly ICommonPlayerDataService<CommonPlayerData> _commonPlayerData;
-        [HideInInspector] public bool IsPathComplete;
         
         [SerializeField] private Transform _root;
         [SerializeField] private Transform _gunPlace;
-        [SerializeField] private float _speed = 6f;
+        [SerializeField] private float _movementSpeed = 16f;
         [SerializeField] private float _rotationLimitUp = 30f;
         [SerializeField] private float _rotationLimitDown = -20f;
         [SerializeField] private float _rotationLimitRight = 25f;
         [SerializeField] private float _rotationLimitLeft = -25f;
         
         private readonly Quaternion _afterRootMapping = Quaternion.Euler(0, -90, 0);
-        private float _slowedSpeed;
-        private float _currentSpeed;
+        private bool _isPathComplete;
 
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
-            _slowedSpeed = _speed * 0.75f;
-            _currentSpeed = _speed;
+            _isPathComplete = false;
+            entity.Get<SpeedComponent>().Value = _movementSpeed;
         }
         
-        public void PickupGun(Transform transform)
+        public void PickupGun(Transform gun)
         {
-            transform.SetParent(_gunPlace);
-            transform.localPosition = Vector3.zero;
-            transform.localRotation = _afterRootMapping;
+            gun.SetParent(_gunPlace);
+            gun.localPosition = Vector3.zero;
+            gun.localRotation = _afterRootMapping;
         }
 
         public void RestoreSpeed()
         {
-            _currentSpeed = _speed;
-        }
-
-        public ref float GetCurrentSpeed()
-        {
-            return ref _currentSpeed ;
+            Entity.Get<SpeedComponent>().Value = _movementSpeed;
         }
 
         public ref Transform GetRoot()

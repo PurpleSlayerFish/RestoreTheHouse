@@ -19,10 +19,11 @@ namespace ECS.Game.Systems.Linked
             if (LoadGame()) return;
             CreateTimer();
             CreatePlayer();
-            CreatePath();
             CreateTiles();
             CreateGunCubes();
             CreateGun();
+            CreatePath();
+            CreateEnemies();
         }
         private bool LoadGame()
         {
@@ -68,6 +69,11 @@ namespace ECS.Game.Systems.Linked
         private void CreateGun()
         {
             _world.CreateGun();
+        }
+
+        private void CreateEnemies()
+        {
+            _world.CreateEnemies();
         }
     }
 }

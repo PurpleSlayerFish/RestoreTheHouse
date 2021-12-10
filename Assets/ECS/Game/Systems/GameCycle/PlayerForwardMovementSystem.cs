@@ -1,11 +1,10 @@
 ﻿using DataBase.Game;
+using ECS.Core.Utils.ReactiveSystem.Components;
 using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
-using ECS.Game.Components.Events;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
-using ECS.Utils.Impls;
-using ECS.Views.GameCycle;
+using ECS.Utils.Extensions;
 using Leopotam.Ecs;
 using UnityEngine;
 
@@ -13,14 +12,16 @@ namespace ECS.Game.Systems.GameCycle
 {
     public class PlayerForwardMovementSystem : IEcsUpdateSystem
     {
-        private readonly EcsFilter<PlayerComponent, PositionComponent, RotationComponent, LinkComponent, ImpactComponent> _player;
+#pragma warning disable 649
+        private readonly EcsFilter<PlayerComponent, PositionComponent, RotationComponent, SpeedComponent> _player;
         private readonly EcsFilter<GameStageComponent> _gameStage;
-        private readonly EcsFilter<PathPointComponent, PositionComponent, RotationComponent> _pathPoints;
+        private readonly EcsFilter<PathPointComponent, PositionComponent, RotationComponent, UIdComponent> _pathPoints;
+#pragma warning restore 649
+
         public void Run()
         {
             if(_gameStage.Get1(0).Value != EGameStage.Play) return;
-
-
+            
             foreach (var i in _player)
             {
                 var entity = _player.GetEntity(i);
@@ -34,10 +35,9 @@ namespace ECS.Game.Systems.GameCycle
                     // InitPathComplete();
                     return;
                 }
-            
                 ref var targetPos = ref entity.Get<TargetPositionComponent>();
                 targetPos.Value = nextPathPoint;
-                targetPos.Speed = (_player.Get4(i).View as PlayerView).GetCurrentSpeed(); 
+                targetPos.Speed = _player.Get4(i).Value;
             }
         }
 
@@ -54,36 +54,27 @@ namespace ECS.Game.Systems.GameCycle
                     var playerEntity = _player.GetEntity(0);
                     if (_pathPoints.GetEntity(i).Has<RotationDirectionComponent>())
                     {
-                        var playerRot = _player.Get3(0).Value;
+                        ref var playerRot = ref _player.Get3(0).Value;
                         ref var targetRot = ref playerEntity.Get<TargetRotationComponent>();
-                        var yaw = _pathPoints.GetEntity(i).Get<RotationDirectionComponent>().Value switch {
-                            ERotateDirection.Left => -90,
-                            ERotateDirection.Right => 90,
-                            _ => 0
-                        };
-                        targetRot.Value = Quaternion.Euler(playerRot.eulerAngles.x, Mathf.RoundToInt(playerRot.eulerAngles.y + yaw), playerRot.eulerAngles.z);
-                        targetRot.Speed = 360  * 0.15f;
+                        ref var direction = ref _pathPoints.GetEntity(i).Get<RotationDirectionComponent>().Direction;
+                        targetRot.Value = Quaternion.Euler(playerRot.eulerAngles.x + direction.x, playerRot.eulerAngles.y + direction.y, playerRot.eulerAngles.z + direction.z);
+                        targetRot.Speed = _pathPoints.GetEntity(i).Get<SpeedComponent>().Value;
                     }
-                    _pathPoints.GetEntity(i).Destroy();
+
+                    if (_pathPoints.GetEntity(i).Has<CombatPointComponent>())
+                    {
+                        _player.GetEntity(0).Get<InCombatComponent>().PathPoint = _pathPoints.Get4(i).Value;
+                        _player.GetEntity(0).Get<EventAddComponent<InCombatComponent>>();
+                    }
+
+                    _pathPoints.GetEntity(i).Get<IsDestroyedComponent>();
                     continue;
                 }
                 if (!(distance < minDistance)) continue;
                 minDistance = distance;
                 closestPoint = pos;
-
             }
             return closestPoint;
         }
-        
-        
-        public void InitPathComplete()
-        {
-            if (_player.Get5(0).Value < 0)
-                _gameStage.GetEntity(0).Get<ChangeStageComponent>().Value = EGameStage.Lose;
-            else
-                _gameStage.GetEntity(0).Get<ChangeStageComponent>().Value = EGameStage.Complete;
-            (_player.Get4(0).View as PlayerView).IsPathComplete = true;
-        }
-
     }
 }

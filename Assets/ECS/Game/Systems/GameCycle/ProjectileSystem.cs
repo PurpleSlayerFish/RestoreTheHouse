@@ -15,7 +15,7 @@ namespace ECS.Game.Systems.GameCycle
         private EcsWorld _world;
         private EcsFilter<ProjectileLauncherComponent> _launchers;
         private EcsFilter<GunComponent, LinkComponent> _gun;
-        private EcsFilter<ProjectileComponent, PositionComponent> _projectiles;
+        private EcsFilter<ProjectileComponent, PositionComponent, SpeedComponent> _projectiles;
         private float _time = Time.realtimeSinceStartup;
         private float _elapsedTime = Time.realtimeSinceStartup;
 #pragma warning restore 649
@@ -40,7 +40,7 @@ namespace ECS.Game.Systems.GameCycle
             foreach (var i in _projectiles)
             {
                 _projectiles.Get2(i).Value +=
-                    _projectiles.Get1(i).Direction * _projectiles.Get1(i).Speed * _elapsedTime;
+                    _projectiles.Get1(i).Direction * _projectiles.Get3(i).Value * _elapsedTime;
             }
         }
 

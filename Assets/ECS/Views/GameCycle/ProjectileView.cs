@@ -1,4 +1,5 @@
 ﻿using ECS.Game.Components.Flags;
+using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace ECS.Views.GameCycle
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
-            entity.Get<ProjectileComponent>().Speed = _speed;
+            entity.Get<SpeedComponent>().Value = _speed;
         }
     }
 }

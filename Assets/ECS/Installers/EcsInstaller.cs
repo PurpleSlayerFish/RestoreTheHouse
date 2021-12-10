@@ -37,12 +37,11 @@ namespace ECS.Installers
             
             Container.BindInterfacesAndSelfTo<PlayerInitSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerForwardMovementSystem>().AsSingle();
-            // Container.BindInterfacesAndSelfTo<PlayerHorizontalMovementSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<MoveRotateToTargetSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<TileInitSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<WorkshopDragAndDropSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GunFireRateSystem>().AsSingle();
-            
+            Container.BindInterfacesAndSelfTo<PlayerInCombatSystem>().AsSingle();
             
             Container.BindInterfacesAndSelfTo<AddImpactToPlayerSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileDeathSystem>().AsSingle();

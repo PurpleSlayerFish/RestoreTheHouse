@@ -23,6 +23,7 @@ namespace ECS.Game.Systems.GameCycle
         private EcsFilter<ProjectileComponent> _projectiles;
         private EcsFilter<GunComponent, LinkComponent> _gun;
         private EcsFilter<GunCubeComponent, LinkComponent, InPlaceComponent> _gunCubes;
+        private EcsFilter<GunCubeComponent, LinkComponent> _gunCubesToDestroy;
 #pragma warning restore 649
 
         private const string PlayerStart = "PlayerStart";
@@ -63,10 +64,14 @@ namespace ECS.Game.Systems.GameCycle
                     _gunCubes.GetEntity(j).Del<PositionComponent>();
                     _gunCubes.Get2(j).View.Transform.SetParent(_gun.Get2(i).View.Transform);
                 }
-                // _gun.GetEntity(i).Del<IsShootingComponent>();
+                _gun.GetEntity(i).Del<IsShootingComponent>();
                 (_gun.Get2(i).View as GunView).SetCombatProjectileDeathDistance();
                 (entity.Get<LinkComponent>().View as PlayerView).PickupGun(_gun.Get2(i).View.Transform);
             }
+
+            foreach (var i in _gunCubesToDestroy)
+                if (!_gunCubesToDestroy.GetEntity(i).Has<InPlaceComponent>())
+                    _gunCubesToDestroy.GetEntity(i).Get<IsDestroyedComponent>();
         }
 
         private void InitLevelData(ref EcsEntity entity)

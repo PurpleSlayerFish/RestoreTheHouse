@@ -2,7 +2,7 @@
 
 namespace ECS.Game.Components.GameCycle
 {
-    public struct RotationDirectionComponent
+    public struct ProjectileComponent
     {
         public Vector3 Direction;
     }
