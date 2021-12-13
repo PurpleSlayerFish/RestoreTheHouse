@@ -17,10 +17,11 @@ namespace ECS.Game.Systems.GameCycle
     public class PlayerInitSystem : ReactiveSystem<EventAddComponent<PlayerComponent>>
     {
         [Inject] private ScreenVariables _screenVariables;
-        
+
 #pragma warning disable 649
         private EcsFilter<PlayerInWorkshopComponent, LinkComponent> _playerInWorkhsop;
         private EcsFilter<ProjectileComponent> _projectiles;
+        private EcsFilter<ProjectileLauncherComponent> _projectileLaunchers;
         private EcsFilter<GunComponent, LinkComponent> _gun;
         private EcsFilter<GunCubeComponent, LinkComponent, InPlaceComponent> _gunCubes;
         private EcsFilter<GunCubeComponent, LinkComponent> _gunCubesToDestroy;
@@ -39,7 +40,7 @@ namespace ECS.Game.Systems.GameCycle
             SetupCurrentCamera();
             RebuildGun(ref entity);
         }
-        
+
         private void DestroyAllProjectiles()
         {
             foreach (var i in _projectiles)
@@ -59,14 +60,25 @@ namespace ECS.Game.Systems.GameCycle
         {
             foreach (var i in _gun)
             {
+                var view = _gun.Get2(i).View as GunView;
                 foreach (var j in _gunCubes)
                 {
                     _gunCubes.GetEntity(j).Del<PositionComponent>();
-                    _gunCubes.Get2(j).View.Transform.SetParent(_gun.Get2(i).View.Transform);
+                    _gunCubes.Get2(j).View.Transform.SetParent(view.GetRotationRoot());
+                    _gunCubes.Get2(j).View.Transform.GetComponent<Collider>().enabled = false;
                 }
+
                 _gun.GetEntity(i).Del<IsShootingComponent>();
-                (_gun.Get2(i).View as GunView).SetCombatProjectileDeathDistance();
+                view.SetCombatProjectileDeathDistance();
                 (entity.Get<LinkComponent>().View as PlayerView).PickupGun(_gun.Get2(i).View.Transform);
+
+                if (view.GetHeavyStageCondition() <= _gun.Get1(i).TotalFireRate)
+                {
+                    _gun.GetEntity(i).Get<IsHeavyComponent>();
+                    view.SetHeavyStage();
+                    foreach (var j in _projectileLaunchers)
+                        _projectileLaunchers.Get1(j).FireRate *= 2;
+                }
             }
 
             foreach (var i in _gunCubesToDestroy)

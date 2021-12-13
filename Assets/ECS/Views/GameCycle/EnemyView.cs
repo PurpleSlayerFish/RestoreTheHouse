@@ -1,4 +1,7 @@
-﻿using ECS.Game.Components;
+﻿using System;
+using DG.Tweening;
+using ECS.Game.Components;
+using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
@@ -10,16 +13,20 @@ namespace ECS.Views.GameCycle
     public class EnemyView : LinkableView
     {
         [SerializeField] private Animator _animator;
+        [SerializeField] private Collider _collider;
         [SerializeField] private TMP_Text _hpIndicator;
         [SerializeField] private StopPointView _activator;
         [SerializeField] private float _movementSpeed = 16f;
         [SerializeField] private int _health = 2;
+        [SerializeField] private float _staggerDuration = 0.9f;
+        [SerializeField] private int _rewardHitsCount = 2;
 
-        private int Attack = -1;
+        private int Walk = -1;
         private int Death = -2;
         private int Hit = -3;
+        private int _lastAnim;
         private static readonly int Stage = Animator.StringToHash("Stage");
-
+        private int _currentRewardHits = 0;
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
@@ -33,22 +40,49 @@ namespace ECS.Views.GameCycle
 
         public void SetAttackAnim()
         {
-            _animator.SetInteger(Stage, Attack);
+            _animator.SetInteger(Stage, Walk);
         }
 
         public void InitHit()
         {
             Entity.Get<HealthPointComponent>().Value--;
+            UpdateHp();
             if (Entity.Get<HealthPointComponent>().Value <= 0)
                 InitDeath();
             else
-                UpdateHp();
+            {
+                Entity.Get<SpeedComponent>().Value = 0;
+                _lastAnim = _animator.GetInteger(Stage);
+                _animator.SetInteger(Stage, Hit);
+                Transform.DOMove(Vector3.zero, _staggerDuration).SetRelative(true).SetEase(Ease.Unset).OnComplete(() =>
+                {
+                    Entity.Get<SpeedComponent>().Value = _movementSpeed;
+                    _animator.SetInteger(Stage, _lastAnim);
+                });
+                
+            }
         }
+
+        private void UpdateRewardHits()
+        {
+            _currentRewardHits++;
+            if (_currentRewardHits >= _rewardHitsCount)
+            {
+                _currentRewardHits = 0;
+                
+            }
+        }
+        // private void SpawnRewar
 
         private void InitDeath()
         {
             _animator.SetInteger(Stage, Death);
             Entity.Del<TargetPositionComponent>();
+            _collider.enabled = false;
+            Sequence seq = DOTween.Sequence();
+            seq.Append(Transform.DOMove(Vector3.zero, 1.3f).SetRelative(true).SetEase(Ease.Unset));
+            seq.Append(Transform.DOMove(Vector3.down, 0.7f).SetRelative(true).SetEase(Ease.Unset));
+            seq.OnComplete(() => Entity.Get<IsDestroyedComponent>());
         }
         
         private void UpdateHp()

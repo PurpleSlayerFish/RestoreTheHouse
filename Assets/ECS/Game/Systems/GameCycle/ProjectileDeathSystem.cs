@@ -2,8 +2,8 @@
 using DataBase.Game;
 using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
+using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
-using ECS.Views.GameCycle;
 using Leopotam.Ecs;
 using UnityEngine;
 
@@ -27,7 +27,7 @@ namespace ECS.Game.Systems.GameCycle
                 {
                     if (Vector3.Distance(_gun.Get2(j).View.Transform.position, _projectiles.Get2(i).Value) >
                         _gun.Get3(j).Distance)
-                        (_projectiles.Get3(i).View as ProjectileView).Impact();
+                        _projectiles.GetEntity(i).Get<IsDestroyedComponent>();
                 }
             }
         }

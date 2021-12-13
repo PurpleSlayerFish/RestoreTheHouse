@@ -26,7 +26,7 @@ namespace Runtime.Game.Ui.Windows.StartToPlay
         
         public TMP_Text TotalMeat;
 
-        private Color grey = new Color(0.85f, 0.85f, 0.85f, 1f);
+        // private Color grey = new Color(0.85f, 0.85f, 0.85f, 1f);
 
         public void UpdateUi(CommonPlayerData playerData, int price, int maxProgression, int meatForEachProgression)
         {
@@ -34,13 +34,13 @@ namespace Runtime.Game.Ui.Windows.StartToPlay
             
             if (price > playerData.Coins)
             {
-                PiranhaBackImg.color = grey;
-                MeatBackImg.color = grey;
+                // PiranhaBackImg.color = grey;
+                // MeatBackImg.color = grey;
             }
             else
             {
-                PiranhaBackImg.color = Color.white;
-                MeatBackImg.color = Color.white;
+                // PiranhaBackImg.color = Color.white;
+                // MeatBackImg.color = Color.white;
             }
             
             // if (playerData.PiranhasProgression < maxProgression)

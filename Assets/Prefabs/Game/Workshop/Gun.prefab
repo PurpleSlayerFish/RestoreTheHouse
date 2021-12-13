@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1632137267998970606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8277903583138557560}
+  m_Layer: 0
+  m_Name: RotationRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8277903583138557560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632137267998970606}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1189440302064785275}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2479236758704149600
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +89,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1307898630434425158, guid: c9155afe1b734424990318790c3d2ca6, type: 3}
+  - {fileID: 2100000, guid: 41305cb0cb0d97245a9a9e1ae47b9f0d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +139,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.069017, y: 0.9497741, z: 0.0015185475}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8277903583138557560}
   m_Father: {fileID: 5697160486749922065}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -140,7 +171,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1307898630434425158, guid: c9155afe1b734424990318790c3d2ca6, type: 3}
+  - {fileID: 2100000, guid: 41305cb0cb0d97245a9a9e1ae47b9f0d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -213,9 +244,13 @@ MonoBehaviour:
   _onGunDpsValue: {fileID: 0}
   _gunHandle: {fileID: 8849889045800484897}
   _gunClip: {fileID: 4350842824164576904}
+  _rotationRoot: {fileID: 8277903583138557560}
   _directionFrom: {fileID: 5850912950631946775}
   _workshopProjectileDeathDistance: 10
   _combatProjectileDeathDistance: 200
+  _heavyStageCondition: 25
+  _heavyStageRotationSpeed: 2
+  _heavyStageDampingSpeed: 3
 --- !u!1 &5850912950631946774
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +340,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1307898630434425158, guid: c9155afe1b734424990318790c3d2ca6, type: 3}
+  - {fileID: 2100000, guid: 41305cb0cb0d97245a9a9e1ae47b9f0d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

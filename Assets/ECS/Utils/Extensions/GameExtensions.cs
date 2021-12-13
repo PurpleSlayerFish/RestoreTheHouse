@@ -110,6 +110,8 @@ namespace ECS.Utils.Extensions
             entity.Get<PositionComponent>();
             entity.GetAndFire<PrefabComponent>().Value = "ProjectileLauncher";
             entity.GetAndFire<ProjectileLauncherComponent>();
+            entity.Get<ElapsedTimeComponent>();
+            entity.Get<ConditionComponent<ElapsedTimeComponent>>();
             return entity;
         }
         

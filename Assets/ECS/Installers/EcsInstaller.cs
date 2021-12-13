@@ -20,7 +20,6 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<EcsWorld>().AsSingle().NonLazy();
             BindSystems();
             Container.BindInterfacesTo<EcsMainBootstrap>().AsSingle();
-
         }
 
         private void BindSystems()
@@ -29,6 +28,7 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<GameInitializeSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<InstantiateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameTimerSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ElapsedTimeSystem>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<PositionRotationTranslateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileLauncherInitSystem>().AsSingle();

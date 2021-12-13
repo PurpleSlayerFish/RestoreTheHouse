@@ -224,10 +224,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 2217398403194882468}
+  _renderer: {fileID: 5026072262472205081}
+  _collider: {fileID: 3030387297468227514}
   _hpIndicator: {fileID: 3419800993518022791}
   _activator: {fileID: 0}
   _movementSpeed: 16
-  _health: 2
+  _health: 3
+  _staggerDuration: 0.9
 --- !u!136 &3030387297468227514
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -768,7 +771,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41305cb0cb0d97245a9a9e1ae47b9f0d, type: 2}
+  - {fileID: 2100000, guid: 207e72e557a902e4cab189b050d598a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

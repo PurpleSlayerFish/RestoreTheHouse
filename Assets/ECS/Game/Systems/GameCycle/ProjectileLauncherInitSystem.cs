@@ -3,11 +3,13 @@ using ECS.Core.Utils.ReactiveSystem;
 using ECS.Core.Utils.ReactiveSystem.Components;
 using ECS.Game.Components;
 using ECS.Game.Components.GameCycle;
+using ECS.Views.GameCycle;
 using Leopotam.Ecs;
 
 namespace ECS.Game.Systems.GameCycle
 {
     [SuppressMessage("ReSharper", "UnassignedGetOnlyAutoProperty")]
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class ProjectileLauncherInitSystem : ReactiveSystem<EventAddComponent<ProjectileLauncherComponent>>
     {
 #pragma warning disable 649
@@ -20,7 +22,7 @@ namespace ECS.Game.Systems.GameCycle
         protected override void Execute(EcsEntity entity)
         {
             foreach (var i in _gun)
-                entity.Get<LinkComponent>().View.Transform.SetParent(_gun.Get2(i).View.Transform);
+                entity.Get<LinkComponent>().View.Transform.SetParent((_gun.Get2(i).View as GunView).GetRotationRoot());
             entity.Del<PositionComponent>();
         }
     }
