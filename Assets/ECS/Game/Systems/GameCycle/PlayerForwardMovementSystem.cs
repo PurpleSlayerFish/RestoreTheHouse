@@ -4,7 +4,6 @@ using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
-using ECS.Utils.Extensions;
 using Leopotam.Ecs;
 using UnityEngine;
 
@@ -37,7 +36,6 @@ namespace ECS.Game.Systems.GameCycle
                 }
                 ref var targetPos = ref entity.Get<TargetPositionComponent>();
                 targetPos.Value = nextPathPoint;
-                targetPos.Speed = _player.Get4(i).Value;
             }
         }
 

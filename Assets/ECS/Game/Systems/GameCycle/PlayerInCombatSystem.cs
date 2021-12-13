@@ -10,9 +10,12 @@ using Leopotam.Ecs;
 namespace ECS.Game.Systems.GameCycle
 {
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+    [SuppressMessage("ReSharper", "UnassignedGetOnlyAutoProperty")]
     public class PlayerInCombatSystem : ReactiveSystem<EventAddComponent<InCombatComponent>>
     {
+#pragma warning disable 649
         private readonly EcsFilter<EnemyComponent, UidLinkComponent, LinkComponent> _enemies;
+#pragma warning restore 649
         protected override bool DeleteEvent => true;
         protected override EcsFilter<EventAddComponent<InCombatComponent>> ReactiveFilter { get; }
         protected override void Execute(EcsEntity entity)
@@ -26,8 +29,6 @@ namespace ECS.Game.Systems.GameCycle
                 if (_enemies.Get2(i).Link.Equals(entity.Get<InCombatComponent>().PathPoint))
                 {
                     ref var enemy = ref _enemies.GetEntity(i);
-                    // _enemies.GetEntity(i).Get<InCombatComponent>();
-                    enemy.Get<TargetPositionComponent>().Speed = enemy.Get<SpeedComponent>().Value;
                     enemy.Get<TargetPositionComponent>().Value = entity.Get<PositionComponent>().Value;
                     (_enemies.Get3(i).View as EnemyView).SetAttackAnim();
                 }

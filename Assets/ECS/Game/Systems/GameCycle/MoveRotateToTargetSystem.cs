@@ -9,16 +9,18 @@ namespace ECS.Game.Systems.GameCycle
 {
     public class MoveRotateToTargetSystem : IEcsUpdateSystem
     {
-        private readonly EcsFilter<PositionComponent, TargetPositionComponent> _position;
+#pragma warning disable 649
+        private readonly EcsFilter<PositionComponent, TargetPositionComponent, SpeedComponent> _position;
         private readonly EcsFilter<RotationComponent, TargetRotationComponent> _rotation;
         private readonly EcsFilter<GameStageComponent> _gameStage;
+#pragma warning restore 649
         public void Run()
         {
             if(_gameStage.Get1(0).Value != EGameStage.Play) return;
             
             foreach (var i in _position)
             {
-                var speed = _position.Get2(i).Speed;
+                var speed = _position.Get3(i).Value;
                 var target = _position.Get2(i).Value;
                 ref var pos = ref _position.Get1(i).Value;
                 pos = Vector3.MoveTowards(pos, target, Time.deltaTime * speed);

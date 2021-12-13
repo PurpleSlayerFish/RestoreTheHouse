@@ -62,6 +62,8 @@ namespace ECS.Game.Systems.GameCycle
                             _projectile.Get<ProjectileComponent>().Direction =
                                 // ReSharper disable once PossibleNullReferenceException
                                 (_gun.Get2(i).View as GunView).GetDirection();
+                            if (!_world.GetEntity<PlayerInWorkshopComponent>().IsNull())
+                                _projectile.Get<InWorkshopComponent>();
                         }
                     }
         }

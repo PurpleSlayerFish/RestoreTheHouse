@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 377895072916442688}
   - component: {fileID: 377895072916442689}
   - component: {fileID: 377895072916442690}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Step
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 377895072916442748}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 20, y: 1, z: 1}
+  m_LocalScale: {x: 15, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 377895073502883972}
   m_RootOrder: 0
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 377895072977790580}
   - component: {fileID: 377895072977790581}
   - component: {fileID: 377895072977790582}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Step
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ Transform:
   m_GameObject: {fileID: 377895072977790576}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 4, z: 3}
-  m_LocalScale: {x: 20, y: 1, z: 1}
+  m_LocalScale: {x: 15, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 377895073502883972}
   m_RootOrder: 3
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 377895073470268806}
   - component: {fileID: 377895073470268807}
   - component: {fileID: 377895073470268800}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Step
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ Transform:
   m_GameObject: {fileID: 377895073470268802}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 2}
-  m_LocalScale: {x: 20, y: 1, z: 1}
+  m_LocalScale: {x: 15, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 377895073502883972}
   m_RootOrder: 2
@@ -294,7 +294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 377895073502883972}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Ladder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 377895073572251267}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Point (1)
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 377895074364401131}
   - component: {fileID: 377895074364401124}
   - component: {fileID: 377895074364401125}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Step
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ Transform:
   m_GameObject: {fileID: 377895074364401127}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 1}
-  m_LocalScale: {x: 20, y: 1, z: 1}
+  m_LocalScale: {x: 15, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 377895073502883972}
   m_RootOrder: 1
@@ -455,7 +455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 377895074612732998}
   - component: {fileID: 377895074612732997}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8370949933078409621}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Point (2)
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}

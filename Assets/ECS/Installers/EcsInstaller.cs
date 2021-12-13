@@ -32,6 +32,7 @@ namespace ECS.Installers
 
             Container.BindInterfacesAndSelfTo<PositionRotationTranslateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileLauncherInitSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ProjectileCollisionSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerShootingSystem>().AsSingle();
             

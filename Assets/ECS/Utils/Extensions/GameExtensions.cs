@@ -118,9 +118,9 @@ namespace ECS.Utils.Extensions
             var entity = world.NewEntity();
             entity.Get<UIdComponent>().Value = UidGenerator.Next();
             entity.Get<PositionComponent>();
-            entity.Get<ProjectileComponent>();
-            entity.Get<SpeedComponent>();
             entity.GetAndFire<PrefabComponent>().Value = "Projectile";
+            entity.GetAndFire<ProjectileComponent>();
+            entity.Get<SpeedComponent>();
             return entity;
         }
         
@@ -133,9 +133,10 @@ namespace ECS.Utils.Extensions
                 entity.Get<UIdComponent>().Value = UidGenerator.Next();
                 entity.Get<PositionComponent>();
                 entity.Get<RotationComponent>();
-                entity.Get<EnemyComponent>();
                 entity.Get<SpeedComponent>();
+                entity.Get<HealthPointComponent>();
                 entity.Get<UidLinkComponent>();
+                entity.Get<EnemyComponent>();
                 entity.Get<LinkComponent>().View = link;
                 link.Link(entity);
             }

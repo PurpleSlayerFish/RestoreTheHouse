@@ -8,12 +8,27 @@ namespace ECS.Views.GameCycle
 {
     public class ProjectileView : LinkableView
     {
+        [SerializeField] private Collider _collider;
         [SerializeField] private float _speed = 10f;
 
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
-            entity.Get<SpeedComponent>().Value = _speed;
+
+            if (entity.Has<InWorkshopComponent>())
+                entity.Get<SpeedComponent>().Value = _speed / 3;
+            else
+                entity.Get<SpeedComponent>().Value = _speed;
+        }
+
+        public void Impact()
+        {
+            Entity.Get<IsDestroyedComponent>();
+        }
+
+        public ref Collider GetCollider()
+        {
+            return ref _collider;
         }
     }
 }

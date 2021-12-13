@@ -64,7 +64,7 @@ Camera:
   m_Depth: -2
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 791
+    m_Bits: 16151
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -96,6 +96,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6abf44efefa475b9275a7f1827937ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _smoothness: 0.05
-  _overViewTweenDuration: 5
-  _zoomTweenDuration: 2
