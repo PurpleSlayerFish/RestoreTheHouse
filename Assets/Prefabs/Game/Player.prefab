@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _root: {fileID: 7814127946430521187}
   _gunPlace: {fileID: 7058268958315868102}
-  _movementSpeed: 16
+  _movementSpeed: 25
   _rotationLimitUp: 30
   _rotationLimitDown: -20
   _rotationLimitRight: 25

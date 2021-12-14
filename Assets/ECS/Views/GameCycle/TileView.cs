@@ -24,6 +24,12 @@ namespace ECS.Views.GameCycle
             GetComponent<MeshRenderer>().material = material;
             Entity.Get<TileComponent>().IsLock = true;
         }
+        
+        public void SetUnlocked(ref Material material)
+        {
+            GetComponent<MeshRenderer>().material = material;
+            Entity.Get<TileComponent>().IsLock = false;
+        }
 
         public ref EcsEntity GetEntity()
         {

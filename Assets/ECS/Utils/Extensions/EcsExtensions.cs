@@ -1,5 +1,4 @@
-﻿using System;
-using DataBase.Game;
+﻿using DataBase.Game;
 using ECS.Core.Utils.ReactiveSystem.Components;
 using ECS.Game.Components;
 using ECS.Game.Components.Events;
@@ -39,6 +38,14 @@ namespace ECS.Utils.Extensions
         {
             entity.Del<T>();
             entity.Get<EventRemoveComponent<T>>();
+        }
+        
+        public static ref T ReloadAndFire<T>(this ref EcsEntity entity) where T : struct
+        {
+            entity.Del<T>();
+            entity.Get<T>();
+            entity.Get<EventAddComponent<T>>();
+            return ref entity.Get<T>();
         }
         
         public static void LinkView(this ref EcsEntity entity, ILinkable ILinkable)

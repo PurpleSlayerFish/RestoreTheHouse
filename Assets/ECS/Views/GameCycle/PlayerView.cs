@@ -2,18 +2,13 @@
 using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
-using Runtime.Services.CommonPlayerData;
-using Runtime.Services.CommonPlayerData.Data;
 using UnityEngine;
-using Zenject;
 
 namespace ECS.Views.GameCycle
 {
     [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
     public class PlayerView : LinkableView
     {
-        [Inject] private readonly ICommonPlayerDataService<CommonPlayerData> _commonPlayerData;
-        
         [SerializeField] private Transform _root;
         [SerializeField] private Transform _gunPlace;
         [SerializeField] private float _movementSpeed = 16f;
@@ -23,12 +18,10 @@ namespace ECS.Views.GameCycle
         [SerializeField] private float _rotationLimitLeft = -25f;
         
         private readonly Quaternion _afterRootMapping = Quaternion.Euler(0, -90, 0);
-        private bool _isPathComplete;
 
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
-            _isPathComplete = false;
             entity.Get<SpeedComponent>().Value = _movementSpeed;
         }
         
@@ -39,9 +32,9 @@ namespace ECS.Views.GameCycle
             gun.localRotation = _afterRootMapping;
         }
 
-        public void RestoreSpeed()
+        public ref float  GetMovementSpeed()
         {
-            Entity.Get<SpeedComponent>().Value = _movementSpeed;
+            return ref _movementSpeed;
         }
 
         public ref Transform GetRoot()

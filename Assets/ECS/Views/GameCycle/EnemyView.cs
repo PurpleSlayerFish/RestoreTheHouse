@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using ECS.Game.Components;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
@@ -20,11 +19,12 @@ namespace ECS.Views.GameCycle
         [SerializeField] private int _health = 2;
         [SerializeField] private float _staggerDuration = 0.9f;
         [SerializeField] private int _rewardHitsCount = 2;
+        [SerializeField] private float _playerToLoseDistance = 2f;
 
         private int Walk = -1;
         private int Death = -2;
         private int Hit = -3;
-        private int _lastAnim;
+        private int _currentStage;
         private static readonly int Stage = Animator.StringToHash("Stage");
         private int _currentRewardHits = 0;
         public override void Link(EcsEntity entity)
@@ -35,12 +35,14 @@ namespace ECS.Views.GameCycle
             entity.Get<RotationComponent>().Value = Transform.rotation;
             entity.Get<HealthPointComponent>().Value = _health;
             entity.Get<UidLinkComponent>().Link = _activator.GetEntity().Get<UIdComponent>().Value;
+            _currentStage = 0;
             UpdateHp();
         }
 
         public void SetAttackAnim()
         {
             _animator.SetInteger(Stage, Walk);
+            _currentStage = Walk;
         }
 
         public void InitHit()
@@ -52,12 +54,12 @@ namespace ECS.Views.GameCycle
             else
             {
                 Entity.Get<SpeedComponent>().Value = 0;
-                _lastAnim = _animator.GetInteger(Stage);
                 _animator.SetInteger(Stage, Hit);
+                Transform.DOKill();
                 Transform.DOMove(Vector3.zero, _staggerDuration).SetRelative(true).SetEase(Ease.Unset).OnComplete(() =>
                 {
                     Entity.Get<SpeedComponent>().Value = _movementSpeed;
-                    _animator.SetInteger(Stage, _lastAnim);
+                    _animator.SetInteger(Stage, _currentStage);
                 });
                 
             }
@@ -69,10 +71,13 @@ namespace ECS.Views.GameCycle
             if (_currentRewardHits >= _rewardHitsCount)
             {
                 _currentRewardHits = 0;
-                
             }
         }
-        // private void SpawnRewar
+
+        private void SpawnReward()
+        {
+            
+        }
 
         private void InitDeath()
         {
@@ -88,6 +93,11 @@ namespace ECS.Views.GameCycle
         private void UpdateHp()
         {
             _hpIndicator.text = Entity.Get<HealthPointComponent>().Value.ToString();
+        }
+
+        public ref float GetPlayerToLoseDistance()
+        {
+            return ref _playerToLoseDistance;
         }
     }
 }

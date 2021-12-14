@@ -24,9 +24,13 @@ namespace ECS.Game.Systems.GameCycle
         protected override void Execute(EcsEntity entity)
         {
             var data = _commonPlayerData.GetData();
+            var view = entity.Get<LinkComponent>().View as TileView;
+            ref var orderValue = ref entity.Get<OrderComponent>().Value;
+            if (orderValue > data.TilesProgression)
+                view.SetLocked(ref _gameColors.LockedTile);
+            else
+                view.SetUnlocked(ref _gameColors.UnlockedTile);
 
-            if (entity.Get<OrderComponent>().Value > data.TileProgression)
-                (entity.Get<LinkComponent>().View as TileView).SetLocked(ref _gameColors.LockedTile);
         }
     }
 }

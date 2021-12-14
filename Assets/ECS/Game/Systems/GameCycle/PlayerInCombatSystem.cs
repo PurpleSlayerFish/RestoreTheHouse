@@ -30,6 +30,7 @@ namespace ECS.Game.Systems.GameCycle
                 {
                     ref var enemy = ref _enemies.GetEntity(i);
                     enemy.Get<TargetPositionComponent>().Value = entity.Get<PositionComponent>().Value;
+                    enemy.Get<InCombatComponent>();
                     (_enemies.Get3(i).View as EnemyView).SetAttackAnim();
                 }
             }

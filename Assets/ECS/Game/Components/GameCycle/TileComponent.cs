@@ -1,5 +1,4 @@
-﻿using Leopotam.Ecs;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ECS.Game.Components.GameCycle
 {

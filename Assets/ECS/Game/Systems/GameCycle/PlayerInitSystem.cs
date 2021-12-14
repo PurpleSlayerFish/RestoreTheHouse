@@ -75,7 +75,6 @@ namespace ECS.Game.Systems.GameCycle
                 if (view.GetHeavyStageCondition() <= _gun.Get1(i).TotalFireRate)
                 {
                     _gun.GetEntity(i).Get<IsHeavyComponent>();
-                    view.SetHeavyStage();
                     foreach (var j in _projectileLaunchers)
                         _projectileLaunchers.Get1(j).FireRate *= 2;
                 }

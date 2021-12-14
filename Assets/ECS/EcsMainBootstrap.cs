@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
 using ECS.Game.Components.Flags;
+using ECS.Game.Components.GameCycle;
 using ECS.Utils.Extensions;
 using Leopotam.Ecs;
 using Zenject;
@@ -39,6 +40,7 @@ namespace ECS
             _world.GetFilter(typeof(EcsFilter<UIdComponent>));
             _world.GetFilter(typeof(EcsFilter<PlayerComponent>));
             _world.GetFilter(typeof(EcsFilter<PlayerInWorkshopComponent>));
+            _world.GetFilter(typeof(EcsFilter<TileComponent>));
 
             _initUpdateSystems?.Init();
         }

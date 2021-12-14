@@ -10,7 +10,7 @@ Material:
   m_Name: Background
   m_Shader: {fileID: 4800000, guid: f276502ebf8b1431192125b7316d5d67, type: 3}
   m_ShaderKeywords: BACKGRADIENT BOTTOMSOLID COLORCORRECTION_ON FRONTSOLID LEFTSOLID
-    LIGHTMAP_AO RIGHTGRADIENT RIGHTSOLD TOPGRADIENT _AOUV_UV0 _COLORCORRECTIONENABLE_ON
+    LIGHTMAP_AO RIGHTGRADIENT RIGHTSOLD TOPSOLID _AOUV_UV0 _COLORCORRECTIONENABLE_ON
     _GRADIENTSPACE_WORLD_SPACE _GRADSETTINGS_B_CUSTOM _GRADSETTINGS_D_USE_GLOBAL
     _GRADSETTINGS_F_USE_GLOBAL _GRADSETTINGS_L_USE_GLOBAL _GRADSETTINGS_R_CUSTOM
     _GRADSETTINGS_T_USE_GLOBAL _LMAPBLENDINGMODE_AO _LMAPENABLE_ON _MODE_OPAQUE _OTHERSETTINGS_ON
@@ -130,7 +130,7 @@ Material:
     - _Shading_F: 1
     - _Shading_L: 1
     - _Shading_R: 2
-    - _Shading_T: 2
+    - _Shading_T: 1
     - _ShadowBlend: 0.5
     - _ShadowInfluence: 0.5
     - _ShadowSoftness: 0.5
@@ -146,7 +146,7 @@ Material:
     - _ShowLMap: 1
     - _ShowLeft: 1
     - _ShowRight: 1
-    - _ShowTexture: 0
+    - _ShowTexture: 1
     - _ShowTop: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

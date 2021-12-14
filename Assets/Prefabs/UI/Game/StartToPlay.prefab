@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 666777450429490523}
   - component: {fileID: 8701949765640481158}
   m_Layer: 5
-  m_Name: MeatBonusProgression
+  m_Name: SecondProgression
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -380,14 +380,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 64
   m_fontSizeBase: 72
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 64
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 1845264813932937342}
   - component: {fileID: 3486686287303934765}
   m_Layer: 5
-  m_Name: Currency
+  m_Name: CurrencyIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,7 +488,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f434a60f1f85c47e085d09cab598d63d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd4222b5d95864d99a14bf2020e70194, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -828,14 +828,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 64
   m_fontSizeBase: 72
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 64
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1011,7 +1011,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f434a60f1f85c47e085d09cab598d63d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd4222b5d95864d99a14bf2020e70194, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1138,18 +1138,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartToPlay: {fileID: 166292463589531894}
-  PiranhaProgression: {fileID: 6720158134187251521}
-  PiranhaProgressionPrice: {fileID: 2178161454282177932}
-  PiranhaNx: {fileID: 1143321829730932294}
-  PiranhaPriceImg: {fileID: 5204115096378808691}
-  PiranhaMax: {fileID: 4109873598941444427}
-  PiranhaBackImg: {fileID: 8832654556850636692}
-  MeatProgression: {fileID: 8701949765640481158}
-  MeatProgressionPrice: {fileID: 593922432602418748}
-  MeatNx: {fileID: 8825266870098265092}
-  MeatPriceImg: {fileID: 1845264813932937342}
-  MeatMax: {fileID: 8751900641949543765}
-  MeatBackImg: {fileID: 1978851202520358506}
+  FirstProgression: {fileID: 6720158134187251521}
+  FirstProgressionPrice: {fileID: 2178161454282177932}
+  FirstModif: {fileID: 1143321829730932294}
+  FirstPriceImg: {fileID: 5204115096378808691}
+  FirstMax: {fileID: 4109873598941444427}
+  FirstBackImg: {fileID: 8832654556850636692}
+  SecondProgression: {fileID: 8701949765640481158}
+  SecondProgressionPrice: {fileID: 593922432602418748}
+  SecondModif: {fileID: 8825266870098265092}
+  SecondPriceImg: {fileID: 1845264813932937342}
+  SecondMax: {fileID: 8751900641949543765}
+  SecondBackImg: {fileID: 1978851202520358506}
   TotalMeat: {fileID: 545496738787141698}
 --- !u!1 &5070299997957665774
 GameObject:
@@ -1163,7 +1163,7 @@ GameObject:
   - component: {fileID: 6478881119183021469}
   - component: {fileID: 1143321829730932294}
   m_Layer: 0
-  m_Name: xN
+  m_Name: ModifText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1185,7 +1185,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 189.8, y: -13}
+  m_AnchoredPosition: {x: 179.8, y: -13}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6478881119183021469
@@ -1243,12 +1243,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 64
   m_fontSizeBase: 72
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 64
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -1298,7 +1298,7 @@ GameObject:
   - component: {fileID: 166491956268303324}
   - component: {fileID: 6720158134187251521}
   m_Layer: 5
-  m_Name: SpeedProgression
+  m_Name: FirstProgression
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1521,7 +1521,7 @@ GameObject:
   - component: {fileID: 4751701175801724621}
   - component: {fileID: 4919055291030566289}
   m_Layer: 5
-  m_Name: Speed
+  m_Name: Progression
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1543,7 +1543,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -60, y: -32}
+  m_AnchoredPosition: {x: -70, y: -32}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &7837337274159757649
@@ -1801,7 +1801,7 @@ GameObject:
   - component: {fileID: 5926666291546592773}
   - component: {fileID: 9101916137914696620}
   m_Layer: 5
-  m_Name: Tile
+  m_Name: Progression
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1823,7 +1823,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -60, y: -29}
+  m_AnchoredPosition: {x: -70.00001, y: -29}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6276055836166590662
@@ -2543,7 +2543,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f434a60f1f85c47e085d09cab598d63d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd4222b5d95864d99a14bf2020e70194, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2565,7 +2565,7 @@ GameObject:
   - component: {fileID: 8520384714525632906}
   - component: {fileID: 8825266870098265092}
   m_Layer: 0
-  m_Name: plusNPercent
+  m_Name: ModifText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2587,7 +2587,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 184.7, y: -13}
+  m_AnchoredPosition: {x: 174.7, y: -13}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8520384714525632906
@@ -2645,12 +2645,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 64
+  m_fontSizeBase: 64
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 64
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -2681,7 +2681,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -143.12476, y: 0, z: 83.32151, w: 0}
+  m_margin: {x: -143.12476, y: 0, z: 80.75465, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

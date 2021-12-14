@@ -71,5 +71,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: GunCubex3
       objectReference: {fileID: 0}
+    - target: {fileID: 6363967062394706122, guid: e8a975dd67b7bbe4b987ffca7831e084, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6363967062394706122, guid: e8a975dd67b7bbe4b987ffca7831e084, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7606109324691822907, guid: e8a975dd67b7bbe4b987ffca7831e084, type: 3}
+      propertyPath: m_text
+      value: x3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8a975dd67b7bbe4b987ffca7831e084, type: 3}

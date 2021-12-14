@@ -108,7 +108,7 @@ namespace ECS.Game.Systems.GameCycle
             var entity = _world.CreateProjectileLauncher();
             entity.Get<ProjectileLauncherComponent>().FireRate = fireRate;
             entity.Get<PositionComponent>().Value = position;
-            _totalFireRate = (float) Math.Round(_totalFireRate + fireRate, 1);
+            _totalFireRate = (float) Math.Round(_totalFireRate + fireRate, 2);
         } 
 
         private void FindAndHandleTile(ref MatrixTile[,] matrixTiles, int x, int y, ref float fireRate)
