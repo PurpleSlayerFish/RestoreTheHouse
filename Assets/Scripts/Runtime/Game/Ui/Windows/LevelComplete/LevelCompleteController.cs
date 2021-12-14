@@ -1,8 +1,8 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using ECS.Game.Components;
 using ECS.Game.Components.Flags;
+using ECS.Game.Components.GameCycle;
 using ECS.Utils.Extensions;
 using Game.SceneLoading;
 using Leopotam.Ecs;
@@ -49,12 +49,11 @@ namespace Runtime.Game.Ui.Windows.LevelComplete
 
         private void OnFinish()
         {
-            // var lvlImpact = _world.GetEntity<PlayerComponent>().Get<ImpactComponent>().Value;
-            // var impact = lvlImpact + (lvlImpact / 100 * _commonPlayerData.GetData().MeatProgression);
-            // var currentCoins = _commonPlayerData.GetData().Coins;
-            // var currentLevel = _commonPlayerData.GetData().Level;
-            // OnWin(impact, out var newCoinCount);
-            // View.Show(impact, currentCoins, currentLevel, () => OnComplete(newCoinCount));
+            var lvlImpact = _world.GetEntity<PlayerComponent>().Get<ImpactComponent>().Value;
+            var currentCoins = _commonPlayerData.GetData().Coins;
+            var currentLevel = _commonPlayerData.GetData().Level;
+            OnWin(lvlImpact, out var newCoinCount);
+            View.Show(lvlImpact, currentCoins, currentLevel, () => OnComplete(newCoinCount));
         }
 
         private void OnComplete(int newCoinCount) => View.AddCoins(View.TotalCoinIcon.anchoredPosition, newCoinCount);

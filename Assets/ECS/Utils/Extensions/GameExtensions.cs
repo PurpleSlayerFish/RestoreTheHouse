@@ -1,10 +1,7 @@
-﻿using DataBase.Game;
-using ECS.Core.Utils.ReactiveSystem.Components;
-using ECS.Game.Components;
+﻿using ECS.Game.Components;
 using ECS.Game.Components.Events;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
-using ECS.Utils.Impls;
 using ECS.Views.GameCycle;
 using Leopotam.Ecs;
 using Runtime.Game.Utils.MonoBehUtils;
@@ -102,7 +99,7 @@ namespace ECS.Utils.Extensions
             entity.Get<ProjectileDeathZoneComponent>();
             entity.Get<GunCubeUpdateEventComponent>();
         }
-        
+
         public static EcsEntity CreateProjectileLauncher(this EcsWorld world)
         {
             var entity = world.NewEntity();
@@ -114,7 +111,7 @@ namespace ECS.Utils.Extensions
             entity.Get<ConditionComponent<ElapsedTimeComponent>>();
             return entity;
         }
-        
+
         public static EcsEntity CreateProjectile(this EcsWorld world)
         {
             var entity = world.NewEntity();
@@ -125,7 +122,7 @@ namespace ECS.Utils.Extensions
             entity.Get<SpeedComponent>();
             return entity;
         }
-        
+
         public static void CreateEnemies(this EcsWorld world)
         {
             var enemies = Object.FindObjectsOfType<EnemyView>();
@@ -142,6 +139,18 @@ namespace ECS.Utils.Extensions
                 entity.Get<LinkComponent>().View = link;
                 link.Link(entity);
             }
+        }
+
+        public static void CreateChest(this EcsWorld world)
+        {
+            var chest = Object.FindObjectOfType<ChestView>();
+            var entity = world.NewEntity();
+            entity.Get<UIdComponent>().Value = UidGenerator.Next();
+            entity.Get<HealthPointComponent>();
+            entity.Get<ChestComponent>();
+            entity.Get<ImpactComponent>();
+            entity.Get<LinkComponent>().View = chest;
+            chest.Link(entity);
         }
     }
 }

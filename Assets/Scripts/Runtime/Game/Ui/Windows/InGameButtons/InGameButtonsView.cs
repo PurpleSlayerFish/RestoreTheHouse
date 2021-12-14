@@ -12,7 +12,7 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
     public class InGameButtonsView : UiView 
     {
         [SerializeField] private TMP_Text _levelN;
-        [SerializeField] private TMP_Text _meatCount;
+        [SerializeField] private TMP_Text _currencyCount;
         [SerializeField] public CustomButton InGameMenuButton;
         
         public void Show(ref EScene currentLevel, ref EcsWorld _world)
@@ -20,9 +20,9 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
             _levelN.text = Enum.GetName(typeof(EScene), currentLevel)?.Replace("_", " ");
         }
 
-        public void UpdateMeat(ref int impact)
+        public void UpdateCurrency(ref int impact)
         {
-            _meatCount.text = impact.ToString();
+            _currencyCount.text = impact.ToString();
         }
     }
 }

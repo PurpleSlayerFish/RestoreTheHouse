@@ -24,6 +24,7 @@ namespace ECS.Game.Systems.Linked
             CreateGun();
             CreatePath();
             CreateEnemies();
+            CreateChest();
         }
         private bool LoadGame()
         {
@@ -74,6 +75,11 @@ namespace ECS.Game.Systems.Linked
         private void CreateEnemies()
         {
             _world.CreateEnemies();
+        }
+
+        private void CreateChest()
+        {
+            _world.CreateChest();
         }
     }
 }

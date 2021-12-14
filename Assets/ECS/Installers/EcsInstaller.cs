@@ -44,12 +44,13 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<GunFireRateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerInCombatSystem>().AsSingle();
             
-            Container.BindInterfacesAndSelfTo<AddImpactToPlayerSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileDeathSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemyDistanceSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<CombatEndSystem>().AsSingle();
-            
+            Container.BindInterfacesAndSelfTo<ChestTrialSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<AddImpactToPlayerSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();
+            
             Container.BindInterfacesAndSelfTo<GamePauseSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<SaveGameSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameStageSystem>().AsSingle();        //always must been last

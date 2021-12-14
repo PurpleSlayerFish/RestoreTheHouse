@@ -2,7 +2,6 @@
 using ECS.Core.Utils.ReactiveSystem.Components;
 using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
-using ECS.Game.Components.Events;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
 using Leopotam.Ecs;
@@ -32,7 +31,7 @@ namespace ECS.Game.Systems.GameCycle
                 var nextPathPoint = GetNextPathPoint(playerPos);
                 if (nextPathPoint == Vector3.zero)
                 {
-                    _gameStage.GetEntity(0).Get<ChangeStageComponent>().Value = EGameStage.Complete;
+                    entity.Get<InTrialComponent>();
                     return;
                 }
                 ref var targetPos = ref entity.Get<TargetPositionComponent>();

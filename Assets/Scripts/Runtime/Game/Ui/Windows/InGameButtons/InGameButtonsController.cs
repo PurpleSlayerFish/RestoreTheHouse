@@ -5,7 +5,6 @@ using Runtime.Game.Ui.Windows.InGameMenu;
 using Runtime.Services.CommonPlayerData;
 using Runtime.Services.CommonPlayerData.Data;
 using Runtime.Signals;
-using Signals;
 using SimpleUi.Abstracts;
 using SimpleUi.Signals;
 using UniRx;
@@ -24,7 +23,6 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
         {
             _signalBus = signalBus;
             _world = world;
-           
         }
         
         public void Initialize()
@@ -46,7 +44,7 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
 
         private void OnImpactUpdate(ref SignalUpdateImpact signal)
         {
-            View.UpdateMeat(ref signal.Impact);
+            View.UpdateCurrency(ref signal.Impact);
         }
     }
 }
