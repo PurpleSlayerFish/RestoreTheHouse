@@ -12,7 +12,7 @@ namespace ECS.Game.Systems.GameCycle
     public class PlayerForwardMovementSystem : IEcsUpdateSystem
     {
 #pragma warning disable 649
-        private readonly EcsFilter<PlayerComponent, PositionComponent, RotationComponent, SpeedComponent> _player;
+        private readonly EcsFilter<PlayerComponent, PositionComponent, RotationComponent, SpeedComponent<PositionComponent>> _player;
         private readonly EcsFilter<GameStageComponent> _gameStage;
         private readonly EcsFilter<PathPointComponent, PositionComponent, RotationComponent, UIdComponent> _pathPoints;
 #pragma warning restore 649
@@ -56,7 +56,7 @@ namespace ECS.Game.Systems.GameCycle
                         ref var targetRot = ref playerEntity.Get<TargetRotationComponent>();
                         ref var direction = ref _pathPoints.GetEntity(i).Get<RotationDirectionComponent>().Direction;
                         targetRot.Value = Quaternion.Euler(playerRot.eulerAngles.x + direction.x, playerRot.eulerAngles.y + direction.y, playerRot.eulerAngles.z + direction.z);
-                        targetRot.Speed = _pathPoints.GetEntity(i).Get<SpeedComponent>().Value;
+                        targetRot.Speed = _pathPoints.GetEntity(i).Get<SpeedComponent<RotationComponent>>().Value;
                     }
 
                     if (_pathPoints.GetEntity(i).Has<CombatPointComponent>())

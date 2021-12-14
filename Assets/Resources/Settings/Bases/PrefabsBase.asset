@@ -21,3 +21,5 @@ MonoBehaviour:
     GameObject: {fileID: 2160517872157863798, guid: a1c554f16af1c534ca1faad4d3662743, type: 3}
   - Name: Projectile
     GameObject: {fileID: 5846061231084176349, guid: c48d8e0024c3b1a4d9f60958b7052c00, type: 3}
+  - Name: RewardCrystal
+    GameObject: {fileID: 1790929014733597559, guid: ad23d5a5aa63f054facff81d5323c8bd, type: 3}

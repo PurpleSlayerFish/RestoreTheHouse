@@ -20,7 +20,7 @@ namespace ECS.Game.Systems.GameCycle
         private EcsWorld _world;
         private EcsFilter<ProjectileLauncherComponent, LinkComponent> _launchers;
         private EcsFilter<GunComponent, LinkComponent> _gun;
-        private EcsFilter<ProjectileComponent, PositionComponent, SpeedComponent> _projectiles;
+        private EcsFilter<ProjectileComponent, PositionComponent, SpeedComponent<PositionComponent>> _projectiles;
 #pragma warning restore 649
 
         private EcsEntity _projectile;

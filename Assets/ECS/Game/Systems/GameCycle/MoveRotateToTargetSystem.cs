@@ -10,7 +10,7 @@ namespace ECS.Game.Systems.GameCycle
     public class MoveRotateToTargetSystem : IEcsUpdateSystem
     {
 #pragma warning disable 649
-        private readonly EcsFilter<PositionComponent, TargetPositionComponent, SpeedComponent> _position;
+        private readonly EcsFilter<PositionComponent, TargetPositionComponent, SpeedComponent<PositionComponent>> _position;
         private readonly EcsFilter<RotationComponent, TargetRotationComponent> _rotation;
         private readonly EcsFilter<GameStageComponent> _gameStage;
 #pragma warning restore 649

@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using ECS.Game.Components;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
@@ -19,9 +20,9 @@ namespace ECS.Views.GameCycle
             base.Link(entity);
 
             if (entity.Has<InWorkshopComponent>())
-                entity.Get<SpeedComponent>().Value = _speed / 3;
+                entity.Get<SpeedComponent<PositionComponent>>().Value = _speed / 3;
             else
-                entity.Get<SpeedComponent>().Value = _speed;
+                entity.Get<SpeedComponent<PositionComponent>>().Value = _speed;
         }
 
         public void Impact()

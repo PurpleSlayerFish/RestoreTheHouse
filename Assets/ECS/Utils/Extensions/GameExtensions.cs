@@ -28,7 +28,7 @@ namespace ECS.Utils.Extensions
             entity.Get<PositionComponent>();
             entity.Get<RotationComponent>().Value = Quaternion.identity;
             entity.Get<ImpactComponent>().Value = 0;
-            entity.Get<SpeedComponent>();
+            entity.Get<SpeedComponent<PositionComponent>>();
             entity.GetAndFire<PrefabComponent>().Value = "Player";
             entity.GetAndFire<PlayerComponent>();
         }
@@ -47,7 +47,7 @@ namespace ECS.Utils.Extensions
                 if (p.TryGetComponent<RotatePointView>(out var rotatePoint))
                 {
                     entity.Get<RotationDirectionComponent>().Direction = rotatePoint.Direction;
-                    entity.Get<SpeedComponent>().Value = rotatePoint.RotationSpeed;
+                    entity.Get<SpeedComponent<RotationComponent>>().Value = rotatePoint.RotationSpeed;
                 }
 
                 if (p.TryGetComponent<StopPointView>(out var stopPoint))
@@ -119,7 +119,7 @@ namespace ECS.Utils.Extensions
             entity.Get<PositionComponent>();
             entity.GetAndFire<PrefabComponent>().Value = "Projectile";
             entity.GetAndFire<ProjectileComponent>();
-            entity.Get<SpeedComponent>();
+            entity.Get<SpeedComponent<PositionComponent>>();
             return entity;
         }
 
@@ -132,7 +132,7 @@ namespace ECS.Utils.Extensions
                 entity.Get<UIdComponent>().Value = UidGenerator.Next();
                 entity.Get<PositionComponent>();
                 entity.Get<RotationComponent>();
-                entity.Get<SpeedComponent>();
+                entity.Get<SpeedComponent<PositionComponent>>();
                 entity.Get<HealthPointComponent>();
                 entity.Get<UidLinkComponent>();
                 entity.Get<EnemyComponent>();
@@ -151,6 +151,18 @@ namespace ECS.Utils.Extensions
             entity.Get<ImpactComponent>();
             entity.Get<LinkComponent>().View = chest;
             chest.Link(entity);
+        }
+        
+        public static EcsEntity CreateReward(this EcsWorld world)
+        {
+            var entity = world.NewEntity();
+            entity.Get<UIdComponent>().Value = UidGenerator.Next();
+            entity.Get<ImpactComponent>().Value = 0;
+            entity.Get<PositionComponent>();
+            entity.Get<SpeedComponent<PositionComponent>>();
+            entity.GetAndFire<PrefabComponent>().Value = "RewardCrystal";
+            entity.Get<RewardComponent>();
+            return entity;
         }
     }
 }

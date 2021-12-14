@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using ECS.Game.Components;
 using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
@@ -22,7 +23,7 @@ namespace ECS.Views.GameCycle
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
-            entity.Get<SpeedComponent>().Value = _movementSpeed;
+            entity.Get<SpeedComponent<PositionComponent>>().Value = _movementSpeed;
         }
         
         public void PickupGun(Transform gun)

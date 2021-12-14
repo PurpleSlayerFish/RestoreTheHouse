@@ -13,7 +13,7 @@ namespace ECS.Game.Systems.GameCycle
     {
 #pragma warning disable 649
         private readonly EcsFilter<EnemyComponent, InCombatComponent, LinkComponent> _enemies;
-        private readonly EcsFilter<PlayerComponent, InCombatComponent, LinkComponent, SpeedComponent> _player;
+        private readonly EcsFilter<PlayerComponent, InCombatComponent, LinkComponent, SpeedComponent<PositionComponent>> _player;
         private readonly EcsFilter<GameStageComponent> _gameStage;
 #pragma warning restore 649
 

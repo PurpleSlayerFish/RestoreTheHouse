@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using ECS.Game.Components;
+using ECS.Game.Components.Events;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
@@ -27,10 +28,11 @@ namespace ECS.Views.GameCycle
         private int _currentStage;
         private static readonly int Stage = Animator.StringToHash("Stage");
         private int _currentRewardHits = 0;
+        
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
-            entity.Get<SpeedComponent>().Value = _movementSpeed;
+            entity.Get<SpeedComponent<PositionComponent>>().Value = _movementSpeed;
             entity.Get<PositionComponent>().Value = Transform.position;
             entity.Get<RotationComponent>().Value = Transform.rotation;
             entity.Get<HealthPointComponent>().Value = _health;
@@ -48,20 +50,20 @@ namespace ECS.Views.GameCycle
         public void InitHit()
         {
             Entity.Get<HealthPointComponent>().Value--;
+            UpdateRewardHits();
             UpdateHp();
             if (Entity.Get<HealthPointComponent>().Value <= 0)
                 InitDeath();
             else
             {
-                Entity.Get<SpeedComponent>().Value = 0;
+                Entity.Get<SpeedComponent<PositionComponent>>().Value = 0;
                 _animator.SetInteger(Stage, Hit);
                 Transform.DOKill();
                 Transform.DOMove(Vector3.zero, _staggerDuration).SetRelative(true).SetEase(Ease.Unset).OnComplete(() =>
                 {
-                    Entity.Get<SpeedComponent>().Value = _movementSpeed;
+                    Entity.Get<SpeedComponent<PositionComponent>>().Value = _movementSpeed;
                     _animator.SetInteger(Stage, _currentStage);
                 });
-                
             }
         }
 
@@ -71,12 +73,8 @@ namespace ECS.Views.GameCycle
             if (_currentRewardHits >= _rewardHitsCount)
             {
                 _currentRewardHits = 0;
+                Entity.Get<RewardSpawnEventComponent>();
             }
-        }
-
-        private void SpawnReward()
-        {
-            
         }
 
         private void InitDeath()

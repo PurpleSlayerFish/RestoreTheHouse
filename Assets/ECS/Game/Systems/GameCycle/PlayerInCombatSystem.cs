@@ -23,7 +23,7 @@ namespace ECS.Game.Systems.GameCycle
             if (!entity.Has<PlayerComponent>())
                 return;
             
-            entity.Get<SpeedComponent>().Value = 0;
+            entity.Get<SpeedComponent<PositionComponent>>().Value = 0;
             foreach (var i in _enemies)
             {
                 if (_enemies.Get2(i).Link.Equals(entity.Get<InCombatComponent>().PathPoint))

@@ -35,7 +35,6 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<ProjectileCollisionSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerShootingSystem>().AsSingle();
-            
             Container.BindInterfacesAndSelfTo<PlayerInitSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerForwardMovementSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<MoveRotateToTargetSystem>().AsSingle();
@@ -43,14 +42,15 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<WorkshopDragAndDropSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GunFireRateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerInCombatSystem>().AsSingle();
-            
             Container.BindInterfacesAndSelfTo<ProjectileDeathSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemyDistanceSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<CombatEndSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ChestTrialSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<RewardSpawnSystem>().AsSingle();
+
             Container.BindInterfacesAndSelfTo<AddImpactToPlayerSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();
             
+            Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GamePauseSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<SaveGameSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameStageSystem>().AsSingle();        //always must been last
