@@ -18,8 +18,10 @@ namespace ECS.Game.Systems.GameCycle
     public class ProjectileCollisionSystem : ReactiveSystem<EventAddComponent<ProjectileComponent>>, IDisposable
     {
 #pragma warning disable 649
+#pragma warning disable 169
         private readonly EcsFilter<PlayerComponent, InTrialComponent> _player;
         private readonly EcsFilter<ChestComponent, HealthPointComponent, LinkComponent> _chest;
+#pragma warning restore 169
 #pragma warning restore 649
 
         private CompositeDisposable _disposable = new CompositeDisposable();
@@ -31,6 +33,7 @@ namespace ECS.Game.Systems.GameCycle
         private readonly LayerMask _chestLayerMask = LayerMask.NameToLayer(Chest);
         protected override EcsFilter<EventAddComponent<ProjectileComponent>> ReactiveFilter { get; }
 
+        [SuppressMessage("ReSharper", "UnusedVariable")]
         protected override void Execute(EcsEntity entity)
         {
             ProjectileView view = entity.Get<LinkComponent>().View as ProjectileView;

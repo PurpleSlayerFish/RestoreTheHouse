@@ -2,12 +2,13 @@
 using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
+using Services.PauseService;
 using TMPro;
 using UnityEngine;
 
 namespace ECS.Views.GameCycle
 {
-    public class ChestView : LinkableView
+    public class ChestView : LinkableView, IPause
     {
         [SerializeField] private Transform _lid;
         [SerializeField] private Transform _reward;
@@ -18,6 +19,7 @@ namespace ECS.Views.GameCycle
 
         private Vector3 _lidRotation = new Vector3(-140, 0, 0);
         private float _rewardPosY = 4f;
+        private Sequence _seq;
         
         public override void Link(EcsEntity entity)
         {
@@ -55,9 +57,19 @@ namespace ECS.Views.GameCycle
             if(!_hpIndicator.enabled)
                 return;
             _hpIndicator.enabled = false;
-            Sequence seq = DOTween.Sequence();
-            seq.Append(_lid.DORotate(_lidRotation, 0.8f).SetRelative(true).SetEase(Ease.Linear));
-            seq.Append(_reward.DOMoveY(_rewardPosY, 1.3f).SetRelative(true).SetEase(Ease.Unset));
+            _seq = DOTween.Sequence();
+            _seq.Append(_lid.DORotate(_lidRotation, 0.8f).SetRelative(true).SetEase(Ease.Linear));
+            _seq.Append(_reward.DOMoveY(_rewardPosY, 1.3f).SetRelative(true).SetEase(Ease.Unset));
+        }
+
+        public void Pause()
+        {
+            _seq?.Pause();
+        }
+
+        public void UnPause()
+        {
+            _seq?.Play();
         }
     }
 }

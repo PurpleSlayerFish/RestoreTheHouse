@@ -13,6 +13,7 @@ namespace ECS.Game.Systems.GameCycle
     {
 #pragma warning disable 649
         private readonly EcsFilter<EnemyComponent, InCombatComponent, LinkComponent> _enemies;
+        private readonly EcsFilter<RewardComponent> _rewards;
         private readonly EcsFilter<PlayerComponent, InCombatComponent, LinkComponent, SpeedComponent<PositionComponent>> _player;
         private readonly EcsFilter<GameStageComponent> _gameStage;
 #pragma warning restore 649
@@ -26,6 +27,8 @@ namespace ECS.Game.Systems.GameCycle
             foreach (var i in _player)
             {
                 if (_enemies.GetEntitiesCount() > 0)
+                    return;
+                if (_rewards.GetEntitiesCount() > 0)
                     return;
                 _player.GetEntity(i).Del<InCombatComponent>();
                 _player.Get4(i).Value = (_player.Get3(i).View as PlayerView).GetMovementSpeed();

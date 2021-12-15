@@ -18,12 +18,17 @@ namespace Runtime.Game.Ui.Windows.TouchPad
 
 		public void OnDrag(PointerEventData eventData)
 		{
-			//Debug.Log("OnDrag delta: " + eventData.delta.sqrMagnitude);
 			_dragAction.Invoke(eventData);
 		}
 
-		public void OnPointerDown(PointerEventData eventData) => _pointerDownAction.Invoke(eventData);
-		
-		public void OnPointerUp(PointerEventData eventData) => _pointerUpAction.Invoke(eventData);
+		public void OnPointerDown(PointerEventData eventData)
+		{
+			_pointerDownAction.Invoke(eventData);
+		}
+
+		public void OnPointerUp(PointerEventData eventData)
+		{
+			_pointerUpAction.Invoke(eventData);
+		}
 	}
 }

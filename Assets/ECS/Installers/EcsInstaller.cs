@@ -44,6 +44,7 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<PlayerInCombatSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ProjectileDeathSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemyDistanceSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<RewardDistanceSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<CombatEndSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ChestTrialSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<RewardSpawnSystem>().AsSingle();

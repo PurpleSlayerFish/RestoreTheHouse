@@ -69,7 +69,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2479236758704149600}
-  m_Mesh: {fileID: 4647302322577319677, guid: c9155afe1b734424990318790c3d2ca6, type: 3}
+  m_Mesh: {fileID: 4647302322577319677, guid: 49881cd4ad7d8ba4a95c57dabae2ed5d, type: 3}
 --- !u!23 &8007986271622340483
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2922941597442576010}
-  m_Mesh: {fileID: -4677020323915252260, guid: c9155afe1b734424990318790c3d2ca6, type: 3}
+  m_Mesh: {fileID: -4677020323915252260, guid: 49881cd4ad7d8ba4a95c57dabae2ed5d, type: 3}
 --- !u!23 &7941401297927144866
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -243,7 +243,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _workshopDpsValue: {fileID: 0}
   _workshopHeavyStageValue: {fileID: 0}
-  _onGunDpsValue: {fileID: 0}
   _gunHandle: {fileID: 8849889045800484897}
   _gunClip: {fileID: 4350842824164576904}
   _rotationRoot: {fileID: 8277903583138557560}
@@ -328,7 +327,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7532080943182749160}
-  m_Mesh: {fileID: -1527862427468609613, guid: c9155afe1b734424990318790c3d2ca6, type: 3}
+  m_Mesh: {fileID: -1527862427468609613, guid: 49881cd4ad7d8ba4a95c57dabae2ed5d, type: 3}
 --- !u!23 &4646775162397755772
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -5,12 +5,13 @@ using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
+using Services.PauseService;
 using TMPro;
 using UnityEngine;
 
 namespace ECS.Views.GameCycle
 {
-    public class EnemyView : LinkableView
+    public class EnemyView : LinkableView, IPause
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private Collider _collider;
@@ -21,13 +22,16 @@ namespace ECS.Views.GameCycle
         [SerializeField] private float _staggerDuration = 0.9f;
         [SerializeField] private int _rewardHitsCount = 2;
         [SerializeField] private float _playerToLoseDistance = 2f;
+        [SerializeField] private float _deathTime = 1.3f;
+        [SerializeField] private Vector3 _underFloorVector = new Vector3(0, -3, 0);
 
         private int Walk = -1;
         private int Death = -2;
         private int Hit = -3;
         private int _currentStage;
         private static readonly int Stage = Animator.StringToHash("Stage");
-        private int _currentRewardHits = 0;
+        private int _currentRewardHits;
+        private float _animationSpeed;
         
         public override void Link(EcsEntity entity)
         {
@@ -38,6 +42,7 @@ namespace ECS.Views.GameCycle
             entity.Get<HealthPointComponent>().Value = _health;
             entity.Get<UidLinkComponent>().Link = _activator.GetEntity().Get<UIdComponent>().Value;
             _currentStage = 0;
+            _animationSpeed = _animator.speed;
             UpdateHp();
         }
 
@@ -56,6 +61,8 @@ namespace ECS.Views.GameCycle
                 InitDeath();
             else
             {
+                if (_staggerDuration <= 0)
+                    return;
                 Entity.Get<SpeedComponent<PositionComponent>>().Value = 0;
                 _animator.SetInteger(Stage, Hit);
                 Transform.DOKill();
@@ -83,8 +90,8 @@ namespace ECS.Views.GameCycle
             Entity.Del<TargetPositionComponent>();
             _collider.enabled = false;
             Sequence seq = DOTween.Sequence();
-            seq.Append(Transform.DOMove(Vector3.zero, 1.3f).SetRelative(true).SetEase(Ease.Unset));
-            seq.Append(Transform.DOMove(Vector3.down, 0.7f).SetRelative(true).SetEase(Ease.Unset));
+            seq.Append(Transform.DOMove(Vector3.zero, _deathTime).SetRelative(true).SetEase(Ease.Unset));
+            seq.Append(Transform.DOMove(_underFloorVector, 1f).SetRelative(true).SetEase(Ease.Unset));
             seq.OnComplete(() => Entity.Get<IsDestroyedComponent>());
         }
         
@@ -96,6 +103,17 @@ namespace ECS.Views.GameCycle
         public ref float GetPlayerToLoseDistance()
         {
             return ref _playerToLoseDistance;
+        }
+
+        public void Pause()
+        {
+            _animationSpeed = _animator.speed;
+            _animator.speed = 0;
+        }
+
+        public void UnPause()
+        {
+            _animator.speed = _animationSpeed;
         }
     }
 }

@@ -27,9 +27,15 @@ namespace ECS.Game.Systems.GameCycle
             foreach (var i in _player)
             {
                 var reward = _world.CreateReward();
-                reward.Get<PositionComponent>().Value = entity.Get<PositionComponent>().Value+ rewardOffset ;
+                var delta = entity.Get<PositionComponent>().Value - _player.Get2(i).Value;
+                reward.Get<PositionComponent>().Value = entity.Get<PositionComponent>().Value + rewardOffset + GetRandomOffset(ref delta);
                 reward.Get<TargetPositionComponent>().Value = _player.Get2(i).Value + rewardOffset;
             }
+        }
+
+        private Vector3 GetRandomOffset(ref Vector3 delta)
+        {
+            return new Vector3((delta.x > 0 ? -1 : 1) * Random.Range(-5f, 5f), 0, (delta.z > 0 ? -1 : 1) * Random.Range(-5f, 5f));
         }
     }
 }

@@ -13,7 +13,7 @@ namespace ECS.Game.Systems.GameCycle
     public class RewardDistanceSystem : IEcsUpdateSystem
     {
 #pragma warning disable 649
-        private readonly EcsFilter<EnemyComponent, PositionComponent, LinkComponent> _enemies;
+        private readonly EcsFilter<RewardComponent, PositionComponent, LinkComponent> _crystals;
         private readonly EcsFilter<GameStageComponent> _gameStage;
         private readonly EcsFilter<PlayerComponent, PositionComponent> _player;
 #pragma warning restore 649
@@ -24,11 +24,14 @@ namespace ECS.Game.Systems.GameCycle
             if (_gameStage.Get1(0).Value != EGameStage.Play && _gameStage.Get1(0).Value != EGameStage.Workshop) return;
 
             foreach (var i in _player)
-            foreach (var j in _enemies)
+            foreach (var j in _crystals)
             {
-                // if (Vector3.Distance(_enemies.Get2(j).Value, _player.Get2(i).Value) <
-                //     (_enemies.Get3(j).View as EnemyView).GetPlayerToLoseDistance())
-                //     _gameStage.GetEntity(0).Get<ChangeStageComponent>().Value = EGameStage.Lose;
+                if (Vector3.Distance(_crystals.Get2(j).Value, _player.Get2(i).Value) <
+                    (_crystals.Get3(j).View as RewardView).GetDistanceToGet())
+                {
+                    _crystals.GetEntity(j).Get<AddImpactEventComponent>();
+                    _crystals.GetEntity(j).Get<IsDestroyedComponent>();
+                }
             }
         }
     }

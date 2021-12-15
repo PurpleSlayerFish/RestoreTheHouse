@@ -20,7 +20,7 @@ namespace ECS.Views.GameCycle
         
         [SerializeField] private TMP_Text _workshopDpsValue;
         [SerializeField] private TMP_Text _workshopHeavyStageValue;
-        [SerializeField] private TMP_Text _onGunDpsValue;
+        // [SerializeField] private TMP_Text _onGunDpsValue;
         [SerializeField] private Transform _gunHandle;
         [SerializeField] private Transform _gunClip;
         [SerializeField] private Transform _rotationRoot;
