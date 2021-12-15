@@ -35,24 +35,23 @@ namespace ECS.Utils.Extensions
 
         public static void CreatePoints(this EcsWorld world)
         {
-            var pathPointsArray = Object.FindObjectsOfType<ScenePath>();
+            var pathPointsArray = Object.FindObjectsOfType<PathPointView>();
             foreach (var pathPoints in pathPointsArray)
-            foreach (Transform p in pathPoints.transform)
             {
                 var entity = world.NewEntity();
                 entity.Get<UIdComponent>().Value = UidGenerator.Next();
                 entity.Get<PathPointComponent>();
-                entity.Get<PositionComponent>().Value = p.position;
-                entity.Get<RotationComponent>().Value = p.rotation;
-                if (p.TryGetComponent<RotatePointView>(out var rotatePoint))
+                entity.Get<PositionComponent>().Value = pathPoints.transform.position;
+                entity.Get<RotationComponent>().Value = pathPoints.transform.rotation;
+                pathPoints.Link(entity);
+                if (pathPoints.RotationDirection != Vector3.zero)
                 {
-                    entity.Get<RotationDirectionComponent>().Direction = rotatePoint.Direction;
-                    entity.Get<SpeedComponent<RotationComponent>>().Value = rotatePoint.RotationSpeed;
+                    entity.Get<RotationDirectionComponent>().Direction = pathPoints.RotationDirection;
+                    entity.Get<SpeedComponent<RotationComponent>>().Value = pathPoints.RotationSpeed;
                 }
 
-                if (p.TryGetComponent<StopPointView>(out var stopPoint))
+                if (pathPoints.StartCombat)
                 {
-                    stopPoint.Link(entity);
                     entity.Get<CombatPointComponent>();
                 }
             }
