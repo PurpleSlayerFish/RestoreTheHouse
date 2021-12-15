@@ -4,6 +4,7 @@ using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
+using ECS.Game.Components.General;
 using Leopotam.Ecs;
 using UnityEngine;
 
@@ -45,6 +46,8 @@ namespace ECS.Game.Systems.GameCycle
             var minDistance = float.MaxValue;
             foreach (var i in _pathPoints)
             {
+                if (_pathPoints.GetEntity(i).Has<EnemyPathPointComponent>())
+                    continue;
                 var pos = _pathPoints.Get2(i).Value;
                 var distance = Vector3.Distance(pos, playerPos);
                 if (distance < 0.01f)

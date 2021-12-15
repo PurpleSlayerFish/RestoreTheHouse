@@ -2,6 +2,7 @@
 using DataBase.Timer;
 using ECS.Core.Utils.ReactiveSystem.Components;
 using ECS.Game.Components;
+using ECS.Game.Components.General;
 using Leopotam.Ecs;
 using PdUtils;
 using UnityEngine;

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Skyscraper
+  m_Name: Skyscraper_2
   m_Shader: {fileID: 4800000, guid: f276502ebf8b1431192125b7316d5d67, type: 3}
   m_ShaderKeywords: BACKGRADIENT BOTTOMSOLID COLORCORRECTION_ON FRONTSOLID LEFTSOLID
     LIGHTMAP_AO RIGHTGRADIENT RIGHTSOLD TOPSOLID _AOUV_UV0 _COLORCORRECTIONENABLE_ON
@@ -191,5 +191,5 @@ Material:
     - _MainColor: {r: 0.816192, g: 0.83615994, b: 0.936, a: 1}
     - _RimColor: {r: 0.16911763, g: 0.16911763, b: 0.16911763, a: 1}
     - _ShadowColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
-    - _TintColor: {r: 0.454902, g: 0.43921572, b: 0.76470596, a: 1}
+    - _TintColor: {r: 0.22672799, g: 0.603, b: 0.25808397, a: 1}
   m_BuildTextureStacks: []

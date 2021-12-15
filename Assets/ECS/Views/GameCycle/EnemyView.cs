@@ -3,6 +3,7 @@ using ECS.Game.Components;
 using ECS.Game.Components.Events;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
+using ECS.Game.Components.General;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
 using Services.PauseService;
@@ -130,6 +131,22 @@ namespace ECS.Views.GameCycle
         public void SetNextTargetPoint()
         {
             _nextEnemyTarget = _nextEnemyTarget.NextEnemyTarget;
+        }
+
+        public ref EcsEntity GetTargetEntity()
+        {
+            return ref _nextEnemyTarget.GetEntity();
+        }
+        
+        public ref Vector3 GetTargetRotationDirection()
+        {
+            return ref _nextEnemyTarget.RotationDirection;
+        }
+        
+        
+        public ref float GetTargetRotationSpeed()
+        {
+            return ref _nextEnemyTarget.RotationSpeed;
         }
     }
 }

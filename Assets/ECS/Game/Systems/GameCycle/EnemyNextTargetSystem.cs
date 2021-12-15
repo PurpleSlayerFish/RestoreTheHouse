@@ -5,6 +5,7 @@ using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
 using ECS.Views.GameCycle;
 using Leopotam.Ecs;
+using UnityEngine;
 
 namespace ECS.Game.Systems.GameCycle
 {
@@ -22,6 +23,12 @@ namespace ECS.Game.Systems.GameCycle
             if (enemyView.HasNextTargetPoint())
                 return;
 
+            if (enemyView.GetTargetEntity().Has<RotationDirectionComponent>())
+            {
+                entity.Get<TargetRotationComponent>().Value = Quaternion.Euler(enemyView.GetTargetRotationDirection());
+                entity.Get<TargetRotationComponent>().Speed = enemyView.GetTargetRotationSpeed();
+            }
+            
             enemyView.SetNextTargetPoint();
             entity.Get<TargetPositionComponent>().Value = enemyView.GetTargetPointPosition();
         }

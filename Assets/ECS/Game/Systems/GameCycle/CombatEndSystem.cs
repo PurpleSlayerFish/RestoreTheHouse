@@ -28,8 +28,8 @@ namespace ECS.Game.Systems.GameCycle
             {
                 if (_enemies.GetEntitiesCount() > 0)
                     return;
-                if (_rewards.GetEntitiesCount() > 0)
-                    return;
+                // if (_rewards.GetEntitiesCount() > 0)
+                //     return;
                 _player.GetEntity(i).Del<InCombatComponent>();
                 _player.Get4(i).Value = (_player.Get3(i).View as PlayerView).GetMovementSpeed();
             }

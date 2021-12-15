@@ -31,7 +31,7 @@ namespace Runtime.Game.Ui.Windows.StartToPlay
 
         public TMP_Text TotalMeat;
 
-        private Color _grey = new Color(0.196f, 0.259f, 0.443f, 1f);
+        private Color _grey = new Color(0.5057f, 0.57f, 0.6f, 1f);
         private Color _normal = new Color(1f, 0.9058f, 0.4666f, 1f);
 
         public void UpdateUi()

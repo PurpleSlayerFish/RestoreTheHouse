@@ -2,6 +2,7 @@
 using ECS.Game.Components.Events;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
+using ECS.Game.Components.General;
 using ECS.Views.GameCycle;
 using Leopotam.Ecs;
 using Runtime.Game.Utils.MonoBehUtils;
@@ -53,6 +54,11 @@ namespace ECS.Utils.Extensions
                 if (pathPoints.StartCombat)
                 {
                     entity.Get<CombatPointComponent>();
+                }
+                
+                if (pathPoints.EnemyPathPoint)
+                {
+                    entity.Get<EnemyPathPointComponent>();
                 }
             }
         }

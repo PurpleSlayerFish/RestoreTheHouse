@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rewardValue: 1
-  _movementSpeed: 10
+  _movementSpeed: 20
   _distanceToGet: 3.5
   _spawnEffect: {fileID: 6386916191701947730}
 --- !u!114 &1448964610302400036

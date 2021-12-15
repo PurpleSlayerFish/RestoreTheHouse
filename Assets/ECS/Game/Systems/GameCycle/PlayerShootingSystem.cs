@@ -68,7 +68,7 @@ namespace ECS.Game.Systems.GameCycle
             newX = Mathf.Clamp(newX, playerView.GetRotationLimitLeft(), playerView.GetRotationLimitRight());
             newY = Mathf.Clamp(newY, playerView.GetRotationLimitDown(), playerView.GetRotationLimitUp());
             
-            playerView.GetRoot().rotation = Quaternion.Euler(playerView.GetRoot().rotation.x - newY, playerView.GetRoot().rotation.y + newX, playerView.GetRoot().rotation.z);
+            playerView.GetRoot().localRotation = Quaternion.Euler(/*playerView.GetRoot().localRotation.x */- newY, /*playerView.GetRoot().localRotation.*/ + newX, playerView.GetRoot().localRotation.z);
         }
     }
 }
