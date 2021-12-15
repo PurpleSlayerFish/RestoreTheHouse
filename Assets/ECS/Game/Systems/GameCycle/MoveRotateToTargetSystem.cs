@@ -2,6 +2,7 @@
 using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
 using ECS.Game.Components.GameCycle;
+using ECS.Utils.Extensions;
 using Leopotam.Ecs;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ namespace ECS.Game.Systems.GameCycle
                 ref var pos = ref _position.Get1(i).Value;
                 pos = Vector3.MoveTowards(pos, target, Time.deltaTime * speed);
                 if(Vector3.Distance(pos, target) < 0.01f)
-                    _position.GetEntity(i).Del<TargetPositionComponent>();
+                    _position.GetEntity(i).DelAndFire<TargetPositionComponent>();
             }
             
             foreach (var i in _rotation)
@@ -35,7 +36,7 @@ namespace ECS.Game.Systems.GameCycle
                 ref var rot = ref _rotation.Get1(i).Value;
                 rot = Quaternion.RotateTowards(rot, target, Time.deltaTime * speed);
                 if(Vector3.Distance(target.eulerAngles, rot.eulerAngles) < 0.01f)
-                    _rotation.GetEntity(i).Del<TargetRotationComponent>();
+                    _rotation.GetEntity(i).DelAndFire<TargetRotationComponent>();
             }
         }
     }

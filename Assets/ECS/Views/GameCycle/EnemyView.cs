@@ -16,7 +16,8 @@ namespace ECS.Views.GameCycle
         [SerializeField] private Animator _animator;
         [SerializeField] private Collider _collider;
         [SerializeField] private TMP_Text _hpIndicator;
-        [SerializeField] private StopPointView _activator;
+        [SerializeField] private PathPointView _nextEnemyTarget;
+        [SerializeField] private PathPointView _enemyActivatorPoint;
         [SerializeField] private float _movementSpeed = 16f;
         [SerializeField] private int _health = 2;
         [SerializeField] private float _staggerDuration = 0.9f;
@@ -40,7 +41,7 @@ namespace ECS.Views.GameCycle
             entity.Get<PositionComponent>().Value = Transform.position;
             entity.Get<RotationComponent>().Value = Transform.rotation;
             entity.Get<HealthPointComponent>().Value = _health;
-            entity.Get<UidLinkComponent>().Link = _activator.GetEntity().Get<UIdComponent>().Value;
+            entity.Get<UidLinkComponent>().Link = _enemyActivatorPoint.GetEntity().Get<UIdComponent>().Value;
             _currentStage = 0;
             _animationSpeed = _animator.speed;
             UpdateHp();
@@ -114,6 +115,21 @@ namespace ECS.Views.GameCycle
         public void UnPause()
         {
             _animator.speed = _animationSpeed;
+        }
+
+        public Vector3 GetTargetPointPosition()
+        {
+            return _nextEnemyTarget.Transform.position;
+        }
+        
+        public bool HasNextTargetPoint()
+        {
+            return _nextEnemyTarget.NextEnemyTarget == null;
+        }
+        
+        public void SetNextTargetPoint()
+        {
+            _nextEnemyTarget = _nextEnemyTarget.NextEnemyTarget;
         }
     }
 }

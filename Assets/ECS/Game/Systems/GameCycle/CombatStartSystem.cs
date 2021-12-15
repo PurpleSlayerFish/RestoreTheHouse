@@ -11,7 +11,7 @@ namespace ECS.Game.Systems.GameCycle
 {
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     [SuppressMessage("ReSharper", "UnassignedGetOnlyAutoProperty")]
-    public class PlayerInCombatSystem : ReactiveSystem<EventAddComponent<InCombatComponent>>
+    public class CombatStartSystem : ReactiveSystem<EventAddComponent<InCombatComponent>>
     {
 #pragma warning disable 649
         private readonly EcsFilter<EnemyComponent, UidLinkComponent, LinkComponent> _enemies;
@@ -29,9 +29,10 @@ namespace ECS.Game.Systems.GameCycle
                 if (_enemies.Get2(i).Link.Equals(entity.Get<InCombatComponent>().PathPoint))
                 {
                     ref var enemy = ref _enemies.GetEntity(i);
-                    enemy.Get<TargetPositionComponent>().Value = entity.Get<PositionComponent>().Value;
+                    var enemyView = _enemies.Get3(i).View as EnemyView;
+                    enemy.Get<TargetPositionComponent>().Value = enemyView.GetTargetPointPosition();
                     enemy.Get<InCombatComponent>();
-                    (_enemies.Get3(i).View as EnemyView).SetAttackAnim();
+                    enemyView.SetAttackAnim();
                 }
             }
         }
