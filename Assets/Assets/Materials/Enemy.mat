@@ -10,7 +10,7 @@ Material:
   m_Name: Enemy
   m_Shader: {fileID: 4800000, guid: f276502ebf8b1431192125b7316d5d67, type: 3}
   m_ShaderKeywords: BACKGRADIENT BOTTOMSOLID COLORCORRECTION_ON FRONTSOLID LEFTSOLID
-    LIGHTMAP_AO RIGHTGRADIENT RIGHTSOLD TOPSOLID _AOUV_UV0 _COLORCORRECTIONENABLE_ON
+    LIGHTMAP_AO RIGHTGRADIENT RIGHTSOLD TEXTUREMODULE_ON TOPSOLID _AOUV_UV0 _COLORCORRECTIONENABLE_ON
     _GRADIENTSPACE_WORLD_SPACE _GRADSETTINGS_B_CUSTOM _GRADSETTINGS_D_USE_GLOBAL
     _GRADSETTINGS_F_USE_GLOBAL _GRADSETTINGS_L_USE_GLOBAL _GRADSETTINGS_R_CUSTOM
     _GRADSETTINGS_T_USE_GLOBAL _LMAPBLENDINGMODE_AO _LMAPENABLE_ON _MODE_OPAQUE _OTHERSETTINGS_ON
@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 93b5751d31ffe4e47aebad90f10ada0f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -76,7 +76,7 @@ Material:
     - _AOPower: 0
     - _AOuv: 0
     - _AmbientPower: 0
-    - _Brightness: 0.064
+    - _Brightness: 0.64
     - _BumpScale: 1
     - _ColorCorrectionEnable: 1
     - _Cull: 2
@@ -124,7 +124,7 @@ Material:
     - _Rotation_L: 0
     - _Rotation_R: 271.05725
     - _Rotation_T: 0
-    - _Saturation: 0.815
+    - _Saturation: 0.819
     - _Shading_B: 2
     - _Shading_D: 1
     - _Shading_F: 1
@@ -158,17 +158,17 @@ Material:
     - _AOColor: {r: 1, g: 1, b: 1, a: 1}
     - _AmbientColor: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.8490566, g: 0.15619439, b: 0.15619439, a: 1}
-    - _Color1_B: {r: 0.48512077, g: 0, b: 1, a: 1}
-    - _Color1_D: {r: 1, g: 0.54509807, b: 0.54509807, a: 1}
-    - _Color1_F: {r: 0.86225694, g: 0.8866507, b: 0.90099996, a: 1}
-    - _Color1_L: {r: 0.88545597, g: 0.91704416, b: 0.946, a: 1}
-    - _Color1_R: {r: 0.48512077, g: 0, b: 1, a: 1}
-    - _Color1_T: {r: 1, g: 0.54509807, b: 0.54509807, a: 1}
-    - _Color2_B: {r: 0.546, g: 0.3631415, b: 0.3631415, a: 1}
+    - _Color1_B: {r: 0.7921569, g: 0.58431375, b: 0.5981699, a: 1}
+    - _Color1_D: {r: 0.69411767, g: 0.5294118, b: 0.54080105, a: 1}
+    - _Color1_F: {r: 0.69411767, g: 0.5529412, b: 0.56235296, a: 1}
+    - _Color1_L: {r: 0.6862745, g: 0.5294118, b: 0.5398693, a: 1}
+    - _Color1_R: {r: 0.7176471, g: 0.49411765, b: 0.5090196, a: 1}
+    - _Color1_T: {r: 0.7058824, g: 0.39215687, b: 0.41307187, a: 1}
+    - _Color2_B: {r: 0.41960785, g: 0.26666668, b: 0.27686274, a: 1}
     - _Color2_D: {r: 1, g: 1, b: 1, a: 1}
     - _Color2_F: {r: 1, g: 1, b: 1, a: 1}
     - _Color2_L: {r: 1, g: 1, b: 1, a: 1}
-    - _Color2_R: {r: 0.43283018, g: 0.44895864, b: 0.496, a: 1}
+    - _Color2_R: {r: 0.62352943, g: 0.25490195, b: 0.2794771, a: 1}
     - _Color2_T: {r: 1, g: 1, b: 1, a: 1}
     - _Color_Fog: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0.015686275, g: 0.015686275, b: 0.015686275, a: 1}
@@ -188,5 +188,5 @@ Material:
     - _LMColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 0.16911763, g: 0.16911763, b: 0.16911763, a: 1}
     - _ShadowColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
-    - _TintColor: {r: 1, g: 0.54509807, b: 0.54509807, a: 1}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

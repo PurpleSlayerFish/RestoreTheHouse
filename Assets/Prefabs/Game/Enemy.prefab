@@ -224,13 +224,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 2217398403194882468}
-  _renderer: {fileID: 5026072262472205081}
   _collider: {fileID: 3030387297468227514}
   _hpIndicator: {fileID: 3419800993518022791}
-  _activator: {fileID: 0}
+  _nextEnemyTarget: {fileID: 0}
+  _enemyActivatorPoint: {fileID: 0}
   _movementSpeed: 16
   _health: 3
   _staggerDuration: 0.9
+  _rewardHitsCount: 2
+  _playerToLoseDistance: 2
+  _deathTime: 1.3
+  _underFloorVector: {x: 0, y: -3, z: 0}
 --- !u!136 &3030387297468227514
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -761,7 +765,7 @@ SkinnedMeshRenderer:
   m_GameObject: {fileID: 5884386943901011392}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -771,7 +775,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 207e72e557a902e4cab189b050d598a1, type: 2}
+  - {fileID: 2100000, guid: 497278055e0ecb944993f55ff9b84ef4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

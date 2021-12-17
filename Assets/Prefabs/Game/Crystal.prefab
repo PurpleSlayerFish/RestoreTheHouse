@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 277626699092150946}
   - component: {fileID: 2048259109519621793}
   - component: {fileID: 1448964610302400036}
+  - component: {fileID: 7169029627485745332}
   m_Layer: 0
   m_Name: Crystal
   m_TagString: Untagged
@@ -42,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1790929014733597559}
-  m_Mesh: {fileID: 4702925393065980420, guid: ac7a2ae880294954cb5bf3dcc7e26a4d, type: 3}
+  m_Mesh: {fileID: 4835335821860395828, guid: 0088a677f08ef294f9ab3a208b724405, type: 3}
 --- !u!23 &277626699092150946
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8eb87b134baf32a4e8bd61fe190d53e2, type: 2}
+  - {fileID: 2100000, guid: d592f58fb6ededa4c86e4692bf75fd82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -139,6 +140,39 @@ MonoBehaviour:
       period: 0
       from: 0
       fromRelative: 0
+--- !u!215 &7169029627485745332
+ReflectionProbe:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790929014733597559}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Type: 0
+  m_Mode: 1
+  m_RefreshMode: 0
+  m_TimeSlicingMode: 0
+  m_Resolution: 128
+  m_UpdateFrequency: 0
+  m_BoxSize: {x: 10, y: 10, z: 10}
+  m_BoxOffset: {x: 0, y: 0, z: 0}
+  m_NearClip: 0.3
+  m_FarClip: 1000
+  m_ShadowDistance: 100
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IntensityMultiplier: 1
+  m_BlendDistance: 1
+  m_HDR: 1
+  m_BoxProjection: 0
+  m_RenderDynamicObjects: 0
+  m_UseOcclusionCulling: 1
+  m_Importance: 1
+  m_CustomBakedTexture: {fileID: 0}
 --- !u!1001 &3324218156971145630
 PrefabInstance:
   m_ObjectHideFlags: 0
