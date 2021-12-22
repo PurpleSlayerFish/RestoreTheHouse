@@ -66,7 +66,7 @@ namespace Runtime.Game.Ui.Windows.LevelComplete
 
             if (data.Level >= Enum.GetValues(typeof(EScene)).Cast<EScene>().Last())
             {
-                data.Level = EScene.Level_5;
+                data.Level = EScene.Level_1;
                 Amplitude.Instance.logEvent("last_level_complete");
             }
             else
