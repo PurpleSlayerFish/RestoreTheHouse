@@ -16,7 +16,7 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 56565659898
+  - 692144465088539
   appLabels:
   - GunsVersusCrampus
   cookie: 1
@@ -24,7 +24,7 @@ MonoBehaviour:
   status: 1
   xfbml: 0
   frictionlessRequests: 1
-  androidKeystorePath: C:\Users\PurpleSlayerFish.PSY-SANCTUARY\Desktop\GunsVsCrampus\Assets\ReplayAnton.keystore
+  androidKeystorePath: C:\Users\PurpleSlayerFish.PSY-SANCTUARY\Desktop\WorkProjects\GunsVsCrampus\Assets\ReplayAnton.keystore
   iosURLSuffix: 
   appLinkSchemes:
   - list: []

@@ -9,14 +9,14 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Skyscraper_1
   m_Shader: {fileID: 4800000, guid: f276502ebf8b1431192125b7316d5d67, type: 3}
-  m_ShaderKeywords: BACKGRADIENT BOTTOMSOLID COLORCORRECTION_ON FRONTSOLID LEFTSOLID
-    LIGHTMAP_AO RIGHTGRADIENT RIGHTSOLD TOPSOLID _AOUV_UV0 _COLORCORRECTIONENABLE_ON
-    _GRADIENTSPACE_WORLD_SPACE _GRADSETTINGS_B_CUSTOM _GRADSETTINGS_D_USE_GLOBAL
-    _GRADSETTINGS_F_USE_GLOBAL _GRADSETTINGS_L_USE_GLOBAL _GRADSETTINGS_R_CUSTOM
-    _GRADSETTINGS_T_USE_GLOBAL _LMAPBLENDINGMODE_AO _LMAPENABLE_ON _MODE_OPAQUE _OTHERSETTINGS_ON
-    _SHADING_B_GRADIENT _SHADING_D_SOLID_COLOR _SHADING_F_SOLIDCOLOR _SHADING_L_SOLID_COLOR
-    _SHADING_R_GRADIENT _SHADING_T_SOLID_COLOR _SHOWBACK_ON _SHOWBOTTOM_ON _SHOWCOLORCORRECTION_ON
-    _SHOWFRONT_ON _SHOWLEFT_ON _SHOWLMAP_ON _SHOWRIGHT_ON _SHOWTOP_ON
+  m_ShaderKeywords: BACKGRADIENT BOTTOMSOLID FRONTGRADIENT LEFTSOLID LIGHTMAP_AO
+    RIGHTGRADIENT RIGHTSOLD TOPSOLID _AOUV_UV0 _COLORCORRECTIONENABLE_ON _GRADIENTSPACE_WORLD_SPACE
+    _GRADSETTINGS_B_CUSTOM _GRADSETTINGS_D_USE_GLOBAL _GRADSETTINGS_F_USE_GLOBAL
+    _GRADSETTINGS_L_USE_GLOBAL _GRADSETTINGS_R_CUSTOM _GRADSETTINGS_T_USE_GLOBAL
+    _LMAPBLENDINGMODE_AO _LMAPENABLE_ON _MODE_OPAQUE _OTHERSETTINGS_ON _SHADING_B_GRADIENT
+    _SHADING_D_SOLID_COLOR _SHADING_F_SOLIDCOLOR _SHADING_L_SOLID_COLOR _SHADING_R_GRADIENT
+    _SHADING_T_SOLID_COLOR _SHOWBACK_ON _SHOWBOTTOM_ON _SHOWCOLORCORRECTION_ON _SHOWFRONT_ON
+    _SHOWLEFT_ON _SHOWLMAP_ON _SHOWRIGHT_ON _SHOWTOP_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -78,7 +78,7 @@ Material:
     - _AmbientPower: 0
     - _Brightness: 1
     - _BumpScale: 1
-    - _ColorCorrectionEnable: 1
+    - _ColorCorrectionEnable: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -92,16 +92,16 @@ Material:
     - _GlossyReflections: 1
     - _GradSettings_B: 1
     - _GradSettings_D: 0
-    - _GradSettings_F: 0
+    - _GradSettings_F: 1
     - _GradSettings_L: 0
     - _GradSettings_R: 1
     - _GradSettings_T: 0
-    - _GradientHeight_B: 19.269693
+    - _GradientHeight_B: 0
     - _GradientHeight_D: 1
-    - _GradientHeight_F: 1
+    - _GradientHeight_F: 0
     - _GradientHeight_G: 1
     - _GradientHeight_L: 1
-    - _GradientHeight_R: 1.2782404
+    - _GradientHeight_R: 0
     - _GradientHeight_T: 1
     - _GradientSpace: 0
     - _HFogEnable: 0
@@ -117,17 +117,17 @@ Material:
     - _RealtimeShadow: 0
     - _RimEnable: 0
     - _RimPower: 1
-    - _Rotation_B: 304.70856
+    - _Rotation_B: 0
     - _Rotation_D: 0
     - _Rotation_F: 0
     - _Rotation_G: 0
     - _Rotation_L: 0
-    - _Rotation_R: 271.05725
+    - _Rotation_R: 0
     - _Rotation_T: 0
     - _Saturation: 0.761
     - _Shading_B: 2
     - _Shading_D: 1
-    - _Shading_F: 1
+    - _Shading_F: 2
     - _Shading_L: 1
     - _Shading_R: 2
     - _Shading_T: 1
@@ -159,17 +159,17 @@ Material:
     - _AOColor: {r: 1, g: 1, b: 1, a: 1}
     - _AmbientColor: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.454902, g: 0.43921572, b: 0.7568628, a: 1}
-    - _Color1_B: {r: 0.470603, g: 0.48575646, b: 0.553, a: 1}
-    - _Color1_D: {r: 0.4392157, g: 0.4771896, b: 0.7647059, a: 1}
-    - _Color1_F: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1_L: {r: 0.4666667, g: 0.4431373, b: 0.4431373, a: 1}
-    - _Color1_R: {r: 0.5137255, g: 0.54546446, b: 0.6666667, a: 1}
-    - _Color1_T: {r: 0.4392157, g: 0.4771896, b: 0.7647059, a: 1}
-    - _Color2_B: {r: 0.4666667, g: 0.4431373, b: 0.4431373, a: 1}
+    - _Color1_B: {r: 0.015686275, g: 0.8705883, b: 0.5647059, a: 1}
+    - _Color1_D: {r: 0.011764707, g: 0.6745098, b: 0.43529415, a: 1}
+    - _Color1_F: {r: 0.013087371, g: 0.674, b: 0.4351554, a: 1}
+    - _Color1_L: {r: 0.015686275, g: 0.80784315, b: 0.52156866, a: 1}
+    - _Color1_R: {r: 0.015686275, g: 0.80784315, b: 0.52156866, a: 1}
+    - _Color1_T: {r: 0.01693203, g: 0.872, b: 0.56299037, a: 1}
+    - _Color2_B: {r: 0.019607844, g: 0.9490196, b: 0.80784315, a: 1}
     - _Color2_D: {r: 1, g: 1, b: 1, a: 1}
-    - _Color2_F: {r: 1, g: 1, b: 1, a: 1}
+    - _Color2_F: {r: 0.019607844, g: 0.9490196, b: 0.80784315, a: 1}
     - _Color2_L: {r: 1, g: 1, b: 1, a: 1}
-    - _Color2_R: {r: 0.5882353, g: 0.56078434, b: 0.57300586, a: 1}
+    - _Color2_R: {r: 0.019607844, g: 0.9490197, b: 0.8078432, a: 1}
     - _Color2_T: {r: 1, g: 1, b: 1, a: 1}
     - _Color_Fog: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0.0019607844, g: 0.0019607844, b: 0.0019607844, a: 1}
@@ -182,11 +182,11 @@ Material:
     - _GizmoPosition_T: {r: 0, g: 0, b: 10, a: 10}
     - _GradientXStartPos_D: {r: 0, g: 0, b: 0, a: 0}
     - _GradientXStartPos_T: {r: 0, g: 0, b: 0, a: 0}
-    - _GradientYStartPos_B: {r: -15.23, g: 0.11218214, b: 0, a: 0}
+    - _GradientYStartPos_B: {r: 0, g: 0, b: 0, a: 0}
     - _GradientYStartPos_F: {r: 0, g: 0, b: 0, a: 0}
     - _GradientYStartPos_G: {r: 0, g: 0, b: 0, a: 0}
     - _GradientYStartPos_L: {r: 0, g: 0, b: 0, a: 0}
-    - _GradientYStartPos_R: {r: -95.238144, g: -4.0524054, b: 0, a: 0}
+    - _GradientYStartPos_R: {r: 0, g: 0, b: 0, a: 0}
     - _LMColor: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
     - _MainColor: {r: 0.816192, g: 0.83615994, b: 0.936, a: 1}
     - _RimColor: {r: 0.16911763, g: 0.16911763, b: 0.16911763, a: 1}

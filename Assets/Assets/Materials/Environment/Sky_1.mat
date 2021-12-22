@@ -62,7 +62,7 @@ Material:
     - _DirX: 0
     - _DirY: 0
     - _DstBlend: 0
-    - _Exponent: 1.5
+    - _Exponent: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -78,8 +78,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 0.44705883, g: 0.4932816, b: 0.78039217, a: 0}
-    - _Color2: {r: 0.504, g: 0.87412804, b: 1, a: 0}
+    - _Color1: {r: 0.06299999, g: 0.9, b: 0.7728608, a: 0}
+    - _Color2: {r: 0.06299999, g: 0.9, b: 0.5962784, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _UpVector: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
