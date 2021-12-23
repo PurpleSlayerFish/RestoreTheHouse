@@ -15,22 +15,22 @@ namespace ECS.Game.Systems.GameCycle
         protected override EcsFilter<EventRemoveComponent<TargetPositionComponent>> ReactiveFilter { get; }
         protected override void Execute(EcsEntity entity)
         {
-            if (!entity.Has<EnemyComponent>())
-                return;
-            
-            var enemyView = entity.Get<LinkComponent>().View as EnemyView;
-            
-            if (enemyView.HasNextTargetPoint())
-                return;
-
-            if (enemyView.GetTargetEntity().Has<RotationDirectionComponent>())
-            {
-                entity.Get<TargetRotationComponent>().Value = Quaternion.Euler(enemyView.GetTargetRotationDirection());
-                entity.Get<TargetRotationComponent>().Speed = enemyView.GetTargetRotationSpeed();
-            }
-            
-            enemyView.SetNextTargetPoint();
-            entity.Get<TargetPositionComponent>().Value = enemyView.GetTargetPointPosition();
+            // if (!entity.Has<EnemyComponent>())
+            //     return;
+            //
+            // var enemyView = entity.Get<LinkComponent>().View as EnemyView;
+            //
+            // if (enemyView.HasNextTargetPoint())
+            //     return;
+            //
+            // if (enemyView.GetTargetEntity().Has<RotationDirectionComponent>())
+            // {
+            //     entity.Get<TargetRotationComponent>().Value = Quaternion.Euler(enemyView.GetTargetRotationDirection());
+            //     entity.Get<TargetRotationComponent>().Speed = enemyView.GetTargetRotationSpeed();
+            // }
+            //
+            // enemyView.SetNextTargetPoint();
+            // entity.Get<TargetPositionComponent>().Value = enemyView.GetTargetPointPosition();
         }
     }
 }

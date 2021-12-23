@@ -1,10 +1,10 @@
-﻿using DataBase.Game;
-using ECS.Core.Utils.SystemInterfaces;
+﻿using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
 using ECS.Game.Components.GameCycle;
 using ECS.Game.Components.General;
 using ECS.Utils.Extensions;
 using Leopotam.Ecs;
+using Runtime.DataBase.Game;
 using Runtime.Services.ElapsedTimeService;
 using Runtime.Services.ElapsedTimeService.Impls;
 using UnityEngine;

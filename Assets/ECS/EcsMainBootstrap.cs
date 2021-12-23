@@ -39,8 +39,6 @@ namespace ECS
             //Create filters for use out of systems
             _world.GetFilter(typeof(EcsFilter<UIdComponent>));
             _world.GetFilter(typeof(EcsFilter<PlayerComponent>));
-            _world.GetFilter(typeof(EcsFilter<PlayerInWorkshopComponent>));
-            _world.GetFilter(typeof(EcsFilter<TileComponent>));
 
             _initUpdateSystems?.Init();
         }

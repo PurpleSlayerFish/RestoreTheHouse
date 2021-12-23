@@ -1,7 +1,7 @@
-﻿using DataBase.Game;
-using ECS.Game.Components.Events;
+﻿using ECS.Game.Components.Events;
 using ECS.Utils.Extensions;
 using Leopotam.Ecs;
+using Runtime.DataBase.Game;
 
 namespace Runtime.Services.PauseService.Impls
 {

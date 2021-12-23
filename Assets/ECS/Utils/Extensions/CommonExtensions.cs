@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace ECS.Utils.Extensions
 {
@@ -32,6 +31,11 @@ namespace ECS.Utils.Extensions
         {
             var toFloat = (float) value;
             return toFloat.Remap(0, max, 0, 1);
+        }
+
+        public static Vector2 GetDirection(this Vector2 value)
+        {
+            return new Vector2(value.x > 0 ? 1 : value.x < 0 ? -1 : 0, value.y > 0 ? 1 : value.y < 0 ? -1 : 0);
         }
     }
 }

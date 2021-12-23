@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using DataBase.Game;
 using ECS.Core.Utils.ReactiveSystem;
 using ECS.Game.Components;
 using ECS.Game.Components.Events;
+using ECS.Game.Components.General;
 using Leopotam.Ecs;
+using Runtime.DataBase.Game;
 using Services.PauseService;
 
 namespace ECS.Game.Systems.Linked

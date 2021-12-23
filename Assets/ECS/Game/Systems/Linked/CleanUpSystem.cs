@@ -1,6 +1,7 @@
 ﻿using ECS.Core.Utils.ReactiveSystem;
 using ECS.Game.Components;
 using ECS.Game.Components.Flags;
+using ECS.Game.Components.General;
 using Leopotam.Ecs;
 
 namespace ECS.Game.Systems.Linked

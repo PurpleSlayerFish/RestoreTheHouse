@@ -1,5 +1,4 @@
-﻿using DataBase.Game;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Behaviours

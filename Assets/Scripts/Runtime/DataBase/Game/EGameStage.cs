@@ -1,11 +1,10 @@
-﻿namespace DataBase.Game
+﻿namespace Runtime.DataBase.Game
 {
     public enum EGameStage
     {
         Play,
         Pause,
         Complete,
-        Lose,
-        Workshop
+        Lose
     }
 }

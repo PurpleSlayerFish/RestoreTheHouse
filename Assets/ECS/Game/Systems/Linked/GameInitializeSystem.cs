@@ -1,8 +1,8 @@
-﻿using DataBase.Game;
-using ECS.DataSave;
+﻿using ECS.DataSave;
 using ECS.Game.Components;
 using ECS.Utils.Extensions;
 using Leopotam.Ecs;
+using Runtime.DataBase.Game;
 using Runtime.Services.GameStateService;
 using Services.Uid;
 using Zenject;
@@ -13,22 +13,22 @@ namespace ECS.Game.Systems.Linked
     {
         [Inject] private readonly IGameStateService<GameState> _generalState;
         
+#pragma warning disable 649
         private readonly EcsWorld _world;
+#pragma warning restore 649
+        
         public void Init()
         {
             if (LoadGame()) return;
             CreateTimer();
             CreatePlayer();
-            CreateTiles();
-            CreateGunCubes();
-            CreateGun();
             CreatePath();
-            CreateEnemies();
-            CreateChest();
+            CreateResources();
+            CreateMarkets();
         }
         private bool LoadGame()
         {
-            _world.NewEntity().Get<GameStageComponent>().Value = EGameStage.Workshop;
+            _world.NewEntity().Get<GameStageComponent>().Value = EGameStage.Play;
             var gState = _generalState.GetData();
             if (gState.SaveState.IsNullOrEmpty()) return false;
             foreach (var state in gState.SaveState)
@@ -48,8 +48,7 @@ namespace ECS.Game.Systems.Linked
 
         private void CreatePlayer()
         {
-            _world.CreatePlayerInWorkshop();
-            // _world.CreatePlayer();
+            _world.CreatePlayer();
         }
 
         private void CreatePath()
@@ -57,29 +56,14 @@ namespace ECS.Game.Systems.Linked
             _world.CreatePoints();
         }
         
-        private void CreateTiles()
+        private void CreateResources()
         {
-            _world.CreateTiles();
+            _world.CreateResources();
         }
-
-        private void CreateGunCubes()
+            
+        private void CreateMarkets()
         {
-            _world.CreateGunCubes();
-        }
-
-        private void CreateGun()
-        {
-            _world.CreateGun();
-        }
-
-        private void CreateEnemies()
-        {
-            _world.CreateEnemies();
-        }
-
-        private void CreateChest()
-        {
-            _world.CreateChest();
+            _world.CreateMarkets();
         }
     }
 }

@@ -32,26 +32,26 @@ namespace Runtime.Game.Ui.Windows.TouchPad
 		private void OnDragAction(PointerEventData eventData)
 		{
 			// if(eventData.delta.sqrMagnitude <= 1) return;
-			var worldPos = eventData.pointerCurrentRaycast;
+			// var worldPos = eventData.pointerCurrentRaycast;
 			ref var drag = ref _world.NewEntity().Get<PointerDragComponent>();
-			drag.Position = worldPos.worldPosition;
+			drag.Position = eventData.pointerCurrentRaycast.worldPosition;
 		}
 
-		private void OnPointerDownAction(PointerEventData data)
+		private void OnPointerDownAction(PointerEventData eventData)
 		{
 			if(!_active)
 				return;
-			_world.NewEntity().Get<PointerDownComponent>().Position = data.position;
-			var entity = _world.GetEntity<PlayerComponent>();
-			if (!entity.IsNull())
-				entity.GetAndFire<RemapPointComponent>().Input = data.pointerCurrentRaycast.worldPosition;
+			_world.NewEntity().Get<PointerDownComponent>().Position = eventData.pointerCurrentRaycast.worldPosition;
+			// var entity = _world.GetEntity<PlayerComponent>();
+			// if (!entity.IsNull())
+				// entity.GetAndFire<RemapPointComponent>().Input = eventData.pointerCurrentRaycast.worldPosition;
 		}
 
-		private void OnPointerUpAction(PointerEventData data)
+		private void OnPointerUpAction(PointerEventData eventData)
 		{
 			if(!_active)
 				return;
-			_world.NewEntity().Get<PointerUpComponent>().Position = data.position;
+			_world.NewEntity().Get<PointerUpComponent>().Position = eventData.pointerCurrentRaycast.worldPosition;
 		}
 
 		public void SetActive(bool value) => _active = value;

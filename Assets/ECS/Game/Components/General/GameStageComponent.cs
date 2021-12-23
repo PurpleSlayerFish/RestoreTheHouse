@@ -1,4 +1,4 @@
-﻿using DataBase.Game;
+﻿using Runtime.DataBase.Game;
 
 namespace ECS.Game.Components
 {

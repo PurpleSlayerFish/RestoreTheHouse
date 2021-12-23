@@ -1,9 +1,9 @@
-﻿using DataBase.Game;
-using ECS.Core.Utils.SystemInterfaces;
+﻿using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
 using Leopotam.Ecs;
+using Runtime.DataBase.Game;
 using Runtime.Services.ElapsedTimeService;
 using UnityEngine;
 using Zenject;
@@ -27,7 +27,7 @@ namespace ECS.Game.Systems.Linked
         public void Run()
         {
 
-            if (_gameStage.Get1(0).Value != EGameStage.Play && _gameStage.Get1(0).Value != EGameStage.Workshop)
+            if (_gameStage.Get1(0).Value != EGameStage.Play)
             {
                 _onPause = true;
                 return;

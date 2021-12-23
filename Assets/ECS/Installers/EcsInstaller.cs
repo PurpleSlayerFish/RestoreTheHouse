@@ -29,29 +29,20 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<InstantiateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameTimerSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ElapsedTimeSystem>().AsSingle();
+            
+            Container.BindInterfacesAndSelfTo<PlayerMovementSystem>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<PositionRotationTranslateSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ProjectileLauncherInitSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ProjectileCollisionSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ProjectileSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerShootingSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerInitSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerForwardMovementSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<MoveRotateToTargetSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemyNextTargetSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<TileInitSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<WorkshopDragAndDropSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<GunFireRateSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<CombatStartSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ProjectileDeathSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemyDistanceSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<RewardDistanceSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<CombatEndSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ChestTrialSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<RewardSpawnSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ResourceDistanceSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerPickUpSystem>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<AddImpactToPlayerSystem>().AsSingle();
-            
+            Container.BindInterfacesAndSelfTo<PlayerViewSystem>().AsSingle();
+
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GamePauseSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<SaveGameSystem>().AsSingle();

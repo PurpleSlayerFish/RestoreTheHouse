@@ -1,6 +1,7 @@
 ﻿using ECS.Core.Utils.ReactiveSystem;
 using ECS.Core.Utils.ReactiveSystem.Components;
 using ECS.Game.Components;
+using ECS.Game.Components.General;
 using ECS.Utils;
 using ECS.Views;
 using Leopotam.Ecs;
