@@ -9,6 +9,7 @@ using ECS.Views.GameCycle;
 using Leopotam.Ecs;
 using Runtime.DataBase.Game;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace ECS.Game.Systems.GameCycle
 {
@@ -64,10 +65,13 @@ namespace ECS.Game.Systems.GameCycle
                 var playerView = _player.Get2(i).View as PlayerView;
                 var movement = (_pointerDragValue - _pointerDownValue) * playerView.GetSensitivity() * _player.Get4(i).Value;
                 ref var pos = ref _player.Get3(i).Value;
-                pos = new Vector3(
+                var tempPos = new Vector3(
                     pos.x + Mathf.Clamp(movement.x, - playerView.GetMovementLimitX(), playerView.GetMovementLimitX())
                     , pos.y
                     , pos.z + Mathf.Clamp(movement.y, - playerView.GetMovementLimitY(), playerView.GetMovementLimitY()));
+                if (!playerView.GetNavMeshAgent().CalculatePath(tempPos, new NavMeshPath()))
+                    continue;
+                pos = tempPos;
                 playerView.GetRoot().localRotation = Quaternion.Euler(playerView.GetRoot().localRotation.x, Mathf.Atan2(movement.x,  movement.y) * 180 / Mathf.PI, playerView.GetRoot().localRotation.z);
             }
         }

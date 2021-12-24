@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using DG.Tweening;
 using ECS.Game.Components;
-using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
 using ECS.Game.Components.General;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace ECS.Views.GameCycle
 {
@@ -24,11 +23,13 @@ namespace ECS.Views.GameCycle
 
         [SerializeField] private float _interactionDistance = 2.5f;
         [SerializeField] private float _interactionDuration = 0.4f;
+        [SerializeField] private float _interactionCooldown = 0.6f;
 
         [SerializeField] private float _sensitivity = 0.001f;
         [SerializeField] private float _movementSpeed = 5f;
         [SerializeField] private float _movementLimitX = 0.025f;
         [SerializeField] private float _movementLimitY = 0.025f;
+        [SerializeField] private NavMeshAgent _navMeshAgent;
 
         private readonly int Idle = 0;
         private readonly int Walk = 1;
@@ -53,6 +54,11 @@ namespace ECS.Views.GameCycle
         {
             return ref _root;
         }
+        
+        public ref Transform GetResourcesStack()
+        {
+            return ref _resourcesStack;
+        }
 
         public ref float GetSensitivity()
         {
@@ -68,10 +74,25 @@ namespace ECS.Views.GameCycle
         {
             return ref _movementLimitY;
         }
+        
+        public ref NavMeshAgent GetNavMeshAgent()
+        {
+            return ref _navMeshAgent;
+        }
 
         public ref float GetInteractionDistance()
         {
             return ref _interactionDistance;
+        }
+        
+        public ref float GetInteractionDuration()
+        {
+            return ref _interactionDuration;
+        }
+        
+        public ref float GetInteractionCooldown()
+        {
+            return ref _interactionCooldown;
         }
 
         public void SetWalkAnimation()
@@ -106,7 +127,6 @@ namespace ECS.Views.GameCycle
         public void AddResource(ref EcsEntity resource)
         {
             _resources.Push(resource);
-            var resTransform = resource.Get<LinkComponent>().View.Transform;
             var z = _stackColumn * _stackOffsetX;
             var y = _stackRow * _stackOffsetY;
             _stackRow++;
@@ -115,23 +135,21 @@ namespace ECS.Views.GameCycle
                 _stackColumn++;
                 _stackRow = 1;
             }
-
             // Attach to stack
-            resTransform.SetParent(_resourcesStack);
-            resTransform.DOLocalMove(new Vector3(0, y, z), _interactionDuration).SetEase(Ease.Unset);
-            resTransform.DOLocalRotate(Vector3.zero, _interactionDuration).SetEase(Ease.Unset);
+            resource.Get<MoveTweenEventComponent>().EventType = ETweenEventType.ResourcePickUp;
+            resource.Get<Vector3Component<MoveTweenEventComponent>>().Value = new Vector3(0, y, z);
         }
 
-        public void RemoveResource(EResourceType type, Vector3 clearPointPos)
+        public bool RemoveResource(EResourceType type, Vector3 clearPointPos)
         {
             if (_resources.Count == 0)
-                return;
+                return false;
             var count = 0;
             foreach (var resource in _resources)
                 if (resource.Get<ResourceComponent>().Type == type)
                     count++;
             if (count == 0)
-                return;
+                return false;
 
             bool condition = true;
             EcsEntity entity;
@@ -143,10 +161,8 @@ namespace ECS.Views.GameCycle
                 if (entity.Get<ResourceComponent>().Type == type)
                 {
                     // Detach from stack
-                    var resTransform = entity.Get<LinkComponent>().View.Transform;
-                    resTransform.SetParent(null);
-                    resTransform.DOLocalMove(clearPointPos, _interactionDuration).SetEase(Ease.Unset)
-                        .OnComplete(() => entity.Get<IsDestroyedComponent>());
+                    entity.Get<MoveTweenEventComponent>().EventType = ETweenEventType.ResourceSpend;
+                    entity.Get<Vector3Component<MoveTweenEventComponent>>().Value = clearPointPos;
                     condition = false;
                 }
                 else
@@ -169,6 +185,8 @@ namespace ECS.Views.GameCycle
                 AddResource(_tempResources.Peek());
                 _tempResources.Pop();
             }
+
+            return true;
         }
     }
 }

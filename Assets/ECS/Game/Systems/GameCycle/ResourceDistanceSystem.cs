@@ -15,46 +15,98 @@ namespace ECS.Game.Systems.GameCycle
     public class ResourceDistanceSystem : IEcsUpdateSystem
     {
 #pragma warning disable 649
-        private readonly EcsFilter<ResourceComponent, LinkComponent> _resources;
-        private readonly EcsFilter<MarketComponent, LinkComponent> _markets;
+        private readonly EcsWorld _world;
         private readonly EcsFilter<GameStageComponent> _gameStage;
+        private readonly EcsFilter<ResourceComponent, LinkComponent> _resources;
+        private readonly EcsFilter<BuildingComponent, LinkComponent> _buildings;
         private readonly EcsFilter<PlayerComponent, LinkComponent, PositionComponent> _player;
 #pragma warning restore 649
 
-        private EcsEntity _resource;
-        private MarketView _marketView;
+        private EcsEntity _playerEntity;
+        private EcsEntity _resourceEntity;
+        private EcsEntity _buildingEntity;
         private PlayerView _playerView;
+        private BuildingView _buildingView;
 
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public void Run()
         {
             if (_gameStage.Get1(0).Value != EGameStage.Play) return;
 
-
             foreach (var i in _player)
             {
                 _playerView = _player.Get2(i).Get<PlayerView>();
+                _playerEntity = _player.GetEntity(i);
 
                 foreach (var j in _resources)
                 {
-                    _resource = _resources.GetEntity(j);
-                    if (_resource.Has<PickedComponent>())
+                    _resourceEntity = _resources.GetEntity(j);
+                    if (_resourceEntity.Has<PickedComponent>())
                         continue;
                     if (Vector3.Distance(_resources.Get2(j).View.Transform.position, _player.Get3(i).Value) <
                         _playerView.GetInteractionDistance()
                         && _playerView.GetResourcesCount() < _playerView.GetResourcesCapacity())
-                        _resource.GetAndFire<PickedComponent>();
+                        _resourceEntity.GetAndFire<PickedComponent>();
                 }
 
-                foreach (var j in _markets)
+                foreach (var j in _buildings)
                 {
-                    _marketView = _markets.Get2(j).Get<MarketView>();
-                    if (Vector3.Distance(_marketView.GetSalePointPos(), _player.Get3(i).Value) <
-                        _playerView.GetInteractionDistance()
-                        && !_player.GetEntity(i).Has<IsMovingComponent>())
-                        _playerView.RemoveResource(EResourceType.Wood, _marketView.GetClearPointPos());
+                    _buildingEntity = _buildings.GetEntity(j);
+                    _buildingView = _buildings.Get2(j).Get<BuildingView>();
+                    // No need check distance to building, if player can't spend resources here (always or anymore)
+                    if (_buildingView.GetResourcesSpend() == null && _buildingView.GetResourcesSpend().gameObject.activeSelf == false)
+                        continue;
+                    if (Vector3.Distance(_buildingView.GetResourcesSpend().position, _player.Get3(i).Value) > _playerView.GetInteractionDistance())
+                        continue;
+                    if (_playerEntity.Has<IsMovingComponent>())
+                        continue;
+                    if (_playerEntity.Get<ElapsedTimeComponent>().Value < _playerView.GetInteractionCooldown())
+                        continue;
+                    _playerEntity.Del<ElapsedTimeComponent>();
+                    switch (_buildings.Get1(j).Type)
+                    {
+                        case EBuildingType.House:
+                            HandleHouseSpend();
+                            break;
+                        case EBuildingType.LumberMill:
+                            HandleLumberMillSpend();
+                            break;
+                        case EBuildingType.ConcreteMixer:
+                            HandleConcreteMixerSpend();
+                            break;
+                        case EBuildingType.TimberSaleVan:
+                            HandleTimberSaleVanSpend();
+                            break;
+                    }
                 }
             }
+        }
+
+        private void HandleHouseSpend()
+        {
+            
+        }
+        
+        private void HandleLumberMillSpend()
+        {
+            
+        }
+        
+        private void HandleConcreteMixerSpend()
+        {
+            
+        }
+        
+        private void HandleTimberSaleVanSpend()
+        {
+            if (!_playerView.RemoveResource(EResourceType.Wood, _buildingView.GetResourcesDelPos()))
+                return;
+            // Provided that one wood will be converted to one money resource.
+            if (!_buildingView.CheckCapacity())
+                return;
+            var money = _world.CreateResources(EResourceType.Money);
+            money.Get<UidLinkComponent>().Link = _buildingEntity.Get<UIdComponent>().Value;
+            money.Get<MoveTweenEventComponent>().EventType = ETweenEventType.ResourceDelivery;
         }
     }
 }

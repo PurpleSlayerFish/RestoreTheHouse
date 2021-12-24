@@ -495,6 +495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4374101886067610556}
   - component: {fileID: 4374101886067610559}
+  - component: {fileID: 7242957605907189775}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -539,10 +540,34 @@ MonoBehaviour:
   _stackOffsetY: 1
   _interactionDistance: 2.5
   _interactionDuration: 0.4
+  _interactionCooldown: 0.4
   _sensitivity: 0.001
   _movementSpeed: 5
-  _movementLimitX: 0.025
-  _movementLimitY: 0.025
+  _movementLimitX: 0.1
+  _movementLimitY: 0.1
+  _navMeshAgent: {fileID: 7242957605907189775}
+--- !u!195 &7242957605907189775
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4374101886067610558}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 1
+  m_AutoRepath: 0
+  m_Height: 2.5
+  m_BaseOffset: 0
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 2
 --- !u!1 &4725619868712537728
 GameObject:
   m_ObjectHideFlags: 0

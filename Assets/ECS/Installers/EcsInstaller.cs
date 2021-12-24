@@ -29,18 +29,17 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<InstantiateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameTimerSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ElapsedTimeSystem>().AsSingle();
-            
+            Container.BindInterfacesAndSelfTo<ResourceViewSystem>().AsSingle();
+
             Container.BindInterfacesAndSelfTo<PlayerMovementSystem>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<PositionRotationTranslateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerInitSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<MoveRotateToTargetSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemyNextTargetSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<EnemyDistanceSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ResourceDistanceSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerPickUpSystem>().AsSingle();
 
-            Container.BindInterfacesAndSelfTo<AddImpactToPlayerSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerViewSystem>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();

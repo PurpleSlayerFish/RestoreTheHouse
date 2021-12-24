@@ -49,11 +49,11 @@ namespace Runtime.Game.Ui.Windows.LevelComplete
 
         private void OnFinish()
         {
-            var lvlImpact = _world.GetEntity<PlayerComponent>().Get<ImpactComponent>().Value;
-            var currentCoins = _commonPlayerData.GetData().Coins;
-            var currentLevel = _commonPlayerData.GetData().Level;
-            OnWin(lvlImpact, out var newCoinCount);
-            View.Show(lvlImpact, currentCoins, currentLevel, () => OnComplete(newCoinCount));
+            // var lvlImpact = _world.GetEntity<PlayerComponent>().Get<ImpactComponent>().Value;
+            // var currentCoins = _commonPlayerData.GetData().Coins;
+            // var currentLevel = _commonPlayerData.GetData().Level;
+            // OnWin(lvlImpact, out var newCoinCount);
+            // View.Show(lvlImpact, currentCoins, currentLevel, () => OnComplete(newCoinCount));
         }
 
         private void OnComplete(int newCoinCount) => View.AddCoins(View.TotalCoinIcon.anchoredPosition, newCoinCount);

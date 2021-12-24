@@ -1,11 +1,14 @@
-﻿using ECS.Game.Components;
+﻿using System;
+using ECS.Game.Components;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
 using ECS.Game.Components.General;
 using ECS.Views.GameCycle;
 using Leopotam.Ecs;
+using PdUtils;
 using Services.Uid;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace ECS.Utils.Extensions
 {
@@ -17,7 +20,6 @@ namespace ECS.Utils.Extensions
             entity.Get<UIdComponent>().Value = UidGenerator.Next();
             entity.Get<PositionComponent>();
             entity.Get<RotationComponent>().Value = Quaternion.identity;
-            entity.Get<ImpactComponent>().Value = 0;
             entity.Get<SpeedComponent<PositionComponent>>();
             entity.GetAndFire<PrefabComponent>().Value = "Player";
             entity.GetAndFire<PlayerComponent>();
@@ -41,7 +43,7 @@ namespace ECS.Utils.Extensions
                 }
             }
         }
-        
+
         public static void CreateResources(this EcsWorld world)
         {
             var resources = Object.FindObjectsOfType<ResourceView>();
@@ -54,16 +56,24 @@ namespace ECS.Utils.Extensions
                 resource.Link(entity);
             }
         }
-        
+
+        public static EcsEntity CreateResources(this EcsWorld world, EResourceType type)
+        {
+            var entity = world.NewEntity();
+            entity.Get<UIdComponent>().Value = UidGenerator.Next();
+            entity.GetAndFire<PrefabComponent>().Value = Enum.GetName(typeof(EResourceType), type);
+            entity.Get<ResourceComponent>();
+            return entity;
+        }
         
         public static void CreateMarkets(this EcsWorld world)
         {
-            var views = Object.FindObjectsOfType<MarketView>();
+            var views = Object.FindObjectsOfType<BuildingView>();
             foreach (var view in views)
             {
                 var entity = world.NewEntity();
                 entity.Get<UIdComponent>().Value = UidGenerator.Next();
-                entity.Get<MarketComponent>();
+                entity.Get<BuildingComponent>();
                 entity.Get<LinkComponent>().View = view;
                 view.Link(entity);
             }

@@ -15,13 +15,13 @@ TagManager:
   - UI
   - 
   - 
-  - Tiles
-  - Cubes
-  - Background
-  - Projectile
-  - Environment
-  - Enemy
-  - Chest
+  - Floor
+  - Resource
+  - Characters
+  - Obstacle
+  - 
+  - 
+  - 
   - 
   - 
   - 
