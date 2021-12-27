@@ -93,7 +93,7 @@ namespace ECS.Game.Systems.GameCycle
                     _resourceView.Transform.position = _buildingView.GetResourcesDeliveryStartPoint();
                     _resourceView.Transform.DOLocalMove(_buildingView.GetResourcesDeliveryEndPoint(), _buildingView.GetResourcesDeliveryDuration()).SetEase(Ease.Unset);
                     resource.Del<MoveTweenEventComponent>();
-                    resource.Del<UidLinkComponent>();
+                    // resource.Del<UidLinkComponent>();
                     return true;
                 }
             }

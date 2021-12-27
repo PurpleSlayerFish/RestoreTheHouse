@@ -16,6 +16,7 @@ namespace ECS.Game.Systems.GameCycle
     {
 #pragma warning disable 649
         private readonly EcsFilter<PlayerComponent, LinkComponent> _player;
+        private readonly EcsFilter<BuildingComponent, LinkComponent, UIdComponent> _building;
 #pragma warning restore 649
 
         protected override bool DeleteEvent => true;
@@ -29,6 +30,13 @@ namespace ECS.Game.Systems.GameCycle
                 if (entity.Has<ResourceComponent>())
                 {
                     playerView.AddResource(ref entity);
+                    if (entity.Has<UidLinkComponent>())
+                        foreach (var j in _building)
+                            if (_building.Get3(j).Value == entity.Get<UidLinkComponent>().Link)
+                            {
+                                _building.Get2(j).Get<BuildingView>().RemoveResource(ref entity);
+                                entity.Del<UidLinkComponent>();
+                            }
                 }
             }
         }

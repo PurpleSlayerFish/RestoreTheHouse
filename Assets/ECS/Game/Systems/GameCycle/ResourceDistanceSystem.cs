@@ -62,6 +62,9 @@ namespace ECS.Game.Systems.GameCycle
                         continue;
                     if (_playerEntity.Get<ElapsedTimeComponent>().Value < _playerView.GetInteractionCooldown())
                         continue;
+                    // Provided that one wood will be converted to one money resource.
+                    if (!_buildingView.CheckCapacity())
+                        continue;
                     _playerEntity.Del<ElapsedTimeComponent>();
                     switch (_buildings.Get1(j).Type)
                     {
@@ -101,10 +104,8 @@ namespace ECS.Game.Systems.GameCycle
         {
             if (!_playerView.RemoveResource(EResourceType.Wood, _buildingView.GetResourcesDelPos()))
                 return;
-            // Provided that one wood will be converted to one money resource.
-            if (!_buildingView.CheckCapacity())
-                return;
             var money = _world.CreateResources(EResourceType.Money);
+            _buildingView.AddResources(ref money);
             money.Get<UidLinkComponent>().Link = _buildingEntity.Get<UIdComponent>().Value;
             money.Get<MoveTweenEventComponent>().EventType = ETweenEventType.ResourceDelivery;
         }
