@@ -24,7 +24,9 @@ namespace ECS.Game.Systems.Linked
             CreatePlayer();
             CreatePath();
             CreateResources();
-            CreateMarkets();
+            CreateBuildings();
+            CreateReceipts();
+            CreateCosts();
         }
         private bool LoadGame()
         {
@@ -61,9 +63,19 @@ namespace ECS.Game.Systems.Linked
             _world.CreateResources();
         }
             
-        private void CreateMarkets()
+        private void CreateBuildings()
         {
-            _world.CreateMarkets();
+            _world.CreateBuildings();
+        }  
+        
+        private void CreateReceipts()
+        {
+            _world.CreateReceipts();
+        }
+
+        private void CreateCosts()
+        {
+            _world.CreateCosts();
         }
     }
 }

@@ -11,8 +11,8 @@ namespace ECS.Views.GameCycle
     {
         [SerializeField] private EBuildingType _type;
 
-        [SerializeField] private Transform _resourcesDelPoint;
         [SerializeField] private Transform _resourcesSpendPoint;
+        [SerializeField] private Transform _resourcesDelPoint;
         [SerializeField] private Transform _resourcesDeliveryStartPoint;
         [SerializeField] private Transform _resourcesDeliveryEndPoint;
         [SerializeField] private float _resourcesDeliveryDuration;

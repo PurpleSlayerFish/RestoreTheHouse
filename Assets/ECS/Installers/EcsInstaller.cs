@@ -1,5 +1,4 @@
-﻿using ECS.Game.Systems;
-using ECS.Game.Systems.GameCycle;
+﻿using ECS.Game.Systems.GameCycle;
 using ECS.Game.Systems.GameDay;
 using ECS.Game.Systems.Linked;
 using Leopotam.Ecs;
@@ -12,11 +11,9 @@ namespace ECS.Installers
     public class EcsInstaller : MonoInstaller
     {
         [SerializeField] private ScreenVariables _screenVariables;
-        [SerializeField] private GameColors gameColors;
         public override void InstallBindings()
         {
             Container.Bind<ScreenVariables>().FromInstance(_screenVariables).AsSingle();
-            Container.Bind<GameColors>().FromInstance(gameColors).AsSingle();
             Container.BindInterfacesAndSelfTo<EcsWorld>().AsSingle().NonLazy();
             BindSystems();
             Container.BindInterfacesTo<EcsMainBootstrap>().AsSingle();
@@ -37,7 +34,7 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<PlayerInitSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<MoveRotateToTargetSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemyNextTargetSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ResourceDistanceSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerDistanceSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerPickUpSystem>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<PlayerViewSystem>().AsSingle();

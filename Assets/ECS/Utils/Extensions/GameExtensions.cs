@@ -66,14 +66,39 @@ namespace ECS.Utils.Extensions
             return entity;
         }
         
-        public static void CreateMarkets(this EcsWorld world)
+        public static void CreateBuildings(this EcsWorld world)
         {
-            var views = Object.FindObjectsOfType<BuildingView>();
+            var views = Object.FindObjectsOfType<BuildingView>(true);
             foreach (var view in views)
             {
                 var entity = world.NewEntity();
                 entity.Get<UIdComponent>().Value = UidGenerator.Next();
                 entity.Get<BuildingComponent>();
+                entity.Get<LinkComponent>().View = view;
+                view.Link(entity);
+            }
+        }
+        
+        public static void CreateReceipts(this EcsWorld world)
+        {
+            var views = Object.FindObjectsOfType<RecipeView>(true);
+            foreach (var view in views)
+            {
+                var entity = world.NewEntity();
+                entity.Get<UIdComponent>().Value = UidGenerator.Next();
+                entity.Get<RecipeComponent>();
+                entity.Get<LinkComponent>().View = view;
+                view.Link(entity);
+            }
+        }
+        
+        public static void CreateCosts(this EcsWorld world)
+        {
+            var views = Object.FindObjectsOfType<CostView>(true);
+            foreach (var view in views)
+            {
+                var entity = world.NewEntity();
+                entity.Get<UIdComponent>().Value = UidGenerator.Next();
                 entity.Get<LinkComponent>().View = view;
                 view.Link(entity);
             }
