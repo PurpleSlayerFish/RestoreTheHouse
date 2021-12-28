@@ -36,6 +36,7 @@ namespace ECS.Game.Systems.GameCycle
                 if (HandleResourceSpend(ref _resources.GetEntity(i)))
                     continue;
                 if (HandleResourceDelivery(ref _resources.GetEntity(i)))
+                    // ReSharper disable once RedundantJumpStatement
                     continue;
             }
         }
@@ -74,7 +75,11 @@ namespace ECS.Game.Systems.GameCycle
                 resTransform.SetParent(null);
                 var entity1 = resource;
                 resTransform.DOLocalMove(resource.Get<Vector3Component<MoveTweenEventComponent>>().Value, _playerView.GetInteractionDuration()).SetEase(Ease.Unset)
-                    .OnComplete(() => entity1.Get<IsDestroyedComponent>());
+                    .OnComplete(() =>
+                    {
+                        resTransform.DOKill();
+                        entity1.Get<IsDestroyedComponent>();
+                    });
                 return true;
             }
             return false;
@@ -93,7 +98,6 @@ namespace ECS.Game.Systems.GameCycle
                     _resourceView.Transform.position = _buildingView.GetResourcesDeliveryStartPoint();
                     _resourceView.Transform.DOLocalMove(_buildingView.GetResourcesDeliveryEndPoint(), _buildingView.GetResourcesDeliveryDuration()).SetEase(Ease.Unset);
                     resource.Del<MoveTweenEventComponent>();
-                    // resource.Del<UidLinkComponent>();
                     return true;
                 }
             }

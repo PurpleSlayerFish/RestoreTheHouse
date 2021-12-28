@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using DG.Tweening;
 using ECS.Core.Utils.ReactiveSystem;
 using ECS.Core.Utils.ReactiveSystem.Components;
 using ECS.Game.Components;
@@ -29,6 +30,7 @@ namespace ECS.Game.Systems.GameCycle
                 var playerView = _player.Get2(i).View as PlayerView;
                 if (entity.Has<ResourceComponent>())
                 {
+                    entity.Get<LinkComponent>().View.Transform.DOKill();
                     playerView.AddResource(ref entity);
                     if (entity.Has<UidLinkComponent>())
                         foreach (var j in _building)

@@ -4,8 +4,8 @@ using ECS.Game.Components.Flags;
 using ECS.Game.Components.GameCycle;
 using ECS.Game.Components.General;
 using ECS.Views.GameCycle;
+using ECS.Views.Impls;
 using Leopotam.Ecs;
-using PdUtils;
 using Services.Uid;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -24,6 +24,16 @@ namespace ECS.Utils.Extensions
             entity.GetAndFire<PrefabComponent>().Value = "Player";
             entity.GetAndFire<PlayerComponent>();
         }
+        
+        public static void CreateCamera(this EcsWorld world)
+        {
+            var view = Object.FindObjectOfType<CameraView>(true);
+            var entity = world.NewEntity();
+            entity.Get<UIdComponent>().Value = UidGenerator.Next();
+            entity.Get<CameraComponent>();
+            entity.Get<LinkComponent>().View = view;
+            view.Link(entity);
+        }
 
         public static void CreatePoints(this EcsWorld world)
         {
@@ -35,6 +45,7 @@ namespace ECS.Utils.Extensions
                 entity.Get<PathPointComponent>();
                 entity.Get<PositionComponent>().Value = pathPoints.transform.position;
                 entity.Get<RotationComponent>().Value = pathPoints.transform.rotation;
+                entity.Get<LinkComponent>().View = pathPoints;
                 pathPoints.Link(entity);
                 if (pathPoints.RotationDirection != Vector3.zero)
                 {
@@ -73,9 +84,9 @@ namespace ECS.Utils.Extensions
             {
                 var entity = world.NewEntity();
                 entity.Get<UIdComponent>().Value = UidGenerator.Next();
-                entity.Get<BuildingComponent>();
                 entity.Get<LinkComponent>().View = view;
                 view.Link(entity);
+                entity.GetAndFire<BuildingComponent>();
             }
         }
         

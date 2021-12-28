@@ -38,7 +38,6 @@ namespace Runtime.Game.Ui.Windows.StartToPlay
         private void OnStart()
         {
             _signalBus.OpenWindow<GameHudWindow>();
-            _world.CreatePlayer();
             _world.SetStage(EGameStage.Play);
             Amplitude.Instance.logEvent("level_start");
         }

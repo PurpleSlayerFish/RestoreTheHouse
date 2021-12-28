@@ -10,6 +10,7 @@ namespace ECS.Views.GameCycle
 {
     public class RecipeView : LinkableView
     {
+        [SerializeField] private ERecipeType _type;
         [SerializeField] private EResourceType[] _resources;
         [SerializeField] private int[] _resourcesCount;
         [SerializeField] private Transform[] _unlockableTransforms;
@@ -17,7 +18,11 @@ namespace ECS.Views.GameCycle
         [SerializeField] private Transform _resourcesDelPoint;
         [SerializeField] private Transform _resourcesSpendPoint;
         
-        [SerializeField] private bool _finishLevel;
+        public override void Link(EcsEntity entity)
+        {
+            base.Link(entity);
+            entity.Get<RecipeComponent>().Type = _type;
+        }
 
         public Transform GetResourcesSpend()
         {
@@ -46,7 +51,7 @@ namespace ECS.Views.GameCycle
             return condition;
         }
 
-        public void Invoke()
+        public void HandleComplete()
         {
             foreach (var unlockableTransform in _unlockableTransforms)
                 unlockableTransform.gameObject.SetActive(true);
@@ -54,11 +59,6 @@ namespace ECS.Views.GameCycle
                 lockableTransform.gameObject.SetActive(false);
         }
 
-        public ref bool IsFinishLevel()
-        {
-            return ref _finishLevel;
-        }
-        
         public ref Uid GetUid()
         {
             return ref Entity.Get<UIdComponent>().Value;

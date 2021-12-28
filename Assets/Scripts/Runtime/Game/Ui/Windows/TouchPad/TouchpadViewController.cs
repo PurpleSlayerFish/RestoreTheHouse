@@ -1,6 +1,4 @@
-using ECS.Game.Components.Flags;
 using ECS.Game.Components.Input;
-using ECS.Utils.Extensions;
 using Leopotam.Ecs;
 using PdUtils.Interfaces;
 using SimpleUi.Abstracts;
