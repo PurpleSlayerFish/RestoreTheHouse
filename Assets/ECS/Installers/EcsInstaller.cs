@@ -44,6 +44,7 @@ namespace ECS.Installers
             
             Container.BindInterfacesAndSelfTo<ResourceProductionSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerPickUpSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DelayDestroySystem>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GamePauseSystem>().AsSingle();

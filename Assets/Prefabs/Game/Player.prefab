@@ -542,7 +542,7 @@ MonoBehaviour:
   _interactionDuration: 0.4
   _interactionCooldown: 0.4
   _sensitivity: 0.015
-  _movementSpeed: 10
+  _movementSpeed: 30
   _movementLimitX: 0.03
   _movementLimitY: 0.03
   _navMeshAgent: {fileID: 7242957605907189775}

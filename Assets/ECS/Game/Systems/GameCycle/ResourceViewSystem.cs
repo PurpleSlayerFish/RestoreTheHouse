@@ -62,7 +62,6 @@ namespace ECS.Game.Systems.GameCycle
                 _resourceEntity.Del<Vector3Component<MoveTweenEventComponent>>();
                 return true;
             }
-
             return false;
         }
 
@@ -82,7 +81,6 @@ namespace ECS.Game.Systems.GameCycle
                 _resourceEntity.Del<MoveTweenEventComponent>();
                 return true;
             }
-
             return false;
         }
 
@@ -104,7 +102,6 @@ namespace ECS.Game.Systems.GameCycle
                     return true;
                 }
             }
-
             return false;
         }
     }
