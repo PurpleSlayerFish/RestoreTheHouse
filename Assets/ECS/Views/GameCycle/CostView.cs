@@ -23,6 +23,8 @@ namespace ECS.Views.GameCycle
             {
                 if (_resourcesType != x.Type)
                     return;
+                if (_recipeView == null)
+                    return;
                 if (_recipeView.GetUid() != x.RecipeUid)
                     return;
                 UpdateCountTxt();

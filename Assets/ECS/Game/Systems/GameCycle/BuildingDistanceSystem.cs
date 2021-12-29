@@ -39,11 +39,10 @@ namespace ECS.Game.Systems.GameCycle
                 {
                     _buildingEntity = _buildings.GetEntity(j);
                     _buildingView = _buildings.Get2(j).Get<BuildingView>();
-                    if (!_buildingView.gameObject.activeInHierarchy)
-                        continue;
                     // No need check distance to building, if player can't spend resources here (always or anymore)
-                    if (_buildingView.GetResourcesSpend() == null &&
-                        _buildingView.GetResourcesSpend().gameObject.activeSelf == false)
+                    if (_buildingView.GetResourcesSpend() == null ||
+                        !_buildingView.GetResourcesSpend().gameObject.activeSelf ||
+                        !_buildingView.GetResourcesSpend().gameObject.activeInHierarchy)
                         continue;
                     if (Vector3.Distance(_buildingView.GetResourcesSpend().position, _player.Get3(i).Value) >
                         _playerView.GetInteractionDistance())
@@ -52,10 +51,10 @@ namespace ECS.Game.Systems.GameCycle
                         continue;
                     if (_playerEntity.Get<ElapsedTimeComponent>().Value < _playerView.GetInteractionCooldown())
                         continue;
+                    _playerEntity.Del<ElapsedTimeComponent>();
                     // Provided that one wood will be converted to one money resource.
                     if (!_buildingView.CheckCapacity())
                         continue;
-                    _playerEntity.Del<ElapsedTimeComponent>();
                     switch (_buildings.Get1(j).Type)
                     {
                         case EBuildingType.House:

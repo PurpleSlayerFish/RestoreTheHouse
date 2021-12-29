@@ -1,12 +1,16 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1441286429081496584
+--- !u!1001 &2179407935398328388
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2688839094891420085, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2688839095616339826, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -52,6 +56,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2688839095616339827, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
+      propertyPath: _type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688839095616339827, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: _resources.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -65,19 +73,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2688839095616339827, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: _resourcesCount.Array.data[0]
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2688839095616339827, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
+      propertyPath: _unlockableTransforms.Array.data[0]
+      value: 
+      objectReference: {fileID: 2981259439879864361}
     - target: {fileID: 2688839095616339837, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: m_Name
-      value: LumberMillUpgradeRecipe1
+      value: ConcreteMixerUpgrade3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688839095616339837, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2688839095691422517, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.8500009
+      value: -3.6000028
       objectReference: {fileID: 0}
     - target: {fileID: 2688839095691422517, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.500001
+      value: -3.0000007
       objectReference: {fileID: 0}
     - target: {fileID: 2688839095691422517, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -105,3 +121,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
+--- !u!4 &2981259439879864361 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3990541466484373613, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
+  m_PrefabInstance: {fileID: 2179407935398328388}
+  m_PrefabAsset: {fileID: 0}

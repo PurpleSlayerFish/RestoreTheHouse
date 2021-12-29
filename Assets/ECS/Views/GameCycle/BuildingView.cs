@@ -35,9 +35,9 @@ namespace ECS.Views.GameCycle
             _lastStackZ = 0;
         }
 
-        public Transform GetResourcesSpend()
+        public ref Transform GetResourcesSpend()
         {
-            return _resourcesSpendPoint;
+            return ref _resourcesSpendPoint;
         }
 
         public Vector3 GetResourcesDelPos()
@@ -52,7 +52,7 @@ namespace ECS.Views.GameCycle
 
         public Vector3 GetResourcesDeliveryEndPoint()
         {
-            var pos = _resourcesDeliveryEndPoint.position;
+            var pos = _resourcesDeliveryEndPoint.localPosition;
             return new Vector3(pos.x + _lastStackX * _stackOffsetX, pos.y, pos.z + _lastStackZ * _stackOffsetZ);
         }
 
@@ -76,13 +76,13 @@ namespace ECS.Views.GameCycle
             var i = 0;
             _lastStackX = 1;
             _lastStackZ = 0;
-            
+
             if (_deliveredResources.Count >= 1 && _deliveredResources[0] == null)
             {
                 _deliveredResources[0] = resource.Get<UIdComponent>().Value.ToString();
                 return;
             }
-            
+
             for (; i < _deliveredResources.Count; i++)
             {
                 if (_deliveredResources[i] == null)
@@ -90,15 +90,15 @@ namespace ECS.Views.GameCycle
                     _deliveredResources[i] = resource.Get<UIdComponent>().Value.ToString();
                     return;
                 }
+
                 _lastStackZ++;
                 if (i + 1 >= _stackWidth * _lastStackX)
                 {
                     _lastStackX++;
                     _lastStackZ -= _stackWidth;
                 }
-                
             }
-            
+
             if (i + 1 >= _deliveredResources.Count)
                 _deliveredResources.Add(resource.Get<UIdComponent>().Value.ToString());
         }

@@ -23,6 +23,7 @@ namespace ECS.Game.Systems.GameCycle
         private PlayerView _playerView;
         private ResourceView _resourceView;
         private BuildingView _buildingView;
+        private EcsEntity _resourceEntity;
 
         public void Run()
         {
@@ -31,76 +32,79 @@ namespace ECS.Game.Systems.GameCycle
             foreach (var i in _resources)
             {
                 _resourceView = _resources.Get2(i).Get<ResourceView>();
-                if (HandleResourcePickup(ref _resources.GetEntity(i)))
+                _resourceEntity = _resources.GetEntity(i);
+                if (HandleResourcePickup())
                     continue;
-                if (HandleResourceSpend(ref _resources.GetEntity(i)))
+                if (HandleResourceSpend())
                     continue;
-                if (HandleResourceDelivery(ref _resources.GetEntity(i)))
+                if (HandleResourceDelivery())
                     // ReSharper disable once RedundantJumpStatement
                     continue;
             }
         }
 
-        private bool HandleResourcePickup(ref EcsEntity resource)
+        private bool HandleResourcePickup()
         {
             if (ETweenEventType.ResourcePickUp !=
-                resource.Get<MoveTweenEventComponent>().EventType)
+                _resourceEntity.Get<MoveTweenEventComponent>().EventType)
                 return false;
             foreach (var i in _player)
             {
                 _playerView = _player.Get2(i).Get<PlayerView>();
                 _resourceView.Transform.SetParent(_playerView.GetResourcesStack());
                 _resourceView.Transform
-                    .DOLocalMove(resource.Get<Vector3Component<MoveTweenEventComponent>>().Value, _playerView.GetInteractionDuration())
+                    .DOLocalMove(_resourceEntity.Get<Vector3Component<MoveTweenEventComponent>>().Value,
+                        _playerView.GetInteractionDuration())
                     .SetEase(Ease.Unset);
                 _resourceView.Transform.DOLocalRotate(Vector3.zero, _playerView.GetInteractionDuration())
                     .SetEase(Ease.Unset);
-                resource.Del<MoveTweenEventComponent>();
-                resource.Del<Vector3Component<MoveTweenEventComponent>>();
+                _resourceEntity.Del<MoveTweenEventComponent>();
+                _resourceEntity.Del<Vector3Component<MoveTweenEventComponent>>();
                 return true;
             }
 
             return false;
         }
 
-        private bool HandleResourceSpend(ref EcsEntity resource)
+        private bool HandleResourceSpend()
         {
             if (ETweenEventType.ResourceSpend !=
-                resource.Get<MoveTweenEventComponent>().EventType)
+                _resourceEntity.Get<MoveTweenEventComponent>().EventType)
                 return false;
             foreach (var i in _player)
             {
                 _playerView = _player.Get2(i).Get<PlayerView>();
-                var resTransform = resource.Get<LinkComponent>().View.Transform;
+                var resTransform = _resourceEntity.Get<LinkComponent>().View.Transform;
                 resTransform.SetParent(null);
-                var entity1 = resource;
-                resTransform.DOLocalMove(resource.Get<Vector3Component<MoveTweenEventComponent>>().Value, _playerView.GetInteractionDuration()).SetEase(Ease.Unset)
-                    .OnComplete(() =>
-                    {
-                        resTransform.DOKill();
-                        entity1.Get<IsDestroyedComponent>();
-                    });
+                resTransform.DOLocalMove(_resourceEntity.Get<Vector3Component<MoveTweenEventComponent>>().Value,
+                    _playerView.GetInteractionDuration()).SetEase(Ease.Unset);
+                _resourceEntity.Get<IsDelayDestroyedComponent>().Delay = _playerView.GetInteractionDuration() + 0.1f;
+                _resourceEntity.Del<MoveTweenEventComponent>();
                 return true;
             }
+
             return false;
         }
 
-        private bool HandleResourceDelivery(ref EcsEntity resource)
+        private bool HandleResourceDelivery()
         {
             if (ETweenEventType.ResourceDelivery !=
-                resource.Get<MoveTweenEventComponent>().EventType)
+                _resourceEntity.Get<MoveTweenEventComponent>().EventType)
                 return false;
             foreach (var i in _buildings)
             {
-                if (_buildings.Get3(i).Value == resource.Get<UidLinkComponent>().Link)
+                if (_buildings.Get3(i).Value == _resourceEntity.Get<UidLinkComponent>().Link)
                 {
                     _buildingView = _buildings.Get2(i).Get<BuildingView>();
+                    _resourceView.Transform.SetParent(_buildingView.Transform);
                     _resourceView.Transform.position = _buildingView.GetResourcesDeliveryStartPoint();
-                    _resourceView.Transform.DOLocalMove(_buildingView.GetResourcesDeliveryEndPoint(), _buildingView.GetResourcesDeliveryDuration()).SetEase(Ease.Unset);
-                    resource.Del<MoveTweenEventComponent>();
+                    _resourceView.Transform.DOLocalMove(_buildingView.GetResourcesDeliveryEndPoint(),
+                        _buildingView.GetResourcesDeliveryDuration()).SetEase(Ease.Unset);
+                    _resourceEntity.Del<MoveTweenEventComponent>();
                     return true;
                 }
             }
+
             return false;
         }
     }

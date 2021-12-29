@@ -28,8 +28,15 @@ namespace ECS.Game.Systems.GameCycle
             {
                 _buildingEntity = _buildings.GetEntity(j);
                 _buildingView = _buildings.Get2(j).Get<BuildingView>();
+                if (!_buildingView.gameObject.activeInHierarchy)
+                    continue;
+                // No need check distance to building, if player can't spend resources here (always or anymore)
+                if (_buildingView.GetResourcesSpend() == null &&
+                    _buildingView.GetResourcesSpend().gameObject.activeSelf == false)
+                    continue;
                 if (_buildingEntity.Get<ElapsedTimeComponent>().Value < 1 / _buildings.Get3(j).Value)
                     continue;
+                _buildingEntity.Del<ElapsedTimeComponent>();
                 if (!_buildingView.CheckCapacity())
                     continue;
                 switch (_buildings.Get1(j).Type)
@@ -49,7 +56,6 @@ namespace ECS.Game.Systems.GameCycle
                 _buildingView.AddResources(ref resources);
                 resources.Get<UidLinkComponent>().Link = _buildingEntity.Get<UIdComponent>().Value;
                 resources.Get<MoveTweenEventComponent>().EventType = ETweenEventType.ResourceDelivery;
-                _buildingEntity.Del<ElapsedTimeComponent>();
             }
         }
     }
