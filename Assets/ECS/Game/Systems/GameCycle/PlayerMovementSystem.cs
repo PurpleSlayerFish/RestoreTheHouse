@@ -21,9 +21,7 @@ namespace ECS.Game.Systems.GameCycle
     public class PlayerMovementSystem : IEcsUpdateSystem
     {
 #pragma warning disable 649
-        private readonly EcsFilter<PlayerComponent, LinkComponent, PositionComponent, SpeedComponent<PositionComponent>>
-            _player;
-
+        private readonly EcsFilter<PlayerComponent, LinkComponent, PositionComponent, SpeedComponent<PositionComponent>> _player;
         private readonly EcsFilter<GameStageComponent> _gameStage;
         private readonly EcsFilter<PointerDownComponent> _pointerDown;
         private readonly EcsFilter<PointerUpComponent> _pointerUp;
@@ -53,7 +51,7 @@ namespace ECS.Game.Systems.GameCycle
             {
                 _pressed = true;
                 // _pointerDownValue = _pointerDown.Get1(i).Position;
-                _pointerDownValue = _cameraView.GetCamera().ScreenToViewportPoint(Input.mousePosition);
+                _pointerDownValue = _cameraView.GetCamera().ScreenToViewportPoint(_pointerDown.Get1(i).Position);
                 _pointerDragValue = _pointerDownValue;
                 foreach (var j in _player)
                     _player.GetEntity(j).Get<IsMovingComponent>();
@@ -70,7 +68,7 @@ namespace ECS.Game.Systems.GameCycle
                 return;
             foreach (var i in _pointerDrag)
                 // _pointerDragValue = _pointerDrag.Get1(0).Position;
-                _pointerDragValue = _cameraView.GetCamera().ScreenToViewportPoint(Input.mousePosition);
+                _pointerDragValue = _cameraView.GetCamera().ScreenToViewportPoint(_pointerDrag.Get1(i).Position);
             HandlePressed();
         }
 
@@ -79,13 +77,13 @@ namespace ECS.Game.Systems.GameCycle
             foreach (var i in _player)
             {
                 _playerView = _player.Get2(i).Get<PlayerView>();
-                _movement = (_pointerDragValue - _pointerDownValue) * _playerView.GetSensitivity() *
-                            _player.Get4(i).Value;
+                _movement = (_pointerDragValue - _pointerDownValue) * _playerView.GetSensitivity();
+                // Debug.Log(_movement.y);
                 ref var pos = ref _player.Get3(i).Value;
-                _movement.x = Mathf.Clamp(_movement.x, -_playerView.GetMovementLimitX(),
-                    _playerView.GetMovementLimitX());
-                _movement.y = Mathf.Clamp(_movement.y, -_playerView.GetMovementLimitY(),
-                    _playerView.GetMovementLimitY());
+                _movement.x = Mathf.Clamp(_movement.x, -_playerView.GetMovementLimit(),
+                    _playerView.GetMovementLimit()) * _player.Get4(i).Value;
+                _movement.y = Mathf.Clamp(_movement.y, -_playerView.GetMovementLimit(),
+                    _playerView.GetMovementLimit()) * _player.Get4(i).Value;
                 _tempPos = new Vector3(
                     pos.x + _movement.x * _cos - _movement.y * _sin
                     , pos.y

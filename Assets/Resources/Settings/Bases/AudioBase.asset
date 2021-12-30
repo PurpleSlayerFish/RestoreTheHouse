@@ -17,5 +17,3 @@ MonoBehaviour:
     AudioClip: {fileID: 8300000, guid: 9ad781d954c6d594b955d336ea7c30b1, type: 3}
   - Name: StartScene
     AudioClip: {fileID: 8300000, guid: 7a363e491b6b291468feb72947e14303, type: 3}
-  - Name: Zalupinsk
-    AudioClip: {fileID: 8300000, guid: 0a18929c723f2f74189ca9262e67f740, type: 3}

@@ -27,7 +27,7 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<GameTimerSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ElapsedTimeSystem>().AsSingle();
             
-            Container.BindInterfacesAndSelfTo<PlayerViewSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<WalkableViewSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ResourceViewSystem>().AsSingle();
             
             Container.BindInterfacesAndSelfTo<PositionRotationTranslateSystem>().AsSingle();

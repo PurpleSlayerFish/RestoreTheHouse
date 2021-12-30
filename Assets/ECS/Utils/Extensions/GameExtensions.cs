@@ -21,6 +21,7 @@ namespace ECS.Utils.Extensions
             entity.Get<PositionComponent>();
             entity.Get<RotationComponent>().Value = Quaternion.identity;
             entity.Get<SpeedComponent<PositionComponent>>();
+            entity.Get<WalkableComponent>();
             entity.GetAndFire<PrefabComponent>().Value = "Player";
             entity.GetAndFire<PlayerComponent>();
         }
@@ -110,6 +111,23 @@ namespace ECS.Utils.Extensions
             {
                 var entity = world.NewEntity();
                 entity.Get<UIdComponent>().Value = UidGenerator.Next();
+                entity.Get<LinkComponent>().View = view;
+                view.Link(entity);
+            }
+        }
+        
+        public static void CreateWorkers(this EcsWorld world)
+        {
+            var views = Object.FindObjectsOfType<WorkerView>(true);
+            foreach (var view in views)
+            {
+                var entity = world.NewEntity();
+                entity.Get<UIdComponent>().Value = UidGenerator.Next();
+                entity.Get<PositionComponent>();
+                entity.Get<RotationComponent>().Value = Quaternion.identity;
+                entity.Get<SpeedComponent<PositionComponent>>();
+                entity.Get<WorkerComponent>();
+                entity.Get<WalkableComponent>();
                 entity.Get<LinkComponent>().View = view;
                 view.Link(entity);
             }

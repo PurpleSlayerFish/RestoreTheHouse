@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using ECS.Game.Components;
 using ECS.Game.Components.GameCycle;
@@ -11,11 +12,13 @@ using UnityEngine.AI;
 namespace ECS.Views.GameCycle
 {
     [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
-    public class PlayerView : LinkableView
+    public class PlayerView : LinkableView, IWalkableView
     {
+        [SerializeField] private Animator _animator;
+        
         [SerializeField] private Transform _root;
         [SerializeField] private Transform _resourcesStack;
-        [SerializeField] private Animator _animator;
+        
         [SerializeField] private int _resourcesCapacity = 10;
         [SerializeField] private int _stackHeight = 10;
         [SerializeField] private float _stackOffsetX = 1;
@@ -25,15 +28,19 @@ namespace ECS.Views.GameCycle
         [SerializeField] private float _interactionDuration = 0.4f;
         [SerializeField] private float _interactionCooldown = 0.6f;
 
-        [SerializeField] private float _sensitivity = 0.001f;
-        [SerializeField] private float _movementSpeed = 5f;
-        [SerializeField] private float _movementLimitX = 0.025f;
-        [SerializeField] private float _movementLimitY = 0.025f;
+        [SerializeField] private float _sensitivity = 0.4f;
+        [SerializeField] private float _movementLimit = 0.045f;
+        [SerializeField] private float _movementSpeed = 1.46f;
+        [SerializeField] private float _movementSpeedToAnim = 1.46f;
         [SerializeField] private NavMeshAgent _navMeshAgent;
 
         private readonly int Idle = 0;
         private readonly int Walk = 1;
+        private readonly int Carry = 2;
+        private readonly int CarryingWalk = 3;
         private readonly int Stage = Animator.StringToHash("Stage");
+        private readonly string WalkMultiplier = "WalkMultiplier";
+        private readonly string CarryingWalkMultiplier = "CarryingWalkMultiplier";
 
         private Stack<EcsEntity> _resources;
         private Stack<EcsEntity> _tempResources;
@@ -48,6 +55,8 @@ namespace ECS.Views.GameCycle
             _tempResources = new Stack<EcsEntity>();
             _stackColumn = 1;
             _stackRow = 1;
+            _animator.SetFloat(WalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
+            _animator.SetFloat(CarryingWalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
         }
 
         public ref Transform GetRoot()
@@ -65,16 +74,11 @@ namespace ECS.Views.GameCycle
             return ref _sensitivity;
         }
 
-        public ref float GetMovementLimitX()
+        public ref float GetMovementLimit()
         {
-            return ref _movementLimitX;
+            return ref _movementLimit;
         }
 
-        public ref float GetMovementLimitY()
-        {
-            return ref _movementLimitY;
-        }
-        
         public ref NavMeshAgent GetNavMeshAgent()
         {
             return ref _navMeshAgent;
@@ -95,6 +99,11 @@ namespace ECS.Views.GameCycle
             return ref _interactionCooldown;
         }
 
+        public bool IsCarrying()
+        {
+            return GetResourcesCount() > 0;
+        }
+
         public void SetWalkAnimation()
         {
             if (_animator.GetInteger(Stage) == Walk)
@@ -107,6 +116,21 @@ namespace ECS.Views.GameCycle
             if (_animator.GetInteger(Stage) == Idle)
                 return;
             _animator.SetInteger(Stage, Idle);
+            _animator.speed = 1;
+        }
+        
+        public void SetCarryAnimation()
+        {
+            if (_animator.GetInteger(Stage) == Carry)
+                return;
+            _animator.SetInteger(Stage, Carry);
+        }
+        
+        public void SetCarryingWalkAnimation()
+        {
+            if (_animator.GetInteger(Stage) == CarryingWalk)
+                return;
+            _animator.SetInteger(Stage, CarryingWalk);
         }
 
         public ref int GetResourcesCapacity()

@@ -24,7 +24,7 @@ MonoBehaviour:
   status: 1
   xfbml: 0
   frictionlessRequests: 1
-  androidKeystorePath: C:\Users\PurpleSlayerFish.PSY-SANCTUARY\Desktop\WorkProjects\GunsVsCrampus\Assets\ReplayAnton.keystore
+  androidKeystorePath: C:\Users\PurpleSlayerFish.PSY-SANCTUARY\Desktop\WorkProjects\HouseRestore\Assets\ReplayAnton.keystore
   iosURLSuffix: 
   appLinkSchemes:
   - list: []

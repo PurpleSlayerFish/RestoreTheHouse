@@ -32,14 +32,14 @@ namespace Runtime.Game.Ui.Windows.TouchPad
 			// if(eventData.delta.sqrMagnitude <= 1) return;
 			// var worldPos = eventData.pointerCurrentRaycast;
 			ref var drag = ref _world.NewEntity().Get<PointerDragComponent>();
-			drag.Position = eventData.pointerCurrentRaycast.worldPosition;
+			drag.Position = eventData.pointerCurrentRaycast.screenPosition;
 		}
 
 		private void OnPointerDownAction(PointerEventData eventData)
 		{
 			if(!_active)
 				return;
-			_world.NewEntity().Get<PointerDownComponent>().Position = eventData.pointerCurrentRaycast.worldPosition;
+			_world.NewEntity().Get<PointerDownComponent>().Position = eventData.pointerCurrentRaycast.screenPosition;
 			// var entity = _world.GetEntity<PlayerComponent>();
 			// if (!entity.IsNull())
 				// entity.GetAndFire<RemapPointComponent>().Input = eventData.pointerCurrentRaycast.worldPosition;
@@ -49,7 +49,7 @@ namespace Runtime.Game.Ui.Windows.TouchPad
 		{
 			if(!_active)
 				return;
-			_world.NewEntity().Get<PointerUpComponent>().Position = eventData.pointerCurrentRaycast.worldPosition;
+			_world.NewEntity().Get<PointerUpComponent>().Position = eventData.pointerCurrentRaycast.screenPosition;
 		}
 
 		public void SetActive(bool value) => _active = value;
