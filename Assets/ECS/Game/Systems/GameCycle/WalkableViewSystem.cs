@@ -16,17 +16,17 @@ namespace ECS.Game.Systems.GameCycle
     public class WalkableViewSystem : IEcsUpdateSystem
     {
 #pragma warning disable 649
-        private readonly EcsFilter<WalkableComponent, LinkComponent> _player;
+        private readonly EcsFilter<WalkableComponent, LinkComponent> _walkables;
         private readonly EcsFilter<GameStageComponent> _gameStage;
 #pragma warning restore 649
         public void Run()
         {
             if (_gameStage.Get1(0).Value != EGameStage.Play) return;
             
-            foreach (var i in _player)
+            foreach (var i in _walkables)
             {
-                var view = _player.Get2(i).View as IWalkableView;
-                if (_player.GetEntity(i).Has<IsMovingComponent>())
+                var view = _walkables.Get2(i).View as IWalkableView;
+                if (_walkables.GetEntity(i).Has<IsMovingComponent>())
                 {
                     if (view.IsCarrying())
                         view.SetCarryingWalkAnimation();

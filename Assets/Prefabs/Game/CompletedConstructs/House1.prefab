@@ -97,7 +97,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1642070468568609736
 Transform:
@@ -108,7 +108,7 @@ Transform:
   m_GameObject: {fileID: 8732543523564083970}
   m_LocalRotation: {x: -0, y: 1, z: -0.00000008146034, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_Children:
   - {fileID: 3662773425925421388}
   m_Father: {fileID: 3662773425402810644}
@@ -132,7 +132,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -141,7 +141,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4268061769963950097, guid: 814f7afd5847d4e45a7a57e9920ee579, type: 3}
+  - {fileID: 2100000, guid: c32bfed2e4d785442bfa0493b21fd66c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -298,23 +298,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3742914031734488058, guid: 6f7dd3a8cd8e1254186bc9c930c9b972, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 3742914031734488058, guid: 6f7dd3a8cd8e1254186bc9c930c9b972, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 3742914031734488058, guid: 6f7dd3a8cd8e1254186bc9c930c9b972, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 4932953165066424236, guid: 6f7dd3a8cd8e1254186bc9c930c9b972, type: 3}
       propertyPath: m_Name
       value: House
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932953165066424236, guid: 6f7dd3a8cd8e1254186bc9c930c9b972, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4932953165066424239, guid: 6f7dd3a8cd8e1254186bc9c930c9b972, type: 3}
       propertyPath: m_RootOrder

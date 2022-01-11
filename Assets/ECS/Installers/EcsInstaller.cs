@@ -35,7 +35,8 @@ namespace ECS.Installers
             
             Container.BindInterfacesAndSelfTo<PlayerInitSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<BuildingInitSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<EnemyNextTargetSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<WorkerInitSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<WorkerPathSystem>().AsSingle();
             
             Container.BindInterfacesAndSelfTo<PlayerMovementSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ResourceDistanceSystem>().AsSingle();

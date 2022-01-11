@@ -129,6 +129,7 @@ namespace ECS.Game.Systems.GameCycle
                         {
                             _buildings.Get2(i).Value +=
                                 _screenVariables.GetFloatValue(LumberMillWorkerProduction);
+                            _world.CreateWorker();
                             break;
                         }
 

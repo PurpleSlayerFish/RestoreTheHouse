@@ -10,6 +10,7 @@
         House,
         LumberMill,
         ConcreteMixer,
-        TimberSaleVan
+        TimberSaleVan,
+        RecyclingArea 
     }
 }

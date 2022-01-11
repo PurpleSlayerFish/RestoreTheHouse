@@ -22,7 +22,6 @@ namespace ECS.Game.Systems.Linked
             if (LoadGame()) return;
             CreateTimer();
             CreatePlayer();
-            CreatePath();
             CreateResources();
             CreateBuildings();
             CreateReceipts();
@@ -53,11 +52,6 @@ namespace ECS.Game.Systems.Linked
             _world.CreatePlayer();
         }
 
-        private void CreatePath()
-        {
-            _world.CreatePoints();
-        }
-        
         private void CreateResources()
         {
             _world.CreateResources();

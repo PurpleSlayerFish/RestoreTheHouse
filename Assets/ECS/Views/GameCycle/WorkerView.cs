@@ -5,7 +5,6 @@ using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace ECS.Views.GameCycle
 {
@@ -14,17 +13,15 @@ namespace ECS.Views.GameCycle
     {
         [SerializeField] private Animator _animator;
         
-        [SerializeField] private Transform _root;
         [SerializeField] private Transform _resourcesStack;
-
-        [SerializeField] private float _interactionDistance = 2.5f;
-        [SerializeField] private float _interactionDuration = 0.4f;
-        [SerializeField] private float _interactionCooldown = 0.6f;
+        [SerializeField] private float _interactionDuration = 0.7f;
 
         [SerializeField] private float _movementSpeed = 1.46f;
         [SerializeField] private float _movementSpeedToAnim = 1.46f;
-        [SerializeField] private NavMeshAgent _navMeshAgent;
+        
+        public EWorkerStage WorkerStage;
 
+        private PathPointView _target;
         private readonly int Idle = 0;
         private readonly int Walk = 1;
         private readonly int Carry = 2;
@@ -36,39 +33,46 @@ namespace ECS.Views.GameCycle
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
+            WorkerStage = EWorkerStage.Idle;
             entity.Get<SpeedComponent<PositionComponent>>().Value = _movementSpeed;
+            entity.Get<PositionComponent>().Value = transform.position;
             _animator.SetFloat(WalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
             _animator.SetFloat(CarryingWalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
         }
 
-        public ref Transform GetRoot()
+        public void SetActiveResourceStack(bool value)
         {
-            return ref _root;
-        }
-        
-        public ref Transform GetResourcesStack()
-        {
-            return ref _resourcesStack;
-        }
-
-        public ref NavMeshAgent GetNavMeshAgent()
-        {
-            return ref _navMeshAgent;
-        }
-
-        public ref float GetInteractionDistance()
-        {
-            return ref _interactionDistance;
+            _resourcesStack.gameObject.SetActive(value);
         }
         
         public ref float GetInteractionDuration()
         {
             return ref _interactionDuration;
         }
-        
-        public ref float GetInteractionCooldown()
+
+        public void SetTarget(PathPointView target)
         {
-            return ref _interactionCooldown;
+            _target = target;
+        }
+        
+        public void SetNextTargetPoint()
+        {
+            _target = _target.NextTarget;
+        }
+
+        public ref Vector3 GetTargetRotationDirection()
+        {
+            return ref _target.RotationDirection;
+        }
+        
+        public Vector3 GetTargetPointPosition()
+        {
+            return _target.transform.position;
+        }
+        
+        public EPathPointType GetTargetPointType()
+        {
+            return _target.Type;
         }
 
         public bool IsCarrying()
@@ -104,5 +108,13 @@ namespace ECS.Views.GameCycle
                 return;
             _animator.SetInteger(Stage, CarryingWalk);
         }
+    }
+
+    public enum EWorkerStage
+    {
+        Idle,
+        Walk,
+        Carry,
+        CarryingWalk
     }
 }

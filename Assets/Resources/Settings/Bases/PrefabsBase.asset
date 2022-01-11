@@ -21,3 +21,5 @@ MonoBehaviour:
     GameObject: {fileID: 1913169925285828623, guid: 00c32c96b8a49f5409dd0ae747be0301, type: 3}
   - Name: Money
     GameObject: {fileID: 5185191014327488209, guid: 1f2d89ba77f1bfc4d9b369fdb2bf6e58, type: 3}
+  - Name: Worker
+    GameObject: {fileID: 3862682403816607779, guid: caa107623c9fa6c4eba6c44c16938419, type: 3}

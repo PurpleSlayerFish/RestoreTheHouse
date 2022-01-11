@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
 using ECS.Game.Components.Flags;
@@ -69,6 +70,9 @@ namespace ECS.Game.Systems.GameCycle
                         case EBuildingType.TimberSaleVan:
                             HandleTimberSaleVanSpend();
                             break;
+                        case EBuildingType.RecyclingArea:
+                            HandleRecyclingArea();
+                            break;
                     }
                 }
             }
@@ -97,6 +101,13 @@ namespace ECS.Game.Systems.GameCycle
             _buildingView.AddResources(ref money);
             money.Get<UidLinkComponent>().Link = _buildingEntity.Get<UIdComponent>().Value;
             money.Get<MoveTweenEventComponent>().EventType = ETweenEventType.ResourceDelivery;
+        }
+
+        private void HandleRecyclingArea()
+        {
+            foreach (EResourceType type in Enum.GetValues(typeof(EResourceType)))
+                if (_playerView.RemoveResource(type, _buildingView.GetResourcesDelPos()))
+                    return;
         }
     }
 }

@@ -3,7 +3,37 @@ guid: 814f7afd5847d4e45a7a57e9920ee579
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door
+    second: {fileID: 2100000, guid: 553cf6717a853fc40923af4149dc34b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Facade
+    second: {fileID: 2100000, guid: e33b2fb018adc3b4eac31313aca4d90b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Foundation
+    second: {fileID: 2100000, guid: c32bfed2e4d785442bfa0493b21fd66c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Frames
+    second: {fileID: 2100000, guid: 8bbb4fc0845497745a1b65857c34650f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glasses
+    second: {fileID: 2100000, guid: d67c9981d298b7e4ebab21bc7a8942a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Roof
+    second: {fileID: 2100000, guid: 9f1f6b3cbdb125346a8d4c598e9163cf, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

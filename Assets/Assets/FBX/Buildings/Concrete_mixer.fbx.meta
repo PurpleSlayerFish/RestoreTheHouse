@@ -3,7 +3,27 @@ guid: 6dd543950bbc27b4b9b5151298bb67ae
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue_painted_steel
+    second: {fileID: 2100000, guid: 7c6f8ce4a149c9d4f8959edcb6cd0120, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Polished_steel
+    second: {fileID: 2100000, guid: 3e7d12fc7f3da384fa8342d62679c425, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Red_painted_steel
+    second: {fileID: 2100000, guid: 0ca6a0db408389d4f8503a83a043cae5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rubber
+    second: {fileID: 2100000, guid: 314c582b616947643b4d629fef08824b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

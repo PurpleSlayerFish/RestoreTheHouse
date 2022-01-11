@@ -35,27 +35,7 @@ namespace ECS.Utils.Extensions
             entity.Get<LinkComponent>().View = view;
             view.Link(entity);
         }
-
-        public static void CreatePoints(this EcsWorld world)
-        {
-            var pathPointsArray = Object.FindObjectsOfType<PathPointView>();
-            foreach (var pathPoints in pathPointsArray)
-            {
-                var entity = world.NewEntity();
-                entity.Get<UIdComponent>().Value = UidGenerator.Next();
-                entity.Get<PathPointComponent>();
-                entity.Get<PositionComponent>().Value = pathPoints.transform.position;
-                entity.Get<RotationComponent>().Value = pathPoints.transform.rotation;
-                entity.Get<LinkComponent>().View = pathPoints;
-                pathPoints.Link(entity);
-                if (pathPoints.RotationDirection != Vector3.zero)
-                {
-                    entity.Get<RotationDirectionComponent>().Direction = pathPoints.RotationDirection;
-                    entity.Get<SpeedComponent<RotationComponent>>().Value = pathPoints.RotationSpeed;
-                }
-            }
-        }
-
+        
         public static void CreateResources(this EcsWorld world)
         {
             var resources = Object.FindObjectsOfType<ResourceView>();
@@ -116,21 +96,25 @@ namespace ECS.Utils.Extensions
             }
         }
         
-        public static void CreateWorkers(this EcsWorld world)
+        public static void CreateWorker(this EcsWorld world)
         {
-            var views = Object.FindObjectsOfType<WorkerView>(true);
-            foreach (var view in views)
-            {
+            // var views = Object.FindObjectsOfType<WorkerView>(true);
+            // foreach (var view in views)
+            // {
+            //     
                 var entity = world.NewEntity();
                 entity.Get<UIdComponent>().Value = UidGenerator.Next();
                 entity.Get<PositionComponent>();
                 entity.Get<RotationComponent>().Value = Quaternion.identity;
                 entity.Get<SpeedComponent<PositionComponent>>();
-                entity.Get<WorkerComponent>();
                 entity.Get<WalkableComponent>();
-                entity.Get<LinkComponent>().View = view;
-                view.Link(entity);
-            }
+                entity.Get<TargetPositionComponent>();
+                // entity.Get<LinkComponent>().View = view;
+                // view.Link(entity);
+                
+                entity.GetAndFire<PrefabComponent>().Value = "Worker";
+                entity.GetAndFire<WorkerComponent>();
+            // }
         }
     }
 }

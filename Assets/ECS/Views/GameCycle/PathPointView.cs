@@ -1,20 +1,18 @@
-﻿using ECS.Views.Impls;
-using Leopotam.Ecs;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ECS.Views.GameCycle
 {
-    public class PathPointView : LinkableView
+    public class PathPointView : MonoBehaviour
     {
-        public bool StartCombat;
-        public bool EnemyPathPoint;
         public Vector3 RotationDirection;
-        public float RotationSpeed = 54f;
-        public PathPointView NextEnemyTarget;
+        public PathPointView NextTarget;
+        public EPathPointType Type;
+    }
 
-        public ref EcsEntity GetEntity()
-        {
-            return ref Entity;
-        }
+    public enum EPathPointType
+    {
+        Default,
+        Get,
+        Put
     }
 }
