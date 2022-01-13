@@ -33,18 +33,14 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
         public override void OnShow()
         {
             View.Show(ref _commonPlayerData.GetData().Level, ref _world);
-            _signalBus.GetStream<SignalJoystickUpdate>().Subscribe(x => OnJoystickUpdate(ref x)).AddTo(View);
+            _signalBus.GetStream<SignalJoystickUpdate>().Subscribe(x => View.UpdateJoystick(ref x)).AddTo(View);
+            _signalBus.GetStream<SignalResourceUpdate>().Subscribe(x => View.UpdateResourcesCount(x.Type, x.Value)).AddTo(View);
         }
 
         private void OnGameMenu()
         {
             _signalBus.OpenWindow<InGameMenuWindow>();
             _world.SetStage(EGameStage.Pause);
-        }
-
-        private void OnJoystickUpdate(ref SignalJoystickUpdate signal)
-        {
-            View.UpdateJoystick(ref signal);
         }
     }
 }

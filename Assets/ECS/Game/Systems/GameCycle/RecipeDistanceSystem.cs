@@ -79,7 +79,7 @@ namespace ECS.Game.Systems.GameCycle
                 if (_playerView.RemoveResource(recipeResources[i], _recipeView.GetResourcesDelPos()))
                 {
                     _recipeView.GetResourcesCount()[i]--;
-                    _signalBus.Fire(new SignalResourceDeliver(recipeResources[i],
+                    _signalBus.Fire(new SignalRecipeUpdate(recipeResources[i],
                         _recipeEntity.Get<UIdComponent>().Value));
                     break;
                 }

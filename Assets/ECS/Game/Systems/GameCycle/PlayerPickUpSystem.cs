@@ -31,7 +31,7 @@ namespace ECS.Game.Systems.GameCycle
                 if (entity.Has<ResourceComponent>())
                 {
                     entity.Get<LinkComponent>().View.Transform.DOKill();
-                    playerView.AddResource(ref entity);
+                    playerView.AddResource(ref entity, true);
                     if (entity.Has<UidLinkComponent>())
                         foreach (var j in _building)
                             if (_building.Get3(j).Value == entity.Get<UidLinkComponent>().Link)

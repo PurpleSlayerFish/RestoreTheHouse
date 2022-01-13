@@ -19,7 +19,7 @@ namespace ECS.Views.GameCycle
         {
             base.Link(entity);
             UpdateCountTxt();
-            _signalBus.Subscribe<SignalResourceDeliver>(x =>
+            _signalBus.Subscribe<SignalRecipeUpdate>(x =>
             {
                 if (_resourcesType != x.Type)
                     return;

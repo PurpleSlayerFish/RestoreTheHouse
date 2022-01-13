@@ -6,14 +6,18 @@ using ECS.Game.Components.GameCycle;
 using ECS.Game.Components.General;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
+using Runtime.Signals;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 namespace ECS.Views.GameCycle
 {
     [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
     public class PlayerView : LinkableView, IWalkableView
     {
+        [Inject] private SignalBus _signalBus;
+        
         [SerializeField] private Animator _animator;
         
         [SerializeField] private Transform _root;
@@ -145,10 +149,10 @@ namespace ECS.Views.GameCycle
 
         public void AddResource(EcsEntity resource)
         {
-            AddResource(ref resource);
+            AddResource(ref resource, false);
         }
 
-        public void AddResource(ref EcsEntity resource)
+        public void AddResource(ref EcsEntity resource, bool needUpdateUi)
         {
             _resources.Push(resource);
             var z = _stackColumn * _stackOffsetX;
@@ -162,6 +166,8 @@ namespace ECS.Views.GameCycle
             // Attach to stack
             resource.Get<MoveTweenEventComponent>().EventType = ETweenEventType.ResourcePickUp;
             resource.Get<Vector3Component<MoveTweenEventComponent>>().Value = new Vector3(0, y, z);
+            if (needUpdateUi)
+                _signalBus.Fire(new SignalResourceUpdate(resource.Get<ResourceComponent>().Type, 1));
         }
 
         public bool RemoveResource(EResourceType type, Vector3 clearPointPos)
@@ -193,7 +199,6 @@ namespace ECS.Views.GameCycle
                 {
                     _tempResources.Push(entity);
                 }
-
                 _resources.Pop();
                 _stackRow--;
                 if (_stackRow <= 0)
@@ -209,7 +214,7 @@ namespace ECS.Views.GameCycle
                 AddResource(_tempResources.Peek());
                 _tempResources.Pop();
             }
-
+            _signalBus.Fire(new SignalResourceUpdate(type, -1));
             return true;
         }
     }
