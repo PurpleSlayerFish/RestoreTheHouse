@@ -664,10 +664,10 @@ MonoBehaviour:
   _stackOffsetX: 1
   _stackOffsetY: 1
   _interactionDistance: 2.5
-  _interactionDuration: 0.4
-  _interactionCooldown: 0.4
-  _sensitivity: 0.3
-  _movementLimit: 0.045
+  _interactionDuration: 0.3
+  _interactionCooldown: 0.2
+  _sensitivity: 0.0003
+  _movementLimit: 170
   _movementSpeed: 2.5
   _movementSpeedToAnim: 1.46
   _navMeshAgent: {fileID: 7242957605907189775}

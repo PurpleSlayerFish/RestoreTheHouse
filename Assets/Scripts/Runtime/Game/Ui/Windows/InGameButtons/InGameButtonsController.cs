@@ -33,7 +33,7 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
         public override void OnShow()
         {
             View.Show(ref _commonPlayerData.GetData().Level, ref _world);
-            // _signalBus.GetStream<SignalUpdateImpact>().Subscribe(x => OnImpactUpdate(ref x)).AddTo(View);
+            _signalBus.GetStream<SignalJoystickUpdate>().Subscribe(x => OnJoystickUpdate(ref x)).AddTo(View);
         }
 
         private void OnGameMenu()
@@ -42,9 +42,9 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
             _world.SetStage(EGameStage.Pause);
         }
 
-        // private void OnImpactUpdate(ref SignalUpdateImpact signal)
-        // {
-        //     View.UpdateCurrency(ref signal.Impact);
-        // }
+        private void OnJoystickUpdate(ref SignalJoystickUpdate signal)
+        {
+            View.UpdateJoystick(ref signal);
+        }
     }
 }

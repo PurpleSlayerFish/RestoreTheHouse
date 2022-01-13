@@ -29,7 +29,7 @@ namespace ECS.Game.Systems.Linked
         }
         private bool LoadGame()
         {
-            _world.NewEntity().Get<GameStageComponent>().Value = EGameStage.Play;
+            _world.NewEntity().Get<GameStageComponent>().Value = EGameStage.Pause;
             var gState = _generalState.GetData();
             if (gState.SaveState.IsNullOrEmpty()) return false;
             foreach (var state in gState.SaveState)
