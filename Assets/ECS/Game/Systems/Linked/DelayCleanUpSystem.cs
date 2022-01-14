@@ -6,10 +6,10 @@ using Leopotam.Ecs;
 
 namespace ECS.Game.Systems.Linked
 {
-    public class DelayDestroySystem : IEcsUpdateSystem
+    public class DelayCleanUpSystem : IEcsUpdateSystem
     {
 #pragma warning disable 649
-        private readonly EcsFilter<IsDelayDestroyedComponent> _recipes;
+        private readonly EcsFilter<IsDelayCleanUpComponent> _recipes;
 #pragma warning restore 649
         public void Run()
         {

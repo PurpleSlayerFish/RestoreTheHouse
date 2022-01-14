@@ -22,7 +22,6 @@ namespace Runtime.Game.Ui.Windows.GameOver
         public void Initialize()
         {
             View.Restart.OnClickAsObservable().Subscribe(x => OnRestart()).AddTo(View.Restart);
-            View.MainMenu.OnClickAsObservable().Subscribe(x => OnMainMenu()).AddTo(View.MainMenu);
         }
         
         public override void OnShow()
@@ -31,8 +30,6 @@ namespace Runtime.Game.Ui.Windows.GameOver
             Amplitude.Instance.logEvent("level_failed");
             
         }
-
-        private void OnMainMenu() => _sceneLoadingManager.LoadScene(EScene.MainMenu);
 
         private void OnRestart()
         {

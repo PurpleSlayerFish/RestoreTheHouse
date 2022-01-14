@@ -16,6 +16,7 @@ namespace ECS.Views.GameCycle
         [SerializeField] private Transform _resourcesDeliveryStartPoint;
         [SerializeField] private Transform _resourcesDeliveryEndPoint;
         [SerializeField] private float _resourcesDeliveryDuration;
+        [SerializeField] private Vector3 _resourcesDeliveryRotation = new Vector3(0, 90, 0);
 
         [SerializeField] private int _resourcesCapacity = 10;
         [SerializeField] private int _stackWidth = 5;
@@ -59,6 +60,11 @@ namespace ECS.Views.GameCycle
         public ref float GetResourcesDeliveryDuration()
         {
             return ref _resourcesDeliveryDuration;
+        }
+
+        public ref Vector3 GetResourcesDeliveryRotation()
+        {
+            return ref _resourcesDeliveryRotation;
         }
 
         public bool CheckCapacity()

@@ -88,7 +88,7 @@ namespace ECS.Game.Systems.GameCycle
             if (_recipeView.IsCompleted())
             {
                 _recipeView.HandleComplete();
-                _recipeEntity.Get<IsDelayDestroyedComponent>().Delay = 1.5f;
+                _recipeEntity.Get<IsDelayCleanUpComponent>().Delay = 1.5f;
                 if (!_playerView.GetNavMeshAgent()
                     .CalculatePath(_playerEntity.Get<PositionComponent>().Value, new NavMeshPath()))
                     _playerEntity.Get<PositionComponent>().Value = _recipeView.GetResourcesSpend().position;

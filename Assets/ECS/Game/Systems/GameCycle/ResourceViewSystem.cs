@@ -24,6 +24,7 @@ namespace ECS.Game.Systems.GameCycle
         private ResourceView _resourceView;
         private BuildingView _buildingView;
         private EcsEntity _resourceEntity;
+        private Vector3 resourcesRotation = new Vector3(0, 90, 0);
 
         public void Run()
         {
@@ -51,17 +52,19 @@ namespace ECS.Game.Systems.GameCycle
             foreach (var i in _player)
             {
                 _playerView = _player.Get2(i).Get<PlayerView>();
+                _resourceView.Transform.DOKill();
                 _resourceView.Transform.SetParent(_playerView.GetResourcesStack());
                 _resourceView.Transform
                     .DOLocalMove(_resourceEntity.Get<Vector3Component<MoveTweenEventComponent>>().Value,
                         _playerView.GetInteractionDuration())
-                    .SetEase(Ease.Unset);
-                _resourceView.Transform.DOLocalRotate(Vector3.zero, _playerView.GetInteractionDuration())
-                    .SetEase(Ease.Unset);
+                    .SetEase(Ease.Linear);
+                _resourceView.Transform.DOLocalRotate(resourcesRotation, _playerView.GetInteractionDuration())
+                    .SetEase(Ease.Linear);
                 _resourceEntity.Del<MoveTweenEventComponent>();
                 _resourceEntity.Del<Vector3Component<MoveTweenEventComponent>>();
                 return true;
             }
+
             return false;
         }
 
@@ -70,17 +73,21 @@ namespace ECS.Game.Systems.GameCycle
             if (ETweenEventType.ResourceSpend !=
                 _resourceEntity.Get<MoveTweenEventComponent>().EventType)
                 return false;
+            if (!_resourceEntity.Has<PickedComponent>())
+                return false;
             foreach (var i in _player)
             {
                 _playerView = _player.Get2(i).Get<PlayerView>();
                 var resTransform = _resourceEntity.Get<LinkComponent>().View.Transform;
+                _resourceView.Transform.DOKill();
                 resTransform.SetParent(null);
                 resTransform.DOLocalMove(_resourceEntity.Get<Vector3Component<MoveTweenEventComponent>>().Value,
-                    _playerView.GetInteractionDuration()).SetEase(Ease.Unset);
-                _resourceEntity.Get<IsDelayDestroyedComponent>().Delay = _playerView.GetInteractionDuration() + 0.1f;
+                    _playerView.GetInteractionDuration()).SetEase(Ease.Linear);
                 _resourceEntity.Del<MoveTweenEventComponent>();
+                _resourceEntity.Get<IsDelayCleanUpComponent>().Delay = _playerView.GetInteractionDuration() + 0.2f;
                 return true;
             }
+
             return false;
         }
 
@@ -94,14 +101,19 @@ namespace ECS.Game.Systems.GameCycle
                 if (_buildings.Get3(i).Value == _resourceEntity.Get<UidLinkComponent>().Link)
                 {
                     _buildingView = _buildings.Get2(i).Get<BuildingView>();
+                    _resourceView.Transform.DOKill();
                     _resourceView.Transform.SetParent(_buildingView.Transform);
                     _resourceView.Transform.position = _buildingView.GetResourcesDeliveryStartPoint();
                     _resourceView.Transform.DOLocalMove(_buildingView.GetResourcesDeliveryEndPoint(),
-                        _buildingView.GetResourcesDeliveryDuration()).SetEase(Ease.Unset);
+                        _buildingView.GetResourcesDeliveryDuration()).SetEase(Ease.Linear);
+                    _resourceView.Transform.DOLocalRotate(_buildingView.GetResourcesDeliveryRotation(),
+                            _buildingView.GetResourcesDeliveryDuration())
+                        .SetEase(Ease.Linear);
                     _resourceEntity.Del<MoveTweenEventComponent>();
                     return true;
                 }
             }
+
             return false;
         }
     }

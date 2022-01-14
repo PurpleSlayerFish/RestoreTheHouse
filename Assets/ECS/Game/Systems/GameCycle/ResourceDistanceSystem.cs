@@ -16,7 +16,7 @@ namespace ECS.Game.Systems.GameCycle
     {
 #pragma warning disable 649
         private readonly EcsFilter<GameStageComponent> _gameStage;
-        private readonly EcsFilter<ResourceComponent, LinkComponent> _resources;
+        private readonly EcsFilter<ResourceComponent, LinkComponent>.Exclude<PickedComponent> _resources;
         private readonly EcsFilter<PlayerComponent, LinkComponent, PositionComponent> _player;
 #pragma warning restore 649
 
@@ -34,8 +34,8 @@ namespace ECS.Game.Systems.GameCycle
                 foreach (var j in _resources)
                 {
                     _resourceEntity = _resources.GetEntity(j);
-                    if (_resourceEntity.Has<PickedComponent>())
-                        continue;
+                    // if (_resourceEntity.Has<PickedComponent>())
+                    //     continue;
                     if (Vector3.Distance(_resources.Get2(j).View.Transform.position, _player.Get3(i).Value) <
                         _playerView.GetInteractionDistance()
                         && _playerView.GetResourcesCount() < _playerView.GetResourcesCapacity())

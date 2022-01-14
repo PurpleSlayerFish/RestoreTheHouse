@@ -7,6 +7,7 @@ using ECS.Game.Components.General;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
 using Runtime.Signals;
+using Services.PauseService;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -14,7 +15,7 @@ using Zenject;
 namespace ECS.Views.GameCycle
 {
     [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
-    public class PlayerView : LinkableView, IWalkableView
+    public class PlayerView : LinkableView, IWalkableView, IPause
     {
         [Inject] private SignalBus _signalBus;
         
@@ -50,6 +51,7 @@ namespace ECS.Views.GameCycle
         private Stack<EcsEntity> _tempResources;
         private int _stackColumn;
         private int _stackRow;
+        private float _animationSpeed;
 
         public override void Link(EcsEntity entity)
         {
@@ -59,6 +61,7 @@ namespace ECS.Views.GameCycle
             _tempResources = new Stack<EcsEntity>();
             _stackColumn = 1;
             _stackRow = 1;
+            _animationSpeed = _animator.speed;
             _animator.SetFloat(WalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
             _animator.SetFloat(CarryingWalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
         }
@@ -177,7 +180,10 @@ namespace ECS.Views.GameCycle
             var count = 0;
             foreach (var resource in _resources)
                 if (resource.Get<ResourceComponent>().Type == type)
+                {
                     count++;
+                    break;
+                }
             if (count == 0)
                 return false;
 
@@ -216,6 +222,17 @@ namespace ECS.Views.GameCycle
             }
             _signalBus.Fire(new SignalResourceUpdate(type, -1));
             return true;
+        }
+        
+        public void Pause()
+        {
+            _animationSpeed = _animator.speed;
+            _animator.speed = 0;
+        }
+
+        public void UnPause()
+        {
+            _animator.speed = _animationSpeed;
         }
     }
 }

@@ -4,12 +4,13 @@ using ECS.Game.Components;
 using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
+using Services.PauseService;
 using UnityEngine;
 
 namespace ECS.Views.GameCycle
 {
     [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
-    public class WorkerView : LinkableView, IWalkableView
+    public class WorkerView : LinkableView, IWalkableView, IPause
     {
         [SerializeField] private Animator _animator;
         
@@ -29,6 +30,7 @@ namespace ECS.Views.GameCycle
         private readonly int Stage = Animator.StringToHash("Stage");
         private readonly string WalkMultiplier = "WalkMultiplier";
         private readonly string CarryingWalkMultiplier = "CarryingWalkMultiplier";
+        private float _animationSpeed;
 
         public override void Link(EcsEntity entity)
         {
@@ -36,6 +38,7 @@ namespace ECS.Views.GameCycle
             WorkerStage = EWorkerStage.Idle;
             entity.Get<SpeedComponent<PositionComponent>>().Value = _movementSpeed;
             entity.Get<PositionComponent>().Value = transform.position;
+            _animationSpeed = _animator.speed;
             _animator.SetFloat(WalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
             _animator.SetFloat(CarryingWalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
         }
@@ -107,6 +110,17 @@ namespace ECS.Views.GameCycle
             if (_animator.GetInteger(Stage) == CarryingWalk)
                 return;
             _animator.SetInteger(Stage, CarryingWalk);
+        }
+        
+        public void Pause()
+        {
+            _animationSpeed = _animator.speed;
+            _animator.speed = 0;
+        }
+
+        public void UnPause()
+        {
+            _animator.speed = _animationSpeed;
         }
     }
 

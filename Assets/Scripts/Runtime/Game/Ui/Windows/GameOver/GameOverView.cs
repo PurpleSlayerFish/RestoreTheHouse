@@ -13,7 +13,6 @@ namespace Runtime.Game.Ui.Windows.GameOver
         [SerializeField] private TMP_Text _levelN;
         
         [SerializeField] public CustomButton Restart;
-        [SerializeField] public CustomButton MainMenu;
         
         public void Show(EScene currentLevel)
         {

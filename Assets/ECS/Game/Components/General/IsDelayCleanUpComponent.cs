@@ -1,6 +1,6 @@
 ﻿namespace ECS.Game.Components.General
 {
-    public struct IsDelayDestroyedComponent
+    public struct IsDelayCleanUpComponent
     {
         public float Delay;
     }

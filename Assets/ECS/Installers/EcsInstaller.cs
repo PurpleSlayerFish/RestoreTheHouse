@@ -43,9 +43,9 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<BuildingDistanceSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<RecipeDistanceSystem>().AsSingle();
             
-            Container.BindInterfacesAndSelfTo<ResourceProductionSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerPickUpSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<DelayDestroySystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ResourceProductionSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DelayCleanUpSystem>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GamePauseSystem>().AsSingle();

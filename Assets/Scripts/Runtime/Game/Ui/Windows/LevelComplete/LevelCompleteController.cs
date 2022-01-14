@@ -1,11 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using ECS.Game.Components.Flags;
-using ECS.Game.Components.GameCycle;
-using ECS.Utils.Extensions;
 using Game.SceneLoading;
-using Leopotam.Ecs;
 using Runtime.Services.CommonPlayerData;
 using Runtime.Services.CommonPlayerData.Data;
 using SimpleUi.Abstracts;
@@ -20,22 +16,16 @@ namespace Runtime.Game.Ui.Windows.LevelComplete
     {
         [Inject] private readonly ICommonPlayerDataService<CommonPlayerData> _commonPlayerData;
         private readonly ISceneLoadingManager _sceneLoadingManager;
-        private readonly EcsWorld _world;
-
-        public LevelCompleteController(ISceneLoadingManager sceneLoadingManager, EcsWorld world)
+        public LevelCompleteController(ISceneLoadingManager sceneLoadingManager)
         {
             _sceneLoadingManager = sceneLoadingManager;
-            _world = world;
         }
         
         public void Initialize()
         {
             View.NextLevel.OnClickAsObservable().Subscribe(x => OnNextLevel()).AddTo(View.NextLevel);
-            View.MainMenu.OnClickAsObservable().Subscribe(x => OnMainMenu()).AddTo(View.MainMenu);
         }
         
-        private void OnMainMenu() => _sceneLoadingManager.LoadScene(EScene.MainMenu);
-
         private void OnNextLevel()
         {
             _sceneLoadingManager.LoadScene(_commonPlayerData.GetData().Level);
@@ -49,21 +39,8 @@ namespace Runtime.Game.Ui.Windows.LevelComplete
 
         private void OnFinish()
         {
-            // var lvlImpact = _world.GetEntity<PlayerComponent>().Get<ImpactComponent>().Value;
-            // var currentCoins = _commonPlayerData.GetData().Coins;
-            // var currentLevel = _commonPlayerData.GetData().Level;
-            // OnWin(lvlImpact, out var newCoinCount);
-            // View.Show(lvlImpact, currentCoins, currentLevel, () => OnComplete(newCoinCount));
-        }
-
-        private void OnComplete(int newCoinCount) => View.AddCoins(View.TotalCoinIcon.anchoredPosition, newCoinCount);
-        
-        private void OnWin(int reward, out int newCoinCount)
-        {
             var data = _commonPlayerData.GetData();
-            data.Coins += reward;
-            newCoinCount = data.Coins;
-
+            View.Show(data.Level);
             if (data.Level >= Enum.GetValues(typeof(EScene)).Cast<EScene>().Last())
             {
                 data.Level = EScene.Level_1;
@@ -71,7 +48,6 @@ namespace Runtime.Game.Ui.Windows.LevelComplete
             }
             else
                 data.Level++;
-            
             _commonPlayerData.Save(data);
         }
     }

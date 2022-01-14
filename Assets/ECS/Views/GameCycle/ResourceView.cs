@@ -1,11 +1,13 @@
-﻿using ECS.Game.Components.GameCycle;
+﻿using DG.Tweening;
+using ECS.Game.Components.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
+using Services.PauseService;
 using UnityEngine;
 
 namespace ECS.Views.GameCycle
 {
-    public class ResourceView : LinkableView
+    public class ResourceView : LinkableView, IPause
     {
         [SerializeField] private EResourceType _type;
         
@@ -13,6 +15,16 @@ namespace ECS.Views.GameCycle
         {
             base.Link(entity);
             entity.Get<ResourceComponent>().Type = _type;
+        }
+        
+        public void Pause()
+        {
+            Transform.DOPause();
+        }
+
+        public void UnPause()
+        {
+            Transform.DOPlay();
         }
     }
 }

@@ -7,6 +7,6 @@ namespace Runtime.Game.Ui.Windows.InGameMenu
     {
         public CustomButton Continue;
         public CustomButton Restart;
-        public CustomButton GoMenu;
+        // public CustomButton GoMenu;
     }
 }
