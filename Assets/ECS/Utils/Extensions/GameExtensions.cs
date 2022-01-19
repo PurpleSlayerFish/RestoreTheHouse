@@ -116,5 +116,18 @@ namespace ECS.Utils.Extensions
                 entity.GetAndFire<WorkerComponent>();
             // }
         }
+        
+        public static void CreateClues(this EcsWorld world)
+        {
+            var views = Object.FindObjectsOfType<ClueView>(true);
+            foreach (var view in views)
+            {
+                var entity = world.NewEntity();
+                entity.Get<UIdComponent>().Value = UidGenerator.Next();
+                entity.Get<ClueComponent>();
+                entity.Get<LinkComponent>().View = view;
+                view.Link(entity);
+            }
+        }
     }
 }

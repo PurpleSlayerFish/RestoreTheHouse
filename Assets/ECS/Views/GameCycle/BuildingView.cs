@@ -45,6 +45,11 @@ namespace ECS.Views.GameCycle
         {
             return _resourcesDelPoint.position;
         }
+        
+        public ref Transform GetResourcesDeliveryStart()
+        {
+            return ref _resourcesDeliveryStartPoint;
+        }
 
         public Vector3 GetResourcesDeliveryStartPoint()
         {

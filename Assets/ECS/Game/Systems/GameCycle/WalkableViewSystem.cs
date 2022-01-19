@@ -21,7 +21,7 @@ namespace ECS.Game.Systems.GameCycle
 #pragma warning restore 649
         public void Run()
         {
-            if (_gameStage.Get1(0).Value != EGameStage.Play) return;
+            // if (_gameStage.Get1(0).Value != EGameStage.Play) return;
             
             foreach (var i in _walkables)
             {

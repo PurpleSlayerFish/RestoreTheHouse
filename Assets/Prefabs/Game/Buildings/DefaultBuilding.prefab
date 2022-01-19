@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2533072641048328318
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8562390444302478868}
+  m_Layer: 0
+  m_Name: ResourcesDeliveryFromPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8562390444302478868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2533072641048328318}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -1.1796962, y: -2.7946377, z: 5.244082}
+  m_LocalScale: {x: 0.99999934, y: 1, z: 0.99999934}
+  m_Children: []
+  m_Father: {fileID: 3118167096047812539}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3118167094057932423
 GameObject:
   m_ObjectHideFlags: 0
@@ -25,7 +55,7 @@ Transform:
   m_GameObject: {fileID: 3118167094057932423}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
   m_LocalPosition: {x: -0.00000011920924, y: 0, z: 1.2499996}
-  m_LocalScale: {x: 2, y: 2, z: 0.25}
+  m_LocalScale: {x: 3, y: 3, z: 0.25}
   m_Children:
   - {fileID: 5193944246137542244}
   - {fileID: 3118167095790418542}
@@ -42,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3118167094823754245}
   m_Layer: 0
-  m_Name: ResourcesDeliveryPoint
+  m_Name: ResourcesDeliveryToPoint
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -240,6 +270,7 @@ Transform:
   - {fileID: 3118167095556268926}
   - {fileID: 3118167095223594429}
   - {fileID: 3118167094823754245}
+  - {fileID: 8562390444302478868}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -258,14 +289,14 @@ MonoBehaviour:
   _type: 0
   _resourcesSpendPoint: {fileID: 3118167095556268926}
   _resourcesDelPoint: {fileID: 3118167095223594429}
-  _resourcesDeliveryStartPoint: {fileID: 3118167095223594429}
+  _resourcesDeliveryStartPoint: {fileID: 8562390444302478868}
   _resourcesDeliveryEndPoint: {fileID: 3118167094823754245}
   _resourcesDeliveryDuration: 0.6
   _resourcesDeliveryRotation: {x: 0, y: 90, z: 0}
   _resourcesCapacity: 10
   _stackWidth: 5
-  _stackOffsetX: 2.1
-  _stackOffsetZ: 1.1
+  _stackOffsetX: 1.3
+  _stackOffsetZ: 1.3
 --- !u!208 &3118167096047812541
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -583,8 +614,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7811709721854033219}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 3.15, y: -0.49, z: 2.2}
-  m_LocalScale: {x: 4.3, y: 5.9, z: 0.33333325}
+  m_LocalPosition: {x: 1.9400008, y: -0.49, z: 2.647001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3118167094823754245}
   m_RootOrder: 0
@@ -633,8 +664,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.55, y: 1.45}
+  m_DrawMode: 1
+  m_Size: {x: 3, y: 7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

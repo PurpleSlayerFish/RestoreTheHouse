@@ -27,9 +27,6 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<GameTimerSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ElapsedTimeSystem>().AsSingle();
             
-            Container.BindInterfacesAndSelfTo<WalkableViewSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ResourceViewSystem>().AsSingle();
-            
             Container.BindInterfacesAndSelfTo<PositionRotationTranslateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<MoveRotateToTargetSystem>().AsSingle();
             
@@ -42,11 +39,15 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<ResourceDistanceSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<BuildingDistanceSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<RecipeDistanceSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ClueDistanceSystem>().AsSingle();
             
             Container.BindInterfacesAndSelfTo<PlayerPickUpSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<ResourceProductionSystem>().AsSingle();
+            
+            Container.BindInterfacesAndSelfTo<WalkableViewSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ResourceViewSystem>().AsSingle();
+            
             Container.BindInterfacesAndSelfTo<DelayCleanUpSystem>().AsSingle();
-
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<GamePauseSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<SaveGameSystem>().AsSingle();

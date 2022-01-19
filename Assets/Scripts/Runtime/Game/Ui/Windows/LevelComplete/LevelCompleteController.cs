@@ -16,6 +16,7 @@ namespace Runtime.Game.Ui.Windows.LevelComplete
     {
         [Inject] private readonly ICommonPlayerDataService<CommonPlayerData> _commonPlayerData;
         private readonly ISceneLoadingManager _sceneLoadingManager;
+        private EScene loopedLevel = EScene.Level_6;
         public LevelCompleteController(ISceneLoadingManager sceneLoadingManager)
         {
             _sceneLoadingManager = sceneLoadingManager;
@@ -43,7 +44,7 @@ namespace Runtime.Game.Ui.Windows.LevelComplete
             View.Show(data.Level);
             if (data.Level >= Enum.GetValues(typeof(EScene)).Cast<EScene>().Last())
             {
-                data.Level = EScene.Level_1;
+                data.Level = loopedLevel;
                 Amplitude.Instance.logEvent("last_level_complete");
             }
             else

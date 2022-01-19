@@ -9,17 +9,18 @@ using Runtime.DataBase.Game;
 
 namespace ECS.Game.Systems.GameCycle
 {
-    public class ResourceProductionSystem :IEcsUpdateSystem
+    public class ResourceProductionSystem : IEcsUpdateSystem
     {
 #pragma warning disable 649
         private readonly EcsWorld _world;
         private readonly EcsFilter<GameStageComponent> _gameStage;
         private readonly EcsFilter<BuildingComponent, LinkComponent, ResourceProductionComponent> _buildings;
 #pragma warning restore 649
-        
+
         private EcsEntity _buildingEntity;
         private BuildingView _buildingView;
         private EResourceType _type;
+
         public void Run()
         {
             if (_gameStage.Get1(0).Value != EGameStage.Play) return;
@@ -30,9 +31,9 @@ namespace ECS.Game.Systems.GameCycle
                 _buildingView = _buildings.Get2(j).Get<BuildingView>();
                 if (!_buildingView.gameObject.activeInHierarchy)
                     continue;
-                // No need check distance to building, if player can't spend resources here (always or anymore)
-                if (_buildingView.GetResourcesSpend() == null &&
-                    _buildingView.GetResourcesSpend().gameObject.activeSelf == false)
+                if (_buildingView.GetResourcesDeliveryStart() == null ||
+                    !_buildingView.GetResourcesDeliveryStart().gameObject.activeSelf ||
+                    !_buildingView.GetResourcesDeliveryStart().gameObject.activeInHierarchy)
                     continue;
                 if (_buildingEntity.Get<ElapsedTimeComponent>().Value < 1 / _buildings.Get3(j).Value)
                     continue;
@@ -51,7 +52,7 @@ namespace ECS.Game.Systems.GameCycle
                         _type = EResourceType.Wood;
                         break;
                 }
-                
+
                 var resources = _world.CreateResources(_type);
                 _buildingView.AddResources(ref resources);
                 resources.Get<UidLinkComponent>().Link = _buildingEntity.Get<UIdComponent>().Value;

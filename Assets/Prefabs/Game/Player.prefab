@@ -659,14 +659,14 @@ MonoBehaviour:
   _animator: {fileID: 2557693140472459772}
   _root: {fileID: 7814127946430521187}
   _resourcesStack: {fileID: 7058268958315868102}
-  _resourcesCapacity: 15
+  _resourcesCapacity: 10
   _stackHeight: 5
-  _stackOffsetX: 1
+  _stackOffsetX: 1.1
   _stackOffsetY: 0.65
   _interactionDistance: 2.5
   _interactionDuration: 0.3
   _interactionCooldown: 0.2
-  _sensitivity: 0.0006375
+  _sensitivity: 0.0011
   _movementLimit: 80
   _movementSpeed: 2.5
   _movementSpeedToAnim: 1.46
@@ -1605,7 +1605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2181769509312897067, guid: 40668d4469e9b774397e05935f8264a1, type: 3}
       propertyPath: orthographic size
-      value: 12
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 2181769509312897068, guid: 40668d4469e9b774397e05935f8264a1, type: 3}
       propertyPath: m_RootOrder

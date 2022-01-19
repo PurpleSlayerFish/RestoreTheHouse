@@ -18,8 +18,8 @@ namespace Runtime.Game.Ui.Windows.SplashScreen.Impls
         
         public void Initialize()
         {
-            // _sceneLoadingManager.LoadScene(EScene.Level_1);
-            _sceneLoadingManager.LoadScene(_commonPlayerData.GetData().Level);
+            _sceneLoadingManager.LoadScene(EScene.Level_8);
+            // _sceneLoadingManager.LoadScene(_commonPlayerData.GetData().Level);
         }
     }
 }

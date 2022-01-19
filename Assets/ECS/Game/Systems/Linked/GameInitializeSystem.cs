@@ -26,6 +26,7 @@ namespace ECS.Game.Systems.Linked
             CreateBuildings();
             CreateReceipts();
             CreateCosts();
+            CreateClues();
         }
         private bool LoadGame()
         {
@@ -70,6 +71,11 @@ namespace ECS.Game.Systems.Linked
         private void CreateCosts()
         {
             _world.CreateCosts();
+        }
+
+        private void CreateClues()
+        {
+            _world.CreateClues();
         }
     }
 }

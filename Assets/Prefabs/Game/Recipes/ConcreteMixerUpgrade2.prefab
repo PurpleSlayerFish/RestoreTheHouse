@@ -73,7 +73,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2688839095616339827, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: _resourcesCount.Array.data[0]
-      value: 4
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2688839095616339827, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: _unlockableTransforms.Array.size

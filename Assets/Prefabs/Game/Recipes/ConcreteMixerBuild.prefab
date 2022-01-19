@@ -49,11 +49,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2688839094891420074, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2688839094891420074, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2688839094891420074, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -62,6 +62,18 @@ PrefabInstance:
     - target: {fileID: 2688839094891420074, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: m_LocalPosition.z
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688839094891420075, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
+      propertyPath: m_Size.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688839094891420075, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
+      propertyPath: m_Size.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688839094891420075, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
+      propertyPath: m_DrawMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2688839095616339826, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: m_RootOrder
@@ -174,6 +186,14 @@ PrefabInstance:
     - target: {fileID: 2688839096126377139, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745079459633707264, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745079459633707264, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 3990541466470219053, guid: 722ca64226c293f4e8d039489942a05a, type: 3}
       propertyPath: InitialModule.maxNumParticles

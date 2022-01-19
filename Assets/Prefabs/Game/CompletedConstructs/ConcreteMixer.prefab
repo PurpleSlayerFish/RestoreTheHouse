@@ -196,7 +196,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4567086580550010017, guid: 99820f0c3bcc7fd46968ce4382bac212, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4567086580550010017, guid: 99820f0c3bcc7fd46968ce4382bac212, type: 3}
       propertyPath: m_LocalPosition.x
@@ -213,6 +213,10 @@ PrefabInstance:
     - target: {fileID: 4567086581309530742, guid: 99820f0c3bcc7fd46968ce4382bac212, type: 3}
       propertyPath: m_Name
       value: ConcreteMixerBuild
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567086581309530744, guid: 99820f0c3bcc7fd46968ce4382bac212, type: 3}
+      propertyPath: _resourcesCount.Array.data[0]
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4567086581309530744, guid: 99820f0c3bcc7fd46968ce4382bac212, type: 3}
       propertyPath: _unlockableTransforms.Array.size

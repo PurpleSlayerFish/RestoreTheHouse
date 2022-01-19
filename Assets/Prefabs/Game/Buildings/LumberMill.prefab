@@ -183,5 +183,17 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -4342613213148404425, guid: d3229853161e70143ba2955e9f4bdd29, type: 3}
+    - target: {fileID: 8562390444302478868, guid: 6be05b2849a378341a5bf6e3e5a0031a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5703038
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562390444302478868, guid: 6be05b2849a378341a5bf6e3e5a0031a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.45536232
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562390444302478868, guid: 6be05b2849a378341a5bf6e3e5a0031a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.4940825
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6be05b2849a378341a5bf6e3e5a0031a, type: 3}
