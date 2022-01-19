@@ -1,6 +1,7 @@
 ﻿using DataBase.Audio;
 using Plugins.PdUtils.Runtime.PdAudio;
 using Runtime.Game.Ui.Windows.Main.MainMenu;
+using Runtime.Services.AnalyticsService;
 using SimpleUi.Signals;
 using Zenject;
 
@@ -8,6 +9,8 @@ namespace Initializers
 {
     public class MenuInitializer : IInitializable
     {
+        [Inject] private IAnalyticsService _analyticsService;
+        
         private readonly SignalBus _signalBus;
         private readonly PdAudio _pdAudio;
         private readonly IAudioBase _audioBase;
@@ -23,7 +26,7 @@ namespace Initializers
         {
             _signalBus.OpenWindow<MainMenuWindow>();
             //_pdAudio.PlayMusic(_audioBase.Get("MainMenu"));
-            Amplitude.Instance.logEvent("game_launched");
+            _analyticsService.SendRequest("game_launched");
         }
     }
 }

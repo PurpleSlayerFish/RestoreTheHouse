@@ -1,8 +1,8 @@
 using ECS.Utils.Extensions;
+using GameAnalyticsSDK;
 using Leopotam.Ecs;
 using Runtime.DataBase.Game;
-using Runtime.Services.CommonPlayerData;
-using Runtime.Services.CommonPlayerData.Data;
+using Runtime.Services.AnalyticsService;
 using SimpleUi.Abstracts;
 using SimpleUi.Signals;
 using UniRx;
@@ -13,7 +13,7 @@ namespace Runtime.Game.Ui.Windows.StartToPlay
 {
     public class StartToPlayController : UiController<StartToPlayView>, IInitializable
     {
-        [Inject] private readonly ICommonPlayerDataService<CommonPlayerData> _commonPlayerData;
+        [Inject] private IAnalyticsService _analyticsService;
         private readonly SignalBus _signalBus;
         private readonly EcsWorld _world;
 
@@ -32,7 +32,7 @@ namespace Runtime.Game.Ui.Windows.StartToPlay
         {
             _signalBus.OpenWindow<GameHudWindow>();
             _world.SetStage(EGameStage.Play);
-            Amplitude.Instance.logEvent("level_start");
+            _analyticsService.SendRequest("level_start");
         }
     }
 }

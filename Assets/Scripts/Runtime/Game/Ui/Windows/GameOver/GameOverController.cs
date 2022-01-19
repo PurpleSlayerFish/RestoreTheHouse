@@ -1,4 +1,5 @@
 using Game.SceneLoading;
+using Runtime.Services.AnalyticsService;
 using Runtime.Services.CommonPlayerData;
 using Runtime.Services.CommonPlayerData.Data;
 using SimpleUi.Abstracts;
@@ -10,10 +11,11 @@ namespace Runtime.Game.Ui.Windows.GameOver
 {
     public class GameOverController : UiController<GameOverView>, IInitializable
     {
+        [Inject] private IAnalyticsService _analyticsService;
         [Inject] private readonly ICommonPlayerDataService<CommonPlayerData> _commonPlayerData;
-        private readonly ISceneLoadingManager _sceneLoadingManager;
         
-
+        private readonly ISceneLoadingManager _sceneLoadingManager; 
+        
         public GameOverController(ISceneLoadingManager sceneLoadingManager)
         {
             _sceneLoadingManager = sceneLoadingManager;
@@ -27,7 +29,7 @@ namespace Runtime.Game.Ui.Windows.GameOver
         public override void OnShow()
         {
             View.Show(_commonPlayerData.GetData().Level);
-            Amplitude.Instance.logEvent("level_failed");
+            _analyticsService.SendRequest("level_failed");
             
         }
 

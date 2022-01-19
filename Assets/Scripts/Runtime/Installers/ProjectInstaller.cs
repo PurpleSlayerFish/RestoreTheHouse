@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using ECS.DataSave;
+﻿using ECS.DataSave;
 using Facebook.Unity;
 using Game.SceneLoading;
 using Game.Ui.BlackScreen;
 using Game.Utils;
+using GameAnalyticsSDK;
 using PdUtils;
 using PdUtils.Dao;
 using PdUtils.PlayerPrefs;
@@ -31,6 +31,7 @@ namespace Installers
             CommonPlayerDataInstaller.InstallServices(Container);
             
             FB.Init();
+            GameAnalytics.Initialize();
             
             Container.BindInterfacesTo<ThreadedLocalStorageDao<GameState>>().AsTransient().WithArguments("gameState");
             Container.BindInterfacesTo<DefaultSeparateThreadExecutor<string>>().AsSingle();

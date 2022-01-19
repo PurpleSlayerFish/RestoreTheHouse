@@ -6,6 +6,7 @@ using Runtime.Game.Ui.Windows.InGameMenu;
 using Runtime.Game.Ui.Windows.LevelComplete;
 using Runtime.Game.Ui.Windows.StartToPlay;
 using Runtime.Initializers;
+using Runtime.Services.AnalyticsService.Impls;
 using Runtime.Services.ElapsedTimeService.Impls;
 using Runtime.Services.PauseService.Impls;
 using Runtime.UI.QuitConcentPopUp;
@@ -38,6 +39,7 @@ namespace Installers
             Container.BindInterfacesTo<SpawnService>().AsSingle();
             Container.BindInterfacesTo<PauseService>().AsSingle();
             Container.BindInterfacesTo<ElapsedTimeService>().AsSingle();
+            Container.BindInterfacesTo<AnalyticsService>().AsSingle();
         }
     }
 }

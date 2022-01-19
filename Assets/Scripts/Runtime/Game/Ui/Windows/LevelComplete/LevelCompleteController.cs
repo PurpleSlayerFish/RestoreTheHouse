@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Game.SceneLoading;
+using Runtime.Services.AnalyticsService;
 using Runtime.Services.CommonPlayerData;
 using Runtime.Services.CommonPlayerData.Data;
 using SimpleUi.Abstracts;
@@ -14,9 +15,12 @@ namespace Runtime.Game.Ui.Windows.LevelComplete
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public class LevelCompleteController : UiController<LevelCompleteView>, IInitializable
     {
+        [Inject] private IAnalyticsService _analyticsService;
         [Inject] private readonly ICommonPlayerDataService<CommonPlayerData> _commonPlayerData;
+        
         private readonly ISceneLoadingManager _sceneLoadingManager;
         private EScene loopedLevel = EScene.Level_6;
+        
         public LevelCompleteController(ISceneLoadingManager sceneLoadingManager)
         {
             _sceneLoadingManager = sceneLoadingManager;
@@ -34,7 +38,7 @@ namespace Runtime.Game.Ui.Windows.LevelComplete
 
         public override void OnShow()
         {
-            Amplitude.Instance.logEvent("level_complete");
+            _analyticsService.SendRequest("level_complete");
             OnFinish();
         }
 
@@ -45,7 +49,7 @@ namespace Runtime.Game.Ui.Windows.LevelComplete
             if (data.Level >= Enum.GetValues(typeof(EScene)).Cast<EScene>().Last())
             {
                 data.Level = loopedLevel;
-                Amplitude.Instance.logEvent("last_level_complete");
+                _analyticsService.SendRequest("last_level_complete");
             }
             else
                 data.Level++;
