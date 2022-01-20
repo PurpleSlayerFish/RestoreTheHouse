@@ -15,7 +15,8 @@ namespace ECS.Views.GameCycle
         {
             base.Link(entity);
             entity.Get<ResourceComponent>().Type = _type;
-            Transform.position = new Vector3(0, -10, 0);
+            if (Transform.position == Vector3.zero)
+                Transform.position = new Vector3(0, -10, 0);
         }
         
         public void Pause()
