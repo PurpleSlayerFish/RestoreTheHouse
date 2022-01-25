@@ -26,17 +26,17 @@ MonoBehaviour:
   UserMessagesFailed: 0
   CustomArea: 
   gameKey:
-  - ebe4a3ea7a577c86bbcdec8f1aa6f24b
+  - 3e12ec02fca2771118202920abd8a938
   secretKey:
-  - 9f64df4b619731d46caf43f90a5a116dc121125d
+  - bbc9db47dae46016fcc45c4bdad80e41ae4220fa
   Build:
   - 1.0
   SelectedPlatformOrganization:
-  - appyland
+  - 
   SelectedPlatformStudio:
-  - Replay
+  - 
   SelectedPlatformGame:
-  - Restore the house
+  - 
   SelectedPlatformGameID: c4c50200
   SelectedOrganization: 01000000
   SelectedStudio: 01000000
@@ -63,7 +63,7 @@ MonoBehaviour:
   ResourceCurrencies: []
   LastCreatedGamePlatform: -1
   Platforms: 0b000000
-  CurrentInspectorState: 3
+  CurrentInspectorState: 1
   ClosedHints: 
   DisplayHints: 0
   DisplayHintsScrollState: {x: 0, y: 0}

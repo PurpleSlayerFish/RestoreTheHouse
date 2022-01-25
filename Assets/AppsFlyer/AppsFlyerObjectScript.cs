@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AppsFlyerSDK;
@@ -20,24 +19,29 @@ public class AppsFlyerObjectScript : MonoBehaviour , IAppsFlyerConversionData
 
     void Start()
     {
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+
         // These fields are set from the editor so do not modify!
-        //******************************//
+        //**//
         AppsFlyer.setIsDebug(isDebug);
 #if UNITY_WSA_10_0 && !UNITY_EDITOR
         AppsFlyer.initSDK(devKey, UWPAppID, getConversionData ? this : null);
 #else
         AppsFlyer.initSDK(devKey, appID, getConversionData ? this : null);
 #endif
-        //******************************/
+        //**/
  
         AppsFlyer.startSDK();
     }
-
-
-    void Update()
-    {
-
-    }
+    
+    private AppsFlyerObjectScript _instance;
 
     // Mark AppsFlyer CallBacks
     public void onConversionDataSuccess(string conversionData)

@@ -52,17 +52,17 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\AppsFlyer\AppsFlyerAndroid.cs" />
-     <Compile Include="Assets\AppsFlyer\IAppsFlyerUserInvite.cs" />
+     <Compile Include="Assets\AppsFlyer\AFInAppEvents.cs" />
      <Compile Include="Assets\AppsFlyer\AppsFlyer.cs" />
      <Compile Include="Assets\AppsFlyer\Windows\AppsFlyerWindows.cs" />
-     <Compile Include="Assets\AppsFlyer\AppsFlyerObjectScript.cs" />
-     <Compile Include="Assets\AppsFlyer\AFInAppEvents.cs" />
-     <Compile Include="Assets\AppsFlyer\AppsFlyeriOS.cs" />
      <Compile Include="Assets\AppsFlyer\IAppsFlyerConversionData.cs" />
-     <Compile Include="Assets\AppsFlyer\IAppsFlyerValidateReceipt.cs" />
      <Compile Include="Assets\AppsFlyer\AFMiniJSON.cs" />
+     <Compile Include="Assets\AppsFlyer\AppsFlyerObjectScript.cs" />
+     <Compile Include="Assets\AppsFlyer\AppsFlyeriOS.cs" />
+     <Compile Include="Assets\AppsFlyer\AppsFlyerAndroid.cs" />
      <Compile Include="Assets\AppsFlyer\AppsFlyerEventArgs.cs" />
+     <Compile Include="Assets\AppsFlyer\IAppsFlyerValidateReceipt.cs" />
+     <Compile Include="Assets\AppsFlyer\IAppsFlyerUserInvite.cs" />
      <None Include="Assets\AppsFlyer\AppsFlyer.asmdef" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
