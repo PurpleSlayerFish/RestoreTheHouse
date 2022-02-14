@@ -26,9 +26,9 @@ MonoBehaviour:
   UserMessagesFailed: 0
   CustomArea: 
   gameKey:
-  - 3e12ec02fca2771118202920abd8a938
+  - 
   secretKey:
-  - bbc9db47dae46016fcc45c4bdad80e41ae4220fa
+  - 
   Build:
   - 1.0
   SelectedPlatformOrganization:
@@ -41,8 +41,23 @@ MonoBehaviour:
   SelectedOrganization: 01000000
   SelectedStudio: 01000000
   SelectedGame: 05000000
-  NewVersion: 
-  Changes: 
+  NewVersion: 7.3.17
+  Changes: '7.3.19
+
+    - updated dependencies
+
+
+    7.3.18
+
+    - fixed fps event
+    script to still run coroutines when Time.timeScale = 0 by using WaitForSecondsRealtime
+    instead of WaitForSeconds
+
+
+    7.3.17
+
+    - added method manually update gamekey
+    and secretkey'
   SignUpOpen: 1
   StudioName: ReplayAnton
   GameName: RestoreTheHouse

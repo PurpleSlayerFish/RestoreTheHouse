@@ -15,8 +15,7 @@ public class AppsFlyerObjectScript : MonoBehaviour , IAppsFlyerConversionData
     public bool isDebug;
     public bool getConversionData;
     //******************************//
-
-
+    
     void Start()
     {
         if (_instance != null)

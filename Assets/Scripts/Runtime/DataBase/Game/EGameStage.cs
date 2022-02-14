@@ -2,6 +2,7 @@
 {
     public enum EGameStage
     {
+        Start,
         Play,
         Pause,
         Complete,

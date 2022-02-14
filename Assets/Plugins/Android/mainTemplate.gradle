@@ -43,7 +43,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-share:[11.0, 12)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:8
     implementation 'com.parse.bolts:bolts-android:1.4.0' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:4
     implementation 'com.squareup.okhttp3:okhttp:4.2.2' // Assets/Editor/AmplitudeDependencies.xml:17
-	
+
 	implementation group: 'com.appsflyer', name: 'unity-wrapper', version: '6.4.4'
 	implementation group: 'com.appsflyer', name: 'af-android-sdk', version: '6.4.3'
 	implementation group: 'com.android.installreferrer', name: 'installreferrer', version: '2.1'

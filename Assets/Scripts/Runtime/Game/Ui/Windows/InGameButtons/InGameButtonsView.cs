@@ -50,29 +50,5 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
             }
         }
         
-        public void UpdateResourcesCount(EResourceType type, int value)
-        {
-            switch (type)
-            {
-                case EResourceType.Wood:
-                    _woodCount += value;
-                    _woodCountTxt.text = _woodCount.ToString();
-                    if (!_woodIndicator.gameObject.activeSelf)
-                        _woodIndicator.gameObject.SetActive(true);
-                    break;
-                case EResourceType.Money:
-                    _moneyCount += value;
-                    _moneyCountTxt.text = _moneyCount.ToString();
-                    if (!_moneyIndicator.gameObject.activeSelf)
-                        _moneyIndicator.gameObject.SetActive(true);
-                    break;
-                case EResourceType.Concrete:
-                    _concreteCount += value;
-                    _concreteCountTxt.text = _concreteCount.ToString();
-                    if (!_concreteIndicator.gameObject.activeSelf)
-                        _concreteIndicator.gameObject.SetActive(true);
-                    break;
-            }
-        }
     }
 }

@@ -21,18 +21,11 @@ namespace ECS.Views.GameCycle
         
         [SerializeField] private Animator _animator;
         
-        [SerializeField] private Transform _root;
-        [SerializeField] private Transform _resourcesStack;
-        
-        [SerializeField] private int _resourcesCapacity = 10;
-        [SerializeField] private int _stackHeight = 10;
-        [SerializeField] private float _stackOffsetX = 1;
-        [SerializeField] private float _stackOffsetY = 1;
-
         [SerializeField] private float _interactionDistance = 2.5f;
         [SerializeField] private float _interactionDuration = 0.4f;
         [SerializeField] private float _interactionCooldown = 0.6f;
 
+        [SerializeField] private Transform _root;
         [SerializeField] private float _sensitivity = 0.4f;
         [SerializeField] private float _movementLimit = 0.045f;
         [SerializeField] private float _movementSpeed = 1.46f;
@@ -47,20 +40,12 @@ namespace ECS.Views.GameCycle
         private readonly string WalkMultiplier = "WalkMultiplier";
         private readonly string CarryingWalkMultiplier = "CarryingWalkMultiplier";
 
-        private Stack<EcsEntity> _resources;
-        private Stack<EcsEntity> _tempResources;
-        private int _stackColumn;
-        private int _stackRow;
         private float _animationSpeed;
 
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
             entity.Get<SpeedComponent<PositionComponent>>().Value = _movementSpeed;
-            _resources = new Stack<EcsEntity>();
-            _tempResources = new Stack<EcsEntity>();
-            _stackColumn = 1;
-            _stackRow = 1;
             _animationSpeed = _animator.speed;
             _animator.SetFloat(WalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
             _animator.SetFloat(CarryingWalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
@@ -71,11 +56,6 @@ namespace ECS.Views.GameCycle
             return ref _root;
         }
         
-        public ref Transform GetResourcesStack()
-        {
-            return ref _resourcesStack;
-        }
-
         public ref float GetSensitivity()
         {
             return ref _sensitivity;
@@ -90,7 +70,7 @@ namespace ECS.Views.GameCycle
         {
             return ref _navMeshAgent;
         }
-
+        
         public ref float GetInteractionDistance()
         {
             return ref _interactionDistance;
@@ -108,7 +88,7 @@ namespace ECS.Views.GameCycle
 
         public bool IsCarrying()
         {
-            return GetResourcesCount() > 0;
+            return false;
         }
 
         public void SetWalkAnimation()
@@ -140,90 +120,6 @@ namespace ECS.Views.GameCycle
             _animator.SetInteger(Stage, CarryingWalk);
         }
 
-        public ref int GetResourcesCapacity()
-        {
-            return ref _resourcesCapacity;
-        }
-
-        public int GetResourcesCount()
-        {
-            return _resources.Count;
-        }
-
-        public void AddResource(EcsEntity resource)
-        {
-            AddResource(ref resource, false);
-        }
-
-        public void AddResource(ref EcsEntity resource, bool needUpdateUi)
-        {
-            _resources.Push(resource);
-            var z = _stackColumn * _stackOffsetX;
-            var y = _stackRow * _stackOffsetY;
-            _stackRow++;
-            if (_resources.Count >= _stackHeight * _stackColumn)
-            {
-                _stackColumn++;
-                _stackRow = 1;
-            }
-            // Attach to stack
-            resource.Get<MoveTweenEventComponent>().EventType = ETweenEventType.ResourcePickUp;
-            resource.Get<Vector3Component<MoveTweenEventComponent>>().Value = new Vector3(0, y, z);
-            if (needUpdateUi)
-                _signalBus.Fire(new SignalResourceUpdate(resource.Get<ResourceComponent>().Type, 1));
-        }
-
-        public bool RemoveResource(EResourceType type, Vector3 clearPointPos)
-        {
-            if (_resources.Count == 0)
-                return false;
-            var count = 0;
-            foreach (var resource in _resources)
-                if (resource.Get<ResourceComponent>().Type == type)
-                {
-                    count++;
-                    break;
-                }
-            if (count == 0)
-                return false;
-
-            bool condition = true;
-            EcsEntity entity;
-            while (condition)
-            {
-                if (_resources.Count == 0)
-                    break;
-                entity = _resources.Peek();
-                if (entity.Get<ResourceComponent>().Type == type)
-                {
-                    // Detach from stack
-                    entity.Get<MoveTweenEventComponent>().EventType = ETweenEventType.ResourceSpend;
-                    entity.Get<Vector3Component<MoveTweenEventComponent>>().Value = clearPointPos;
-                    condition = false;
-                }
-                else
-                {
-                    _tempResources.Push(entity);
-                }
-                _resources.Pop();
-                _stackRow--;
-                if (_stackRow <= 0)
-                {
-                    _stackColumn--;
-                    _stackRow = _stackHeight;
-                }
-            }
-
-            var tempCount = _tempResources.Count;
-            for (int i = 0; i < tempCount; i++)
-            {
-                AddResource(_tempResources.Peek());
-                _tempResources.Pop();
-            }
-            _signalBus.Fire(new SignalResourceUpdate(type, -1));
-            return true;
-        }
-        
         public void Pause()
         {
             _animationSpeed = _animator.speed;

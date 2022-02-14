@@ -657,17 +657,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 2557693140472459772}
-  _root: {fileID: 7814127946430521187}
-  _resourcesStack: {fileID: 7058268958315868102}
-  _resourcesCapacity: 10
-  _stackHeight: 5
-  _stackOffsetX: 1.1
-  _stackOffsetY: 0.65
   _interactionDistance: 2.5
   _interactionDuration: 0.3
   _interactionCooldown: 0.2
-  _sensitivity: 0.0011
-  _movementLimit: 80
+  _root: {fileID: 7814127946430521187}
+  _sensitivity: 1
+  _movementLimit: 0.07
   _movementSpeed: 2.5
   _movementSpeedToAnim: 1.46
   _navMeshAgent: {fileID: 7242957605907189775}
