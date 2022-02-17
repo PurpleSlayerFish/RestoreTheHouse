@@ -37,6 +37,7 @@ namespace ECS.Game.Systems.GameCycle
                 {
                     _triggerEntity = _triggers.GetEntity(j);
                     _distanceTriggerView = _triggers.Get2(j).Get<DistanceTriggerView>();
+                    
                     if (!_distanceTriggerView.gameObject.activeSelf ||
                         !_distanceTriggerView.gameObject.activeInHierarchy)
                         continue;

@@ -102,7 +102,12 @@ namespace ECS.Game.Systems.GameCycle
 
             if (collision.gameObject.CompareTag("DestrictableObstacle"))
                 if (_ballView.GetRigidbody().velocity.magnitude >= MAGNITUDE_TOLERANCE)
-                {}
+                {
+                    var view = collision.gameObject.GetComponentInParent<DestructibleBlockView>();
+                    view.GetMesh().SetActive(false);
+                    view.GetParticle().SetActive(true);
+                    view.Entity.Get<IsDelayCleanUpComponent>().Delay = 3f;
+                }
         }
     }
 

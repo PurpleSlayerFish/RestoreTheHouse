@@ -46,7 +46,8 @@ namespace ECS.Game.Systems.GameCycle
                 if (Vector3.Distance(_playerView.Transform.position, _enemyView.Transform.position) >
                     _enemyView.GetAttackDistance())
                 {
-                    _enemyView.GetNavMeshAgent().SetDestination(_playerView.Transform.position);
+                    if(!_enemyView.GetNavMeshAgent().SetDestination(_playerView.Transform.position))
+                        continue;
                     _enemyEntity.Get<IsMovingComponent>();
                 }
                 else

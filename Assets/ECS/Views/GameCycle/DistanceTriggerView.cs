@@ -1,4 +1,5 @@
-﻿using ECS.Views.Impls;
+﻿using System;
+using ECS.Views.Impls;
 using UnityEngine;
 
 namespace ECS.Views.GameCycle
@@ -34,6 +35,12 @@ namespace ECS.Views.GameCycle
         public ref float GetTriggerDistance()
         {
             return ref _triggerDistance;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = new Color(1, 0.92f, 0.15f, 0.3f);
+            Gizmos.DrawSphere(Transform.position, GetTriggerDistance());
         }
     }
 }

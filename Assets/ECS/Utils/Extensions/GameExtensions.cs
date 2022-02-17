@@ -15,11 +15,12 @@ namespace ECS.Utils.Extensions
         public static void CreateEcsEntities(this EcsWorld world)
         {
             // world.CreateTimer();
-            world.CreatePlayer();
             world.CreateBall();
+            world.CreatePlayer();
             // world.CreateCamera();
             world.CreateEnemies();
             world.CreateAidKits();
+            world.CreateDestructibleBlockViews();
             world.CreateDistanceTriggers();
         }
 
@@ -81,6 +82,19 @@ namespace ECS.Utils.Extensions
                 entity.Get<UIdComponent>().Value = UidGenerator.Next();
                 entity.Get<PickupableComponent>();
                 entity.Get<AidKitComponent>();
+                entity.Get<LinkComponent>().View = view;
+                view.Link(entity);
+            }
+        }
+        
+        public static void CreateDestructibleBlockViews(this EcsWorld world)
+        {
+            var views = Object.FindObjectsOfType<DestructibleBlockView>(true);
+            foreach (var view in views)
+            {
+                var entity = world.NewEntity();
+                entity.Get<UIdComponent>().Value = UidGenerator.Next();
+                entity.Get<DestructibleBlockComponent>();
                 entity.Get<LinkComponent>().View = view;
                 view.Link(entity);
             }
