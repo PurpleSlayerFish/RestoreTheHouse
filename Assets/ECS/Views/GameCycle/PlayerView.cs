@@ -1,54 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using ECS.Game.Components;
-using ECS.Game.Components.GameCycle;
-using ECS.Game.Components.General;
+﻿using System.Diagnostics.CodeAnalysis;
+using ECS.Game.Systems.GameCycle;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
-using Runtime.Signals;
-using Services.PauseService;
 using UnityEngine;
-using UnityEngine.AI;
-using Zenject;
 
 namespace ECS.Views.GameCycle
 {
     [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
-    public class PlayerView : LinkableView, IWalkableView, IPause
+    public class PlayerView : LinkableView, IWalkableView
     {
-        [Inject] private SignalBus _signalBus;
-        
         [SerializeField] private Animator _animator;
+        [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] private Transform _root;
+        [SerializeField] private Collider _pushTrigger;
+        [SerializeField] private SkinnedMeshRenderer _renderer;
+        [SerializeField] private Material _damagedMaterial;
+        [SerializeField] private Transform _shackle;
         
         [SerializeField] private float _interactionDistance = 2.5f;
         [SerializeField] private float _interactionDuration = 0.4f;
-        [SerializeField] private float _interactionCooldown = 0.6f;
 
-        [SerializeField] private Transform _root;
         [SerializeField] private float _sensitivity = 0.4f;
         [SerializeField] private float _movementLimit = 0.045f;
-        [SerializeField] private float _movementSpeed = 1.46f;
-        [SerializeField] private float _movementSpeedToAnim = 1.46f;
-        [SerializeField] private NavMeshAgent _navMeshAgent;
+        [SerializeField] private float _movementSpeed;
+        // [SerializeField] private float _movementSpeedToAnim = 1.46f;
+        [SerializeField] private float _rigidbodyPushForceMultiplier;
+        
+        [SerializeField] private int _hp = 100;
+        [SerializeField] private int _maxHp = 100;
+        [SerializeField] private float _afterDamageInvincibleDuration = 0.5f;
 
+#pragma warning disable 414
         private readonly int Idle = 0;
         private readonly int Walk = 1;
-        private readonly int Carry = 2;
-        private readonly int CarryingWalk = 3;
+        private readonly int JumpToBall = 2;
+        private readonly int Attack = 3;
+        private readonly int TakeHit = 4;
+        private readonly int Death = 5;
         private readonly int Stage = Animator.StringToHash("Stage");
         private readonly string WalkMultiplier = "WalkMultiplier";
-        private readonly string CarryingWalkMultiplier = "CarryingWalkMultiplier";
+#pragma warning restore 414
 
-        private float _animationSpeed;
+        private Material _originMaterial;
 
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
-            entity.Get<SpeedComponent<PositionComponent>>().Value = _movementSpeed;
-            _animationSpeed = _animator.speed;
-            _animator.SetFloat(WalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
-            _animator.SetFloat(CarryingWalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
+            _rigidbody.isKinematic = false;
+            Entity.Get<HpComponent>().Value = _hp;
+            _originMaterial = new Material(_renderer.material);
         }
 
         public ref Transform GetRoot()
@@ -66,11 +66,6 @@ namespace ECS.Views.GameCycle
             return ref _movementLimit;
         }
 
-        public ref NavMeshAgent GetNavMeshAgent()
-        {
-            return ref _navMeshAgent;
-        }
-        
         public ref float GetInteractionDistance()
         {
             return ref _interactionDistance;
@@ -79,16 +74,6 @@ namespace ECS.Views.GameCycle
         public ref float GetInteractionDuration()
         {
             return ref _interactionDuration;
-        }
-        
-        public ref float GetInteractionCooldown()
-        {
-            return ref _interactionCooldown;
-        }
-
-        public bool IsCarrying()
-        {
-            return false;
         }
 
         public void SetWalkAnimation()
@@ -103,32 +88,71 @@ namespace ECS.Views.GameCycle
             if (_animator.GetInteger(Stage) == Idle)
                 return;
             _animator.SetInteger(Stage, Idle);
-            _animator.speed = 1;
         }
         
-        public void SetCarryAnimation()
+        public void SetJumpToBallAnimation()
         {
-            if (_animator.GetInteger(Stage) == Carry)
-                return;
-            _animator.SetInteger(Stage, Carry);
+            _animator.SetInteger(Stage, JumpToBall);
         }
         
-        public void SetCarryingWalkAnimation()
+        public void SetDeathAnimation()
         {
-            if (_animator.GetInteger(Stage) == CarryingWalk)
-                return;
-            _animator.SetInteger(Stage, CarryingWalk);
+            _animator.SetInteger(Stage, Death);
+        }
+        
+        public void SetTakeHitAnimation()
+        {
+            _animator.SetInteger(Stage, TakeHit);
+        }
+       
+        public ref Rigidbody GetRigidbody()
+        {
+            return ref _rigidbody;
+        }
+        
+        public ref float GetMovementSpeed()
+        {
+            return ref _movementSpeed;
+        }
+        
+        public ref float GetRigidbodyPushForceMultiplier()
+        {
+            return ref _rigidbodyPushForceMultiplier;
+        }
+        
+        public ref Collider GetPushTrigger()
+        {
+            return ref _pushTrigger;
         }
 
-        public void Pause()
+        public ref float GetAfterDamageInvincibleDuration()
         {
-            _animationSpeed = _animator.speed;
-            _animator.speed = 0;
+            return ref _afterDamageInvincibleDuration;
         }
-
-        public void UnPause()
+        
+        public ref Material GetOriginMaterial()
         {
-            _animator.speed = _animationSpeed;
+            return ref _originMaterial;
+        }
+        
+        public ref Material GetDamagedMaterial()
+        {
+            return ref _damagedMaterial;
+        }
+        
+        public ref SkinnedMeshRenderer GetRenderer()
+        {
+            return ref _renderer;
+        }
+        
+        public ref Transform GetShackle()
+        {
+            return ref _shackle;
+        }
+        
+        public ref int GetMaxHp()
+        {
+            return ref _maxHp;
         }
     }
 }

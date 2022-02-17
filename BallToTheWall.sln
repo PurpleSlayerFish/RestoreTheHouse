@@ -43,11 +43,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leopotam.Ecs.UnityIntegrati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-ReflectionBaking-Editor", "Zenject-ReflectionBaking-Editor.csproj", "{335bff96-6f92-7b66-e534-deeb52fa2b5a}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{8cad7c50-ebbe-d5c0-6522-86378a1cac1a}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavMeshComponentsEditor", "NavMeshComponentsEditor.csproj", "{0924e758-755b-b143-d5a7-c5e0a0b5e717}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-TestFramework", "Zenject-TestFramework.csproj", "{b8c37b9d-0971-30a9-3241-867e496ed5bd}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{8cad7c50-ebbe-d5c0-6522-86378a1cac1a}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-Editor", "Zenject-Editor.csproj", "{f377d990-79b2-9f21-5bc1-7158da2bbcd9}"
 EndProject
@@ -153,6 +153,10 @@ Global
 		{335bff96-6f92-7b66-e534-deeb52fa2b5a}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{335bff96-6f92-7b66-e534-deeb52fa2b5a}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{335bff96-6f92-7b66-e534-deeb52fa2b5a}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8cad7c50-ebbe-d5c0-6522-86378a1cac1a}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8cad7c50-ebbe-d5c0-6522-86378a1cac1a}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8cad7c50-ebbe-d5c0-6522-86378a1cac1a}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8cad7c50-ebbe-d5c0-6522-86378a1cac1a}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0924e758-755b-b143-d5a7-c5e0a0b5e717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0924e758-755b-b143-d5a7-c5e0a0b5e717}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0924e758-755b-b143-d5a7-c5e0a0b5e717}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -161,10 +165,6 @@ Global
 		{b8c37b9d-0971-30a9-3241-867e496ed5bd}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{b8c37b9d-0971-30a9-3241-867e496ed5bd}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{b8c37b9d-0971-30a9-3241-867e496ed5bd}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8cad7c50-ebbe-d5c0-6522-86378a1cac1a}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8cad7c50-ebbe-d5c0-6522-86378a1cac1a}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8cad7c50-ebbe-d5c0-6522-86378a1cac1a}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8cad7c50-ebbe-d5c0-6522-86378a1cac1a}.Release|Any CPU.Build.0 = Release|Any CPU
 		{f377d990-79b2-9f21-5bc1-7158da2bbcd9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{f377d990-79b2-9f21-5bc1-7158da2bbcd9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{f377d990-79b2-9f21-5bc1-7158da2bbcd9}.Release|Any CPU.ActiveCfg = Release|Any CPU

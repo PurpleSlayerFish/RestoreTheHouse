@@ -15,3 +15,5 @@ MonoBehaviour:
   prefabs:
   - Name: Player
     GameObject: {fileID: 4374101886067610558, guid: 5a12853459a74f942be46334ee26ecc4, type: 3}
+  - Name: Ball
+    GameObject: {fileID: 3628315167466548371, guid: 3454e5390faaed64883b32ad212882f7, type: 3}

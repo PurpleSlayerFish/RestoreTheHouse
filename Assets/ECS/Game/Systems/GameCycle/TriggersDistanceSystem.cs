@@ -15,11 +15,11 @@ namespace ECS.Game.Systems.GameCycle
 #pragma warning disable 649
         private readonly EcsFilter<GameStageComponent> _gameStage;
         private readonly EcsFilter<DistanceTriggerComponent, LinkComponent> _triggers;
-        private readonly EcsFilter<PlayerComponent, LinkComponent, PositionComponent> _player;
+        private readonly EcsFilter<PlayerComponent, LinkComponent> _player;
 #pragma warning restore 649
 
         private EcsEntity _playerEntity;
-        private EcsEntity _clueEntity;
+        private EcsEntity _triggerEntity;
         private PlayerView _playerView;
         private DistanceTriggerView _distanceTriggerView;
 
@@ -35,30 +35,34 @@ namespace ECS.Game.Systems.GameCycle
 
                 foreach (var j in _triggers)
                 {
-                    _clueEntity = _triggers.GetEntity(j);
+                    _triggerEntity = _triggers.GetEntity(j);
                     _distanceTriggerView = _triggers.Get2(j).Get<DistanceTriggerView>();
                     if (!_distanceTriggerView.gameObject.activeSelf ||
                         !_distanceTriggerView.gameObject.activeInHierarchy)
                         continue;
-                    if (Vector3.Distance(_distanceTriggerView.Transform.position, _player.Get3(i).Value) >
-                        _playerView.GetInteractionDistance())
+                    if (Vector3.Distance(_distanceTriggerView.Transform.position, _playerView.Transform.position) >
+                        _distanceTriggerView.GetTriggerDistance())
                         continue;
                     if (_distanceTriggerView.IsOnStopMoving() && _playerEntity.Has<IsMovingComponent>())
                         continue;
-                    HandleClueComplete();
+                    foreach (var unlockable in _distanceTriggerView.GetUnlockable())
+                        unlockable.SetActive(true);
+                    foreach (var lockable in _distanceTriggerView.GetLockable())
+                        lockable.SetActive(false);
+                    foreach (var linkableView in _distanceTriggerView.GetViews())
+                        linkableView.Entity.Del<EcsDisableComponent>();
+                    _triggerEntity.Get<IsDelayCleanUpComponent>().Delay = 1.5f;
                 }
             }
-        }
-        
-        private void HandleClueComplete()
-        {
-            _distanceTriggerView.Handle();
-            _clueEntity.Get<IsDelayCleanUpComponent>().Delay = 1.5f;
         }
     }
     
     public struct DistanceTriggerComponent : IEcsIgnoreInFilter
     {
         
+    }
+    
+    public struct EcsDisableComponent : IEcsIgnoreInFilter
+    {
     }
 }

@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Collide
-  - FxTemporaire
+  - DestrictableObstacle
+  - Enemy
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -16,10 +17,10 @@ TagManager:
   - 
   - 
   - Floor
-  - Resource
+  - Ball
   - Characters
   - Obstacle
-  - 
+  - BallPushTrigger
   - 
   - 
   - 

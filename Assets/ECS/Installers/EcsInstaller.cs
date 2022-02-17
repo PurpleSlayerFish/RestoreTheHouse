@@ -30,10 +30,15 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<PositionRotationTranslateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<LevelStartSystem>().AsSingle();
             
-            Container.BindInterfacesAndSelfTo<PlayerMovementSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<TriggersDistanceSystem>().AsSingle();
-            
             Container.BindInterfacesAndSelfTo<WalkableViewSystem>().AsSingle();
+            
+            Container.BindInterfacesAndSelfTo<PlayerMovementSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EnemyTargetSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerTakeHitSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerPickUpSystem>().AsSingle();
+            
+            Container.BindInterfacesAndSelfTo<TriggersDistanceSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<RopeViewSystem>().AsSingle();
             
             Container.BindInterfacesAndSelfTo<DelayCleanUpSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();

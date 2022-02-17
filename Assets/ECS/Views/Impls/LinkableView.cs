@@ -7,7 +7,7 @@ namespace ECS.Views.Impls
 {
 	public abstract class LinkableView : MonoBehaviour, ILinkable
 	{
-		protected EcsEntity Entity;
+		public EcsEntity Entity;
 		public int Hash => transform.GetHashCode();
 		public Transform Transform => transform;
 		public int UnityInstanceId => gameObject.GetInstanceID();

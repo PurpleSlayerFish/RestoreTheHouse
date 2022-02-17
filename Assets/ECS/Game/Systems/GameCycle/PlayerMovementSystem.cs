@@ -2,7 +2,6 @@
 using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
 using ECS.Game.Components.Flags;
-using ECS.Game.Components.GameCycle;
 using ECS.Game.Components.General;
 using ECS.Game.Components.Input;
 using ECS.Views.GameCycle;
@@ -11,7 +10,6 @@ using Leopotam.Ecs;
 using Runtime.DataBase.Game;
 using Runtime.Signals;
 using UnityEngine;
-using UnityEngine.AI;
 using Zenject;
 
 namespace ECS.Game.Systems.GameCycle
@@ -25,8 +23,8 @@ namespace ECS.Game.Systems.GameCycle
         [Inject] private SignalBus _signalBus;
 
 #pragma warning disable 649
-        private readonly EcsFilter<PlayerComponent, LinkComponent, PositionComponent, SpeedComponent<PositionComponent>>
-            _player;
+        private readonly EcsFilter<PlayerComponent, LinkComponent> _player;
+        private readonly EcsFilter<BallComponent, LinkComponent> _ball;
 
         private readonly EcsFilter<GameStageComponent> _gameStage;
         private readonly EcsFilter<PointerDownComponent> _pointerDown;
@@ -35,7 +33,12 @@ namespace ECS.Game.Systems.GameCycle
         private readonly EcsFilter<CameraComponent, LinkComponent> _cameraF;
 #pragma warning restore 649
 
+        private PlayerView _playerView;
+        private BallView _ballView;
+        private EcsEntity _ballEntity;
+        private Camera _camera;
         private bool _pressed;
+        private bool _released = true;
         private Vector2 _pointerDownValueScreen;
         private Vector2 _pointerDragValueScreen;
         private Vector2 _pointerDownValueViewport;
@@ -46,8 +49,6 @@ namespace ECS.Game.Systems.GameCycle
         private readonly float _cameraRotationDeg = 51f;
         private float _sin = Mathf.Sin(-51f * Mathf.Deg2Rad);
         private float _cos = Mathf.Cos(-51f * Mathf.Deg2Rad);
-        private PlayerView _playerView;
-        private Camera _camera;
 
         private SignalJoystickUpdate _signalJoystickUpdate =
             new SignalJoystickUpdate(false, Vector2.zero, Vector2.zero);
@@ -67,12 +68,14 @@ namespace ECS.Game.Systems.GameCycle
             foreach (var i in _pointerDown)
             {
                 _pressed = true;
+                _released = false;
                 _pointerDownValueScreen = _pointerDown.Get1(i).Position;
                 _pointerDownValueViewport = _camera.ScreenToViewportPoint(_pointerDownValueScreen);
                 _pointerDragValueScreen = _pointerDownValueScreen;
                 _pointerDragValueViewport = _camera.ScreenToViewportPoint(_pointerDragValueScreen);
+                HandlePress();
                 foreach (var j in _player)
-                    _player.GetEntity(j).Get<IsMovingComponent>();
+                    _player.GetEntity(j).Get<IsMovingComponent>();;
             }
 
             foreach (var i in _pointerUp)
@@ -82,57 +85,85 @@ namespace ECS.Game.Systems.GameCycle
                     _player.GetEntity(j).Del<IsMovingComponent>();
             }
 
+            if (!_pressed && !_released)
+            {
+                HandleRelease();
+                _released = true;
+            }
+
             if (!_pressed)
             {
                 SendSignalJoystickUpdate(false, Vector2.zero, Vector2.zero);
                 return;
             }
-
+            
             foreach (var i in _pointerDrag)
             {
                 _pointerDragValueScreen = _pointerDrag.Get1(i).Position;
                 _pointerDragValueViewport = _camera.ScreenToViewportPoint(_pointerDragValueScreen);
             }
 
-            HandlePressed();
-            SendSignalJoystickUpdate(true, _camera.ViewportToScreenPoint(_pointerDownValueViewport + _movement * _aspectCorrection), _pointerDownValueScreen);
+            HandleHoldAndDrag();
+            SendSignalJoystickUpdate(true,
+                _camera.ViewportToScreenPoint(_pointerDownValueViewport + _movement * _aspectCorrection),
+                _pointerDownValueScreen);
             // Debug.Log((_movement * _aspectCorrection).x + "; " + (_movement * _aspectCorrection).y);
             // SendSignalJoystickUpdate(true, _pointerDownValueScreen + _movement, _pointerDownValueScreen);
         }
 
-        private void HandlePressed()
+        private void HandleHoldAndDrag()
         {
             foreach (var i in _player)
             {
                 _playerView = _player.Get2(i).Get<PlayerView>();
-                // Annoation _playerView.GetSensitivity() = 0.0011, _playerView.GetMovementLimit() = 80
-                // _movement = _pointerDragValueScreen - _pointerDownValueScreen;
-                // _movement.x = Mathf.Clamp(_movement.x, -_playerView.GetMovementLimit(), _playerView.GetMovementLimit());
-                // _movement.y = Mathf.Clamp(_movement.y, -_playerView.GetMovementLimit(), _playerView.GetMovementLimit());
-                // _movement.x *= Mathf.Abs(_movement.normalized.x);
-                // _movement.y *= Mathf.Abs(_movement.normalized.y);
-
                 _movement = _pointerDragValueViewport - _pointerDownValueViewport;
-                
+
                 _movement.x = Mathf.Clamp(_movement.x, -_playerView.GetMovementLimit(), _playerView.GetMovementLimit());
                 _movement.y = Mathf.Clamp(_movement.y, -_playerView.GetMovementLimit(), _playerView.GetMovementLimit());
                 _movement.x *= Mathf.Abs(_movement.normalized.x);
                 _movement.y *= Mathf.Abs(_movement.normalized.y);
 
-                calculatedSpeed = _player.Get4(i).Value * _playerView.GetSensitivity();
-                ref var pos = ref _player.Get3(i).Value;
+                calculatedSpeed = _playerView.GetMovementSpeed() * _playerView.GetSensitivity() * Time.deltaTime;
                 _tempPos = new Vector3(
-                    pos.x + (_movement.x * _cos - _movement.y * _sin) * calculatedSpeed
-                    , pos.y
-                    , pos.z + (_movement.x * _sin + _movement.y * _cos) * calculatedSpeed);
+                    (_movement.x * _cos - _movement.y * _sin) * calculatedSpeed
+                    , 0
+                    , (_movement.x * _sin + _movement.y * _cos) * calculatedSpeed);
 
-                if (!_playerView.GetNavMeshAgent().CalculatePath(_tempPos, new NavMeshPath()))
-                    continue;
-
-                pos = _tempPos;
+                _playerView.GetRigidbody().AddForce(_tempPos, ForceMode.VelocityChange);
                 _playerView.GetRoot().localRotation = Quaternion.Euler(_playerView.GetRoot().localRotation.x,
                     _cameraRotationDeg + Mathf.Atan2(_movement.x, _movement.y) * 180 / Mathf.PI,
                     _playerView.GetRoot().localRotation.z);
+                // Debug.Log(_playerView.GetRigidbody().velocity.magnitude);
+            }
+        }
+
+        private void HandleRelease()
+        {
+            foreach (var i in _player)
+                _playerView = _player.Get2(i).View as PlayerView;
+            foreach (var i in _ball)
+            {
+                _ballView = _ball.Get2(i).View as BallView;
+                _ballEntity = _ball.GetEntity(i);
+            }
+
+            var direction = _ballView.Transform.position - _playerView.Transform.position;
+            var directionXZ = new Vector3(direction.x, 0, direction.z);
+            _ballEntity.Get<BallComponent>().Direction = directionXZ;
+            
+            _playerView.GetRoot().rotation = Quaternion.LookRotation(directionXZ);
+            _playerView.GetRigidbody().AddForce(directionXZ * _playerView.GetRigidbodyPushForceMultiplier(), ForceMode.VelocityChange);
+            // Debug.Log(directionXZ.magnitude);
+            _playerView.GetPushTrigger().enabled = true;
+            _playerView.SetJumpToBallAnimation();
+        }
+
+        private void HandlePress()
+        {
+            foreach (var i in _player)
+            {
+                _playerView = _player.Get2(i).View as PlayerView;
+                _playerView.GetPushTrigger().enabled = false;
             }
         }
 
