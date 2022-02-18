@@ -13,6 +13,7 @@ namespace Runtime.Installers
             Container.DeclareSignal<SignalBlackScreen>();
             Container.DeclareSignal<SignalQuestionChoice>();
             Container.DeclareSignal<SignalJoystickUpdate>();
+            Container.DeclareSignal<SignalHpUpdate>();
         }
     }
 }

@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: ReplayAnton
-  productName: BallSmasher
+  productName: BallSmasher3D
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -127,7 +127,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.2
+  bundleVersion: 0.7
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -146,7 +146,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.ReplayAnton.BallSmasher
+    Android: com.ReplayAnton.BallSmasher3D
     Standalone: com.DefaultCompany.TestEmpty
     iPhone: com.ReplayAnton.BallSmasher
   buildNumber:
@@ -694,7 +694,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     1: OBI_ONI_SUPPORTED
-    4: OBI_ONI_SUPPORTED
+    4: ZEN_SIGNALS_ADD_UNIRX
     7: ZEN_SIGNALS_ADD_UNIRX
   additionalCompilerArguments: {}
   platformArchitecture: {}

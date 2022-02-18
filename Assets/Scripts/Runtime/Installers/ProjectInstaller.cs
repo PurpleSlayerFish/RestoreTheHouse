@@ -31,7 +31,7 @@ namespace Installers
             CommonPlayerDataInstaller.InstallServices(Container);
             
             FB.Init();
-            // GameAnalytics.Initialize();
+            GameAnalytics.Initialize();
             
             Container.BindInterfacesTo<ThreadedLocalStorageDao<GameState>>().AsTransient().WithArguments("gameState");
             Container.BindInterfacesTo<DefaultSeparateThreadExecutor<string>>().AsSingle();

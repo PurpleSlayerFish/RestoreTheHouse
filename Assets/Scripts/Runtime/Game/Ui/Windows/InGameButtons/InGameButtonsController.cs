@@ -29,6 +29,7 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
         {
             View.InGameMenuButton.OnClickAsObservable().Subscribe(x => OnGameMenu()).AddTo(View.InGameMenuButton);
             _signalBus.GetStream<SignalJoystickUpdate>().Subscribe(x => View.UpdateJoystick(ref x)).AddTo(View);
+            _signalBus.GetStream<SignalHpUpdate>().Subscribe(x => View.UpdateHp(ref x)).AddTo(View);
         }
         
         public override void OnShow()

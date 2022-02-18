@@ -8,18 +8,23 @@ using ECS.Utils.Extensions;
 using ECS.Views.GameCycle;
 using Leopotam.Ecs;
 using Runtime.DataBase.Game;
+using Runtime.Signals;
 using UnityEngine;
+using Zenject;
 
 namespace ECS.Game.Systems.GameCycle
 {
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class PlayerTakeHitSystem : IEcsUpdateSystem
     {
+        [Inject] private SignalBus _signalBus;
+        
 #pragma warning disable 649
         private readonly EcsWorld _world;
         private readonly EcsFilter<GameStageComponent> _gameStage;
         private readonly EcsFilter<PlayerComponent, LinkComponent, HpComponent, EventAddPlayerHit>.Exclude<InvincibleComponent, IsDeadComponent> _player;
         private readonly EcsFilter<PlayerComponent, LinkComponent, ElapsedTimeComponent>.Exclude<EventAddPlayerHit> _playerAfterEvent;
+        private readonly EcsFilter<PlayerComponent, LinkComponent, EventHpUpdateComponent> _hpUpdate;
 #pragma warning restore 649
 
         private EcsEntity _playerEntity;
@@ -38,6 +43,7 @@ namespace ECS.Game.Systems.GameCycle
                 ref var hp = ref _player.Get3(i);
                 _playerView.GetRigidbody().AddForce(eevent.Knockback, ForceMode.VelocityChange);
                 _playerView.GetRenderer().material = _playerView.GetDamagedMaterial();
+                _playerEntity.Get<EventHpUpdateComponent>();
                 hp.Value -= eevent.Damage;
                 if (hp.Value <= 0)
                 {
@@ -54,12 +60,22 @@ namespace ECS.Game.Systems.GameCycle
 
             foreach (var i in _playerAfterEvent)
             {
-                _playerView = _player.Get2(i).View as PlayerView;
+                _playerView = _playerAfterEvent.Get2(i).View as PlayerView;
+                _playerEntity = _playerAfterEvent.GetEntity(i);
                 if (_playerAfterEvent.Get3(i).Value < _playerView.GetAfterDamageInvincibleDuration())
                     continue;
                 _playerView.GetRenderer().material = _playerView.GetOriginMaterial();
                 _playerEntity.Del<InvincibleComponent>();
                 _playerEntity.Del<ElapsedTimeComponent>();
+            }
+
+            foreach (var i in _hpUpdate)
+            {
+                _playerView = _hpUpdate.Get2(i).View as PlayerView;
+                _playerEntity = _hpUpdate.GetEntity(i);
+                
+                _signalBus.Fire(new SignalHpUpdate(_playerEntity.Get<HpComponent>().Value));
+                _playerEntity.Del<EventHpUpdateComponent>();
             }
         }
     }
@@ -67,6 +83,10 @@ namespace ECS.Game.Systems.GameCycle
     public struct HpComponent
     {
         public int Value;
+    }
+    
+    public struct EventHpUpdateComponent
+    {
     }
 
     public struct InvincibleComponent : IEcsIgnoreInFilter

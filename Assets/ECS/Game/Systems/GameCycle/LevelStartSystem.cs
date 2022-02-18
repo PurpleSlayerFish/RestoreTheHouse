@@ -10,6 +10,7 @@ using Runtime.DataBase.Game;
 using Runtime.Game.Ui;
 using Runtime.Game.Utils.MonoBehUtils;
 using Runtime.Services.AnalyticsService;
+using Runtime.Signals;
 using SimpleUi.Signals;
 using UniRx;
 using UniRx.Triggers;
@@ -29,8 +30,11 @@ namespace ECS.Game.Systems.GameCycle
         [Inject] private ScreenVariables _screenVariables;
         private const string PLAYER_START = "PlayerStart";
         private const string BALL_START = "BallStart";
+        private const string MAGNITUDE_TOLERANCE_ENEMIES = "MAGNITUDE_TOLERANCE_ENEMIES";
+        private const string MAGNITUDE_TOLERANCE_DESTRUCTIBLE = "MAGNITUDE_TOLERANCE_DESTRUCTIBLE";
 
-        private const float MAGNITUDE_TOLERANCE = 5f;
+        private float MAGNITUDE_TOLERANCE_ENEMIES_VALUE;
+        private float MAGNITUDE_TOLERANCE_DESTRUCTIBLE_VALUE;
 
         private readonly EcsWorld _world;
         private readonly EcsFilter<PlayerComponent, LinkComponent> _player;
@@ -49,6 +53,9 @@ namespace ECS.Game.Systems.GameCycle
         {
             if (started)
                 return;
+
+            MAGNITUDE_TOLERANCE_ENEMIES_VALUE = _screenVariables.GetFloatValue(MAGNITUDE_TOLERANCE_ENEMIES);
+            MAGNITUDE_TOLERANCE_DESTRUCTIBLE_VALUE = _screenVariables.GetFloatValue(MAGNITUDE_TOLERANCE_DESTRUCTIBLE);
 
             _world.SetStage(EGameStage.Play);
             _signalBus.OpenWindow<GameHudWindow>();
@@ -70,13 +77,19 @@ namespace ECS.Game.Systems.GameCycle
 
 
             foreach (var j in _ball)
+            {
                 _ballView = _ball.Get2(j).View as BallView;
+                _signalBus.Fire(new SignalHpUpdate(_player.GetEntity(j).Get<HpComponent>().Value));
+            }
 
             _ballView.Transform.position = _screenVariables.GetTransformPoint(BALL_START).position;
             _ballView.Transform.rotation = _screenVariables.GetTransformPoint(BALL_START).rotation;
 
-            _ballView.GetSpringJoint().connectedAnchor = Vector3.zero;
             _ballView.GetSpringJoint().connectedBody = _playerView.GetRigidbody();
+            _ballView.GetSpringJoint().connectedAnchor = Vector3.zero;
+            _ballView.GetRopeEnd().connectedBody = _playerView.GetRigidbody();
+            _ballView.GetRopeEnd().connectedAnchor =
+                _playerView.Transform.InverseTransformPoint(_playerView.GetShackle().position);
             _ballView.GetLineRenderer().enabled = true;
             _ballView.SetPlayerView(_playerView);
 
@@ -97,11 +110,11 @@ namespace ECS.Game.Systems.GameCycle
         private void HandleBallCollision(ref Collision collision)
         {
             if (collision.gameObject.CompareTag("Enemy"))
-                if (_ballView.GetRigidbody().velocity.magnitude >= MAGNITUDE_TOLERANCE)
+                if (_ballView.GetRigidbody().velocity.magnitude >= MAGNITUDE_TOLERANCE_ENEMIES_VALUE)
                     collision.gameObject.GetComponent<EnemyView>().OnBallHit();
 
             if (collision.gameObject.CompareTag("DestrictableObstacle"))
-                if (_ballView.GetRigidbody().velocity.magnitude >= MAGNITUDE_TOLERANCE)
+                if (_ballView.GetRigidbody().velocity.magnitude >= MAGNITUDE_TOLERANCE_DESTRUCTIBLE_VALUE)
                 {
                     var view = collision.gameObject.GetComponentInParent<DestructibleBlockView>();
                     view.GetMesh().SetActive(false);

@@ -7,6 +7,8 @@ namespace ECS.Views.GameCycle
     {
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private SpringJoint _springJoint;
+        [SerializeField] private SpringJoint _ropeEnd;
+        [SerializeField] private Transform[] _ropeJoints;
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private Transform _arrow;
         [SerializeField] private float _rigidbodyPushForceMultiplier;
@@ -27,6 +29,16 @@ namespace ECS.Views.GameCycle
         public ref SpringJoint GetSpringJoint()
         {
             return ref _springJoint;
+        }
+        
+        public ref SpringJoint GetRopeEnd()
+        {
+            return ref _ropeEnd;
+        }
+        
+        public ref Transform[] GetRopeJoints()
+        {
+            return ref _ropeJoints;
         }
 
         public ref LineRenderer GetLineRenderer()
@@ -49,7 +61,7 @@ namespace ECS.Views.GameCycle
             _player = value;
         }
         
-        public ref float GetInteractionDuration()
+        public ref float GetInteractionDistance()
         {
             return ref _interactionDistance;
         }

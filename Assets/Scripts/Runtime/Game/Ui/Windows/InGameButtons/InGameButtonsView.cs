@@ -1,7 +1,8 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using CustomSelectables;
-using ECS.Game.Components.GameCycle;
+using DG.Tweening;
+using ECS.Utils.Extensions;
 using Leopotam.Ecs;
 using Runtime.Signals;
 using SimpleUi.Abstracts;
@@ -15,22 +16,20 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
     [SuppressMessage("ReSharper", "RedundantDefaultMemberInitializer")]
     public class InGameButtonsView : UiView 
     {
-        [SerializeField] private TMP_Text _levelN;
-        [SerializeField] private GameObject _woodIndicator;
-        [SerializeField] private GameObject _moneyIndicator;
-        [SerializeField] private GameObject _concreteIndicator;
-        [SerializeField] private TMP_Text _woodCountTxt;
-        [SerializeField] private TMP_Text _moneyCountTxt;
-        [SerializeField] private TMP_Text _concreteCountTxt;
-        [SerializeField] public CustomButton InGameMenuButton;
         [SerializeField] public Image JoystickButton;
         [SerializeField] public Image JoystickOrigin;
+        [SerializeField] private TMP_Text _levelN;
+        [SerializeField] public RectTransform Vignette;
+        // [SerializeField] public int VignetteMultiplier;
+        // [SerializeField] public int VignetteDisableValue;
+        [SerializeField] public float _vignetteDuration = 0.3f;
+        [SerializeField] public int _maxHp = 100;
+        [SerializeField] private ProgressBar _hpBar;
+        [SerializeField] public CustomButton InGameMenuButton;
 
-        private int _woodCount = 0;
-        private int _moneyCount = 0;
-        private int _concreteCount = 0;
         private RectTransform _joystickButtonRT;
         private RectTransform _joystickOriginRT;
+        private Color color = new Color (0.965f, 0.185f,0.34f, 1f);
         
         public void Show(ref EScene currentLevel, ref EcsWorld _world)
         {
@@ -50,5 +49,24 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
             }
         }
         
+        public void UpdateHp(ref SignalHpUpdate signal)
+        {
+            // if (signal.Hp > VignetteDisableValue)
+            // {
+            //     Vignette.gameObject.SetActive(false);
+            // }
+            // else
+            // {
+            //     Vignette.gameObject.SetActive(true);
+            //     Vignette.localScale = Vector3.one * Mathf.Clamp(signal.Hp/VignetteMultiplier, 1, 10);
+            // }
+            Vignette.DOKill();
+            Vignette.gameObject.SetActive(true);
+            Vignette.DOScale(Vector3.one * 3, _vignetteDuration).SetEase(Ease.Linear);
+            Vignette.DOScale(Vector3.one * 15, _vignetteDuration).SetEase(Ease.Linear).SetDelay(_vignetteDuration)
+                .OnComplete(() => Vignette.gameObject.SetActive(false));
+
+            _hpBar.Repaint(signal.Hp.Remap01(_maxHp), color);
+        }
     }
 }

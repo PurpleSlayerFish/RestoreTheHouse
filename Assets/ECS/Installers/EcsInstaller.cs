@@ -34,8 +34,8 @@ namespace ECS.Installers
             
             Container.BindInterfacesAndSelfTo<PlayerMovementSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemyTargetSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerTakeHitSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerPickUpSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerTakeHitSystem>().AsSingle();
             
             Container.BindInterfacesAndSelfTo<TriggersDistanceSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<RopeViewSystem>().AsSingle();

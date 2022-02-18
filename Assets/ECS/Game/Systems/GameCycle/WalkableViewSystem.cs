@@ -5,6 +5,7 @@ using ECS.Game.Components.Flags;
 using ECS.Game.Components.General;
 using ECS.Views;
 using Leopotam.Ecs;
+using Runtime.DataBase.Game;
 
 namespace ECS.Game.Systems.GameCycle
 {
@@ -20,7 +21,7 @@ namespace ECS.Game.Systems.GameCycle
 #pragma warning restore 649
         public void Run()
         {
-            // if (_gameStage.Get1(0).Value != EGameStage.Play) return;
+            if (_gameStage.Get1(0).Value != EGameStage.Play) return;
 
             foreach (var i in _walkables)
             {

@@ -7,7 +7,7 @@ namespace Runtime.Game.Utils.MonoBehUtils
     {
         
         [SerializeField] private TransformPoint[] _points;
-        [SerializeField] private FloatValue[] _values;
+        [SerializeField] private FloatValue[] _floats;
         [SerializeField] private IntValue[] _ints;
         [SerializeField] private MaterialValue[] _materials;
 
@@ -49,7 +49,7 @@ namespace Runtime.Game.Utils.MonoBehUtils
         
         public float GetFloatValue(string key)
         {
-            foreach (var value in _values)
+            foreach (var value in _floats)
                 if (key == value.Key)
                     return value.Value;
             throw new Exception($"No position on scene with key {key} was found!");

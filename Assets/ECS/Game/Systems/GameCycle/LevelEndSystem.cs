@@ -4,6 +4,7 @@ using ECS.Core.Utils.ReactiveSystem;
 using ECS.Game.Components.Events;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.General;
+using ECS.Views.GameCycle;
 using Leopotam.Ecs;
 using Runtime.DataBase.Game;
 using Runtime.Game.Ui.Windows.GameOver;
@@ -48,7 +49,8 @@ namespace ECS.Game.Systems.GameCycle
         {
             foreach (var i in _player)
             {
-                _player.Get2(i).View.Transform.DOMoveY(0, 1.5f).SetEase(Ease.Linear).SetRelative(true).OnComplete(() => _signalBus.OpenWindow<LevelCompleteWindow>());
+                (_player.Get2(i).View as PlayerView).SetIdleAnimation();
+                _player.Get2(i).View.Transform.DOMoveY(0, 1f).SetEase(Ease.Linear).SetRelative(true).OnComplete(() => _signalBus.OpenWindow<LevelCompleteWindow>());
             }
         }
         

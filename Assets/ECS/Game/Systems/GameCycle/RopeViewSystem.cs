@@ -32,8 +32,13 @@ namespace ECS.Game.Systems.GameCycle
             foreach (var i in _ball)
             {
                 _ballView = _ball.Get2(i).View as BallView;
-                _ballView.GetLineRenderer().SetPosition(0, _ballView.Transform.position);
-                _ballView.GetLineRenderer().SetPosition(1, _ballView.GetPlayerView().GetShackle().position);
+                
+                for (int j = 0; j < _ballView.GetRopeJoints().Length; j++)
+                {
+                    _ballView.GetLineRenderer().SetPosition(j, _ballView.GetRopeJoints()[j].position);
+                }
+                // _ballView.GetLineRenderer().SetPosition(0, _ballView.Transform.position);
+                _ballView.GetLineRenderer().SetPosition(_ballView.GetRopeJoints().Length, _ballView.GetPlayerView().GetShackle().position);
                 
                 _ballView.GetArrow().localEulerAngles = new Vector3(_ballView.GetArrow().localEulerAngles.x, 
                     - Mathf.Atan2(_ballView.Transform.position.z-_playerView.Transform.position.z, _ballView.Transform.position.x-_playerView.Transform.position.x)*180 / Mathf.PI, 

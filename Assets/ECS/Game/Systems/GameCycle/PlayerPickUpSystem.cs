@@ -4,16 +4,22 @@ using ECS.Core.Utils.SystemInterfaces;
 using ECS.Game.Components;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.General;
+using ECS.Utils.Extensions;
 using ECS.Views.GameCycle;
 using Leopotam.Ecs;
 using Runtime.DataBase.Game;
+using Runtime.Game.Utils.MonoBehUtils;
 using UnityEngine;
+using Zenject;
 
 namespace ECS.Game.Systems.GameCycle
 {
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class PlayerPickUpSystem : IEcsUpdateSystem
     {
+        [Inject] private ScreenVariables _screenVariables;
+        private const string LEVEL_END = "LevelEnd";
+        
 #pragma warning disable 649
         private readonly EcsWorld _world;
         private readonly EcsFilter<GameStageComponent> _gameStage;
@@ -46,23 +52,30 @@ namespace ECS.Game.Systems.GameCycle
                 _pickupableView = _pickupables.Get2(i).View as AidKitView;
                 _pickupableEntity = _pickupables.GetEntity(i);
                 if (Vector3.Distance(_playerView.Transform.position, _pickupableView.Transform.position) > _playerView.GetInteractionDistance() 
-                    && Vector3.Distance(_ballView.Transform.position, _pickupableView.Transform.position) > _ballView.GetInteractionDuration())
-                    return;
+                    && Vector3.Distance(_ballView.Transform.position, _pickupableView.Transform.position) > _ballView.GetInteractionDistance())
+                    continue;
                 var aidKitE = _pickupableEntity;
-                aidKitE.Del<PickupableComponent>();
                 _pickupableView.Transform.DOMove(_playerView.Transform.position + Vector3.up, _playerView.GetInteractionDuration())
                     .SetEase(Ease.Linear).OnComplete(() =>
                     {
                         ref var hp = ref _playerEntity.Get<HpComponent>().Value;
                         hp = Mathf.Clamp(hp + aidKitE.Get<AidKitComponent>().Value, 0, _playerView.GetMaxHp());
+                        _playerEntity.Get<EventHpUpdateComponent>();
                         var view = aidKitE.Get<LinkComponent>().View as AidKitView;
+                        view.GetParticle().transform.position = _playerView.Transform.position + Vector3.up;
                         view.GetParticle().SetActive(true);
                         view.GetMesh().SetActive(false);
                         aidKitE.Get<IsDelayCleanUpComponent>().Delay = 3f;
                     });
                 _pickupableView.GetMesh().transform.DOScale(Vector3.zero, _playerView.GetInteractionDuration());
                 _pickupableView.GetGreenMesh().SetActive(false);
+                _pickupableEntity.Del<PickupableComponent>();
             }
+            
+            if (Vector3.Distance(_playerView.Transform.position, _screenVariables.GetTransformPoint(LEVEL_END).position) > _playerView.GetInteractionDistance() 
+                && Vector3.Distance(_ballView.Transform.position, _screenVariables.GetTransformPoint(LEVEL_END).position) > _ballView.GetInteractionDistance())
+                return;
+            _world.SetStage(EGameStage.Complete);
         }
     }
 
