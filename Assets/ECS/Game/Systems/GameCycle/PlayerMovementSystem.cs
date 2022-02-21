@@ -36,6 +36,7 @@ namespace ECS.Game.Systems.GameCycle
         private PlayerView _playerView;
         private BallView _ballView;
         private EcsEntity _ballEntity;
+        private CameraView _cameraView;
         private Camera _camera;
         private bool _pressed;
         private bool _released = true;
@@ -61,7 +62,8 @@ namespace ECS.Game.Systems.GameCycle
 
             foreach (var i in _cameraF)
             {
-                _camera = _cameraF.Get2(i).Get<CameraView>().GetCamera();
+                _cameraView = _cameraF.Get2(i).Get<CameraView>();
+                _camera = _cameraView.GetCamera();
                 _aspectCorrection = new Vector2(1f, _camera.aspect);
             }
 
@@ -107,8 +109,6 @@ namespace ECS.Game.Systems.GameCycle
             SendSignalJoystickUpdate(true,
                 _camera.ViewportToScreenPoint(_pointerDownValueViewport + _movement * _aspectCorrection),
                 _pointerDownValueScreen);
-            // Debug.Log((_movement * _aspectCorrection).x + "; " + (_movement * _aspectCorrection).y);
-            // SendSignalJoystickUpdate(true, _pointerDownValueScreen + _movement, _pointerDownValueScreen);
         }
 
         private void HandleHoldAndDrag()
@@ -133,11 +133,20 @@ namespace ECS.Game.Systems.GameCycle
                 _playerView.GetRoot().localRotation = Quaternion.Euler(_playerView.GetRoot().localRotation.x,
                     _cameraRotationDeg + Mathf.Atan2(_movement.x, _movement.y) * 180 / Mathf.PI,
                     _playerView.GetRoot().localRotation.z);
-                // Debug.Log(_playerView.GetRigidbody().velocity.magnitude);
             }
         }
 
         private void HandleRelease()
+        {
+            Push();
+        }
+        
+        private void HandleWTap()
+        {
+            
+        }
+
+        private void Push()
         {
             foreach (var i in _player)
                 _playerView = _player.Get2(i).View as PlayerView;
@@ -146,7 +155,7 @@ namespace ECS.Game.Systems.GameCycle
                 _ballView = _ball.Get2(i).View as BallView;
                 _ballEntity = _ball.GetEntity(i);
             }
-
+            
             var direction = _ballView.Transform.position - _playerView.Transform.position;
             var directionXZ = new Vector3(direction.x, 0, direction.z);
             _ballEntity.Get<BallComponent>().Direction = directionXZ;

@@ -8,11 +8,6 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
     {
         [SerializeField] private SlicedFilledImage progress;
 
-        public void SetFillAmount(float ratio)
-        {
-            progress.fillAmount = ratio;
-        }
-        
         public void Repaint(float ratio, Color color)
         {
             progress.DOKill();

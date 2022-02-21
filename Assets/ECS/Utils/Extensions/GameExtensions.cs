@@ -47,6 +47,7 @@ namespace ECS.Utils.Extensions
             entity.Get<UIdComponent>().Value = UidGenerator.Next();
             entity.Get<WalkableComponent>();
             entity.Get<HpComponent>();
+            entity.Get<EventHpUpdateComponent>();
             entity.Get<PlayerComponent>();
             entity.GetAndFire<PrefabComponent>().Value = "Player";
         }

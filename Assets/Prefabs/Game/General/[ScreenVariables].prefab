@@ -52,10 +52,12 @@ MonoBehaviour:
     Transform: {fileID: 0}
   - Key: LevelEnd
     Transform: {fileID: 0}
+  - Key: DeathScene
+    Transform: {fileID: 0}
   _floats:
   - Key: MAGNITUDE_TOLERANCE_DESTRUCTIBLE
     Value: 0.02
   - Key: MAGNITUDE_TOLERANCE_ENEMIES
-    Value: 1
+    Value: 1.2
   _ints: []
   _materials: []

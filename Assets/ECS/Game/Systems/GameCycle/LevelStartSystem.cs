@@ -1,10 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using DG.Tweening;
 using ECS.Core.Utils.ReactiveSystem;
 using ECS.Game.Components;
 using ECS.Game.Components.Flags;
 using ECS.Game.Components.General;
 using ECS.Utils.Extensions;
 using ECS.Views.GameCycle;
+using ECS.Views.Impls;
 using Leopotam.Ecs;
 using Runtime.DataBase.Game;
 using Runtime.Game.Ui;
@@ -39,11 +41,13 @@ namespace ECS.Game.Systems.GameCycle
         private readonly EcsWorld _world;
         private readonly EcsFilter<PlayerComponent, LinkComponent> _player;
         private readonly EcsFilter<BallComponent, LinkComponent> _ball;
-
+        private readonly EcsFilter<CameraComponent, LinkComponent> _cameraF;
+        
         private readonly CompositeDisposable _disposable = new CompositeDisposable();
         private bool started = false;
         private PlayerView _playerView;
         private BallView _ballView;
+        private CameraView _cameraView;
 
         // ReSharper disable once UnassignedGetOnlyAutoProperty
         protected override EcsFilter<LevelStartEventComponent> ReactiveFilter { get; }
@@ -79,7 +83,7 @@ namespace ECS.Game.Systems.GameCycle
             foreach (var j in _ball)
             {
                 _ballView = _ball.Get2(j).View as BallView;
-                _signalBus.Fire(new SignalHpUpdate(_player.GetEntity(j).Get<HpComponent>().Value));
+                _signalBus.Fire(new SignalHpUpdate(_player.GetEntity(j).Get<HpComponent>().Value, Vector2.zero));
             }
 
             _ballView.Transform.position = _screenVariables.GetTransformPoint(BALL_START).position;
@@ -105,6 +109,12 @@ namespace ECS.Game.Systems.GameCycle
 
             foreach (var i in _player)
                 (_player.Get2(i).View as PlayerView).GetPushTrigger().enabled = false;
+
+            foreach (var i in _cameraF)
+            {
+                _cameraView = _cameraF.Get2(i).Get<CameraView>();
+                _cameraView.Transform.DOShakePosition(1f, 0.2f);
+            }
         }
 
         private void HandleBallCollision(ref Collision collision)
