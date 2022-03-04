@@ -28,17 +28,24 @@ namespace ECS.Installers
             Container.BindInterfacesAndSelfTo<ElapsedTimeSystem>().AsSingle();
             
             Container.BindInterfacesAndSelfTo<PositionRotationTranslateSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<LevelStartSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MoveRotateToTargetSystem>().AsSingle();
             
-            Container.BindInterfacesAndSelfTo<WalkableViewSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerInitSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<BuildingInitSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<WorkerInitSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<WorkerPathSystem>().AsSingle();
             
             Container.BindInterfacesAndSelfTo<PlayerMovementSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<EnemyTargetSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerPickUpSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerTakeHitSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ResourceDistanceSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<BuildingDistanceSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<RecipeDistanceSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ClueDistanceSystem>().AsSingle();
             
-            Container.BindInterfacesAndSelfTo<TriggersDistanceSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<RopeViewSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerPickUpSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ResourceProductionSystem>().AsSingle();
+            
+            Container.BindInterfacesAndSelfTo<WalkableViewSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ResourceViewSystem>().AsSingle();
             
             Container.BindInterfacesAndSelfTo<DelayCleanUpSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<LevelEndSystem>().AsSingle();

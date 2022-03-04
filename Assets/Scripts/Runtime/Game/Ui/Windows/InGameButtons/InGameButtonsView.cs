@@ -1,8 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using CustomSelectables;
-using DG.Tweening;
-using ECS.Utils.Extensions;
+using ECS.Game.Components.GameCycle;
 using Leopotam.Ecs;
 using Runtime.Signals;
 using SimpleUi.Abstracts;
@@ -10,40 +9,34 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Runtime.Game.Ui.Windows.InGameButtons
+namespace Runtime.Game.Ui.Windows.InGameButtons 
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "RedundantDefaultMemberInitializer")]
-    public class InGameButtonsView : UiView
+    public class InGameButtonsView : UiView 
     {
+        [SerializeField] private TMP_Text _levelN;
+        [SerializeField] private GameObject _woodIndicator;
+        [SerializeField] private GameObject _moneyIndicator;
+        [SerializeField] private GameObject _concreteIndicator;
+        [SerializeField] private TMP_Text _woodCountTxt;
+        [SerializeField] private TMP_Text _moneyCountTxt;
+        [SerializeField] private TMP_Text _concreteCountTxt;
+        [SerializeField] public CustomButton InGameMenuButton;
         [SerializeField] public Image JoystickButton;
         [SerializeField] public Image JoystickOrigin;
-        [SerializeField] private TMP_Text _levelN;
 
-        [SerializeField] public RectTransform Vignette;
-
-        // [SerializeField] public int VignetteMultiplier;
-        // [SerializeField] public int VignetteDisableValue;
-        [SerializeField] public float _vignetteDuration = 0.3f;
-        [SerializeField] public int _maxHp = 100;
-        [SerializeField] private ProgressBar _hpBar;
-        [SerializeField] private RectTransform _hpBarRect;
-        [SerializeField] public CustomButton InGameMenuButton;
-
+        private int _woodCount = 0;
+        private int _moneyCount = 0;
+        private int _concreteCount = 0;
         private RectTransform _joystickButtonRT;
         private RectTransform _joystickOriginRT;
-        private int _lastHp;
-        private Color _color1 = new Color(0.347f, 0.964f, 0.185f, 1f);
-        private Color _color2 = new Color(0.965f, 0.922f, 0.185f, 1f);
-        private Color _color3 = new Color(0.965f, 0.185f, 0.34f, 1f);
-        private Color _currentColor;
-
+        
         public void Show(ref EScene currentLevel, ref EcsWorld _world)
         {
             _levelN.text = Enum.GetName(typeof(EScene), currentLevel)?.Replace("_", " ");
             _joystickButtonRT = JoystickButton.GetComponent<RectTransform>();
             _joystickOriginRT = JoystickOrigin.GetComponent<RectTransform>();
-            _lastHp = _maxHp;
         }
 
         public void UpdateJoystick(ref SignalJoystickUpdate signal)
@@ -56,28 +49,30 @@ namespace Runtime.Game.Ui.Windows.InGameButtons
                 _joystickOriginRT.anchoredPosition = signal.OriginPosition;
             }
         }
-
-        public void UpdateHp(ref SignalHpUpdate signal)
+        
+        public void UpdateResourcesCount(EResourceType type, int value)
         {
-            if (signal.Hp < _lastHp)
+            switch (type)
             {
-                Vignette.DOKill();
-                Vignette.gameObject.SetActive(true);
-                Vignette.DOScale(Vector3.one * 3, _vignetteDuration).SetEase(Ease.Linear);
-                Vignette.DOScale(Vector3.one * 15, _vignetteDuration).SetEase(Ease.Linear).SetDelay(_vignetteDuration)
-                    .OnComplete(() => Vignette.gameObject.SetActive(false));
+                case EResourceType.Wood:
+                    _woodCount += value;
+                    _woodCountTxt.text = _woodCount.ToString();
+                    if (!_woodIndicator.gameObject.activeSelf)
+                        _woodIndicator.gameObject.SetActive(true);
+                    break;
+                case EResourceType.Money:
+                    _moneyCount += value;
+                    _moneyCountTxt.text = _moneyCount.ToString();
+                    if (!_moneyIndicator.gameObject.activeSelf)
+                        _moneyIndicator.gameObject.SetActive(true);
+                    break;
+                case EResourceType.Concrete:
+                    _concreteCount += value;
+                    _concreteCountTxt.text = _concreteCount.ToString();
+                    if (!_concreteIndicator.gameObject.activeSelf)
+                        _concreteIndicator.gameObject.SetActive(true);
+                    break;
             }
-
-            if (signal.Hp > 70)
-                _currentColor = _color1;
-            else if (signal.Hp < 30)
-                _currentColor = _color3;
-            else
-                _currentColor = _color2;
-
-            _hpBar.Repaint(signal.Hp.Remap01(_maxHp), _currentColor);
-            _hpBarRect.anchoredPosition = signal.Position;
-            _lastHp = signal.Hp;
         }
     }
 }

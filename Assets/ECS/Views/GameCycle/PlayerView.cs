@@ -1,54 +1,69 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using ECS.Game.Systems.GameCycle;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using ECS.Game.Components;
+using ECS.Game.Components.GameCycle;
+using ECS.Game.Components.General;
 using ECS.Views.Impls;
 using Leopotam.Ecs;
+using Runtime.Signals;
+using Services.PauseService;
 using UnityEngine;
+using UnityEngine.AI;
+using Zenject;
 
 namespace ECS.Views.GameCycle
 {
     [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
-    public class PlayerView : LinkableView, IWalkableView
+    public class PlayerView : LinkableView, IWalkableView, IPause
     {
-        [SerializeField] private Animator _animator;
-        [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private Transform _root;
-        [SerializeField] private Collider _pushTrigger;
-        [SerializeField] private SkinnedMeshRenderer _renderer;
-        [SerializeField] private Material _damagedMaterial;
-        [SerializeField] private Transform _shackle;
+        [Inject] private SignalBus _signalBus;
         
+        [SerializeField] private Animator _animator;
+        
+        [SerializeField] private Transform _root;
+        [SerializeField] private Transform _resourcesStack;
+        
+        [SerializeField] private int _resourcesCapacity = 10;
+        [SerializeField] private int _stackHeight = 10;
+        [SerializeField] private float _stackOffsetX = 1;
+        [SerializeField] private float _stackOffsetY = 1;
+
         [SerializeField] private float _interactionDistance = 2.5f;
         [SerializeField] private float _interactionDuration = 0.4f;
+        [SerializeField] private float _interactionCooldown = 0.6f;
 
         [SerializeField] private float _sensitivity = 0.4f;
         [SerializeField] private float _movementLimit = 0.045f;
-        [SerializeField] private float _movementSpeed;
-        // [SerializeField] private float _movementSpeedToAnim = 1.46f;
-        [SerializeField] private float _rigidbodyPushForceMultiplier;
-        
-        [SerializeField] private int _hp = 100;
-        [SerializeField] private int _maxHp = 100;
-        [SerializeField] private float _afterDamageInvincibleDuration = 0.5f;
+        [SerializeField] private float _movementSpeed = 1.46f;
+        [SerializeField] private float _movementSpeedToAnim = 1.46f;
+        [SerializeField] private NavMeshAgent _navMeshAgent;
 
-#pragma warning disable 414
         private readonly int Idle = 0;
         private readonly int Walk = 1;
-        private readonly int JumpToBall = 2;
-        private readonly int Attack = 3;
-        private readonly int TakeHit = 4;
-        private readonly int Death = 5;
+        private readonly int Carry = 2;
+        private readonly int CarryingWalk = 3;
         private readonly int Stage = Animator.StringToHash("Stage");
         private readonly string WalkMultiplier = "WalkMultiplier";
-#pragma warning restore 414
+        private readonly string CarryingWalkMultiplier = "CarryingWalkMultiplier";
 
-        private Material _originMaterial;
+        private Stack<EcsEntity> _resources;
+        private Stack<EcsEntity> _tempResources;
+        private int _stackColumn;
+        private int _stackRow;
+        private float _animationSpeed;
 
         public override void Link(EcsEntity entity)
         {
             base.Link(entity);
-            _rigidbody.isKinematic = false;
-            Entity.Get<HpComponent>().Value = _hp;
-            _originMaterial = new Material(_renderer.material);
+            entity.Get<SpeedComponent<PositionComponent>>().Value = _movementSpeed;
+            _resources = new Stack<EcsEntity>();
+            _tempResources = new Stack<EcsEntity>();
+            _stackColumn = 1;
+            _stackRow = 1;
+            _animationSpeed = _animator.speed;
+            _animator.SetFloat(WalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
+            _animator.SetFloat(CarryingWalkMultiplier, (float) Math.Round(_movementSpeed / _movementSpeedToAnim, 2));
         }
 
         public ref Transform GetRoot()
@@ -56,6 +71,11 @@ namespace ECS.Views.GameCycle
             return ref _root;
         }
         
+        public ref Transform GetResourcesStack()
+        {
+            return ref _resourcesStack;
+        }
+
         public ref float GetSensitivity()
         {
             return ref _sensitivity;
@@ -66,6 +86,11 @@ namespace ECS.Views.GameCycle
             return ref _movementLimit;
         }
 
+        public ref NavMeshAgent GetNavMeshAgent()
+        {
+            return ref _navMeshAgent;
+        }
+
         public ref float GetInteractionDistance()
         {
             return ref _interactionDistance;
@@ -74,6 +99,16 @@ namespace ECS.Views.GameCycle
         public ref float GetInteractionDuration()
         {
             return ref _interactionDuration;
+        }
+        
+        public ref float GetInteractionCooldown()
+        {
+            return ref _interactionCooldown;
+        }
+
+        public bool IsCarrying()
+        {
+            return GetResourcesCount() > 0;
         }
 
         public void SetWalkAnimation()
@@ -88,71 +123,116 @@ namespace ECS.Views.GameCycle
             if (_animator.GetInteger(Stage) == Idle)
                 return;
             _animator.SetInteger(Stage, Idle);
+            _animator.speed = 1;
         }
         
-        public void SetJumpToBallAnimation()
+        public void SetCarryAnimation()
         {
-            _animator.SetInteger(Stage, JumpToBall);
+            if (_animator.GetInteger(Stage) == Carry)
+                return;
+            _animator.SetInteger(Stage, Carry);
         }
         
-        public void SetDeathAnimation()
+        public void SetCarryingWalkAnimation()
         {
-            _animator.SetInteger(Stage, Death);
-        }
-        
-        public void SetTakeHitAnimation()
-        {
-            _animator.SetInteger(Stage, TakeHit);
-        }
-       
-        public ref Rigidbody GetRigidbody()
-        {
-            return ref _rigidbody;
-        }
-        
-        public ref float GetMovementSpeed()
-        {
-            return ref _movementSpeed;
-        }
-        
-        public ref float GetRigidbodyPushForceMultiplier()
-        {
-            return ref _rigidbodyPushForceMultiplier;
-        }
-        
-        public ref Collider GetPushTrigger()
-        {
-            return ref _pushTrigger;
+            if (_animator.GetInteger(Stage) == CarryingWalk)
+                return;
+            _animator.SetInteger(Stage, CarryingWalk);
         }
 
-        public ref float GetAfterDamageInvincibleDuration()
+        public ref int GetResourcesCapacity()
         {
-            return ref _afterDamageInvincibleDuration;
+            return ref _resourcesCapacity;
+        }
+
+        public int GetResourcesCount()
+        {
+            return _resources.Count;
+        }
+
+        public void AddResource(EcsEntity resource)
+        {
+            AddResource(ref resource, false);
+        }
+
+        public void AddResource(ref EcsEntity resource, bool needUpdateUi)
+        {
+            _resources.Push(resource);
+            var z = _stackColumn * _stackOffsetX;
+            var y = _stackRow * _stackOffsetY;
+            _stackRow++;
+            if (_resources.Count >= _stackHeight * _stackColumn)
+            {
+                _stackColumn++;
+                _stackRow = 1;
+            }
+            // Attach to stack
+            resource.Get<MoveTweenEventComponent>().EventType = ETweenEventType.ResourcePickUp;
+            resource.Get<Vector3Component<MoveTweenEventComponent>>().Value = new Vector3(0, y, z);
+            if (needUpdateUi)
+                _signalBus.Fire(new SignalResourceUpdate(resource.Get<ResourceComponent>().Type, 1));
+        }
+
+        public bool RemoveResource(EResourceType type, Vector3 clearPointPos)
+        {
+            if (_resources.Count == 0)
+                return false;
+            var count = 0;
+            foreach (var resource in _resources)
+                if (resource.Get<ResourceComponent>().Type == type)
+                {
+                    count++;
+                    break;
+                }
+            if (count == 0)
+                return false;
+
+            bool condition = true;
+            EcsEntity entity;
+            while (condition)
+            {
+                if (_resources.Count == 0)
+                    break;
+                entity = _resources.Peek();
+                if (entity.Get<ResourceComponent>().Type == type)
+                {
+                    // Detach from stack
+                    entity.Get<MoveTweenEventComponent>().EventType = ETweenEventType.ResourceSpend;
+                    entity.Get<Vector3Component<MoveTweenEventComponent>>().Value = clearPointPos;
+                    condition = false;
+                }
+                else
+                {
+                    _tempResources.Push(entity);
+                }
+                _resources.Pop();
+                _stackRow--;
+                if (_stackRow <= 0)
+                {
+                    _stackColumn--;
+                    _stackRow = _stackHeight;
+                }
+            }
+
+            var tempCount = _tempResources.Count;
+            for (int i = 0; i < tempCount; i++)
+            {
+                AddResource(_tempResources.Peek());
+                _tempResources.Pop();
+            }
+            _signalBus.Fire(new SignalResourceUpdate(type, -1));
+            return true;
         }
         
-        public ref Material GetOriginMaterial()
+        public void Pause()
         {
-            return ref _originMaterial;
+            _animationSpeed = _animator.speed;
+            _animator.speed = 0;
         }
-        
-        public ref Material GetDamagedMaterial()
+
+        public void UnPause()
         {
-            return ref _damagedMaterial;
-        }
-        
-        public ref SkinnedMeshRenderer GetRenderer()
-        {
-            return ref _renderer;
-        }
-        
-        public ref Transform GetShackle()
-        {
-            return ref _shackle;
-        }
-        
-        public ref int GetMaxHp()
-        {
-            return ref _maxHp;
+            _animator.speed = _animationSpeed;
         }
     }
 }

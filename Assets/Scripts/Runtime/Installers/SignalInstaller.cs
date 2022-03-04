@@ -12,8 +12,9 @@ namespace Runtime.Installers
             Container.DeclareSignal<SignalMakeHudButtonsVisible>();
             Container.DeclareSignal<SignalBlackScreen>();
             Container.DeclareSignal<SignalQuestionChoice>();
+            Container.DeclareSignal<SignalRecipeUpdate>();
+            Container.DeclareSignal<SignalResourceUpdate>();
             Container.DeclareSignal<SignalJoystickUpdate>();
-            Container.DeclareSignal<SignalHpUpdate>();
         }
     }
 }

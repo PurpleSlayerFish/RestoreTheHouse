@@ -21,18 +21,24 @@ namespace ECS.Game.Systems.GameCycle
 #pragma warning restore 649
         public void Run()
         {
-            if (_gameStage.Get1(0).Value != EGameStage.Play) return;
-
+            // if (_gameStage.Get1(0).Value != EGameStage.Play) return;
+            
             foreach (var i in _walkables)
             {
                 var view = _walkables.Get2(i).View as IWalkableView;
                 if (_walkables.GetEntity(i).Has<IsMovingComponent>())
                 {
-                    view.SetWalkAnimation();
+                    if (view.IsCarrying())
+                        view.SetCarryingWalkAnimation();
+                    else
+                        view.SetWalkAnimation();
                 }
                 else
                 {
-                    view.SetIdleAnimation();
+                    if (view.IsCarrying())
+                        view.SetCarryAnimation();
+                    else
+                        view.SetIdleAnimation();
                 }
             }
         }
