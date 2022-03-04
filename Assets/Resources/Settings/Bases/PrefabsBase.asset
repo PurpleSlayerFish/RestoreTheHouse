@@ -15,5 +15,11 @@ MonoBehaviour:
   prefabs:
   - Name: Player
     GameObject: {fileID: 4374101886067610558, guid: 5a12853459a74f942be46334ee26ecc4, type: 3}
-  - Name: Ball
-    GameObject: {fileID: 3628315167466548371, guid: 3454e5390faaed64883b32ad212882f7, type: 3}
+  - Name: Wood
+    GameObject: {fileID: 5617334445610700168, guid: 8a5eb9a9d078b7f4788d1defbc807f84, type: 3}
+  - Name: Concrete
+    GameObject: {fileID: 1913169925285828623, guid: 00c32c96b8a49f5409dd0ae747be0301, type: 3}
+  - Name: Money
+    GameObject: {fileID: 5185191014327488209, guid: 1f2d89ba77f1bfc4d9b369fdb2bf6e58, type: 3}
+  - Name: Worker
+    GameObject: {fileID: 3862682403816607779, guid: caa107623c9fa6c4eba6c44c16938419, type: 3}

@@ -41,28 +41,10 @@ MonoBehaviour:
   SelectedOrganization: 01000000
   SelectedStudio: 01000000
   SelectedGame: 05000000
-  NewVersion: 7.3.20
-  Changes: '7.3.20
+  NewVersion: 7.3.21
+  Changes: '7.3.21
 
-    - added event uuid to events sent
-
-
-    7.3.19
-
-    - updated
-    dependencies
-
-
-    7.3.18
-
-    - fixed fps event script to still run coroutines
-    when Time.timeScale = 0 by using WaitForSecondsRealtime instead of WaitForSeconds
-
-
-    7.3.17
-
-    -
-    added method manually update gamekey and secretkey'
+    - fixed bug in internal error reporting'
   SignUpOpen: 1
   StudioName: ReplayAnton
   GameName: RestoreTheHouse
