@@ -1,5 +1,4 @@
 using ECS.Utils.Extensions;
-using GameAnalyticsSDK;
 using Leopotam.Ecs;
 using Runtime.DataBase.Game;
 using Runtime.Services.AnalyticsService;
